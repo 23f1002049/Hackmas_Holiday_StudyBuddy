@@ -30,7 +30,7 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
     })
 
     const updateCount = () => {
-        fetchActiveCount().then(c => setActiveCount(c))
+      fetchActiveCount().then(c => setActiveCount(c))
     }
     updateCount()
     const interval = setInterval(updateCount, 30000) // Every 30s
@@ -45,30 +45,33 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
           <span>{announcement}</span>
         </div>
       )}
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-        <div className="container flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
+      <header className={`sticky top-0 z-40 w-full border-b border-border backdrop-blur transition-colors duration-300
+        dark:bg-[#D4AF37]/95 dark:text-black dark:border-[#B8860B]
+        calm:bg-[#2E8B57]/95 calm:text-white calm:border-[#3CB371]
+        bg-black/95 text-white shadow-md`}>
+        <div className="container flex h-24 items-center justify-between px-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div className="animate-float">
-                <Image src="/images/logo.png" alt="Holiday Study Buddy" width={40} height={40} className="rounded-full" />
+                <Image src="/images/logo.png" alt="Holiday Study Buddy" width={48} height={48} className="rounded-full ring-2 ring-white/20" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-accent app-title">Holiday Study Buddy</h1>
-                <div className="flex items-center gap-3">
-                    {user && (
-                    <p className="text-xs text-cream/70">
-                        {isGuest ? "Guest Mode" : `Welcome, ${displayName || user.name}`}
+                <h1 className="text-3xl font-bold text-accent app-title font-ice-cream tracking-wide drop-shadow-sm">Holiday Study Buddy</h1>
+                <div className="flex items-center gap-3 mt-1">
+                  {user && (
+                    <p className="text-lg text-cream/90 mr-2 font-medium">
+                      {isGuest ? "Guest Mode" : `Welcome, ${displayName || user.name}`}
                     </p>
-                    )}
-                    <div className="flex items-center gap-1.5 bg-green-500/10 px-2 py-0.5 rounded-full border border-green-500/20">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>
-                        <span className="text-[10px] font-bold text-green-400 uppercase tracking-wider flex items-center gap-1">
-                            <Users className="h-3 w-3" /> {activeCount} Helpers Online
-                        </span>
-                    </div>
+                  )}
+                  <div className="flex items-center gap-1.5 bg-green-500/10 px-2 py-0.5 rounded-full border border-green-500/20">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span className="text-[10px] font-bold text-green-400 uppercase tracking-wider flex items-center gap-1">
+                      <Users className="h-3 w-3" /> {activeCount} Helpers Online
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -76,10 +79,10 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-3 min-w-[200px]">
-              <div className="flex items-center gap-2 text-sm">
-                <span className="font-bold text-accent">Level {level}</span>
-                <span className="text-muted-foreground">|</span>
-                <span className="text-muted-foreground">
+              <div className="flex items-center gap-2 text-xl font-bold">
+                <span className="text-accent">Level {level}</span>
+                <span className="text-muted-foreground opacity-50">|</span>
+                <span className="text-base text-muted-foreground">
                   {xp}/{maxXp} XP
                 </span>
               </div>
@@ -87,8 +90,8 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground hidden sm:inline">Snow</span>
-              <Switch checked={snowEnabled} onCheckedChange={onSnowToggle} />
+              <span className="text-lg font-medium text-muted-foreground hidden sm:inline">Snow</span>
+              <Switch checked={snowEnabled} onCheckedChange={onSnowToggle} className="scale-125" />
             </div>
 
             <SoundscapePlayer />
