@@ -53,17 +53,17 @@ export function AchievementModal({ badge, userName = "Scholar", onClose }: Achie
   }
 
   const handleShare = async () => {
-     if (navigator.share) {
-         try {
-             await navigator.share({
-                 title: 'New Achievement Unlocked!',
-                 text: `I just earned the ${badge?.name} badge on Holiday Study Buddy! 🎅`,
-                 url: window.location.href,
-             })
-         } catch (error) {
-             console.log('Error sharing', error)
-         }
-     }
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'New Achievement Unlocked!',
+          text: `I just earned the ${badge?.name} badge on Holiday Study Buddy! 🎅`,
+          url: window.location.href,
+        })
+      } catch (error) {
+        console.log('Error sharing', error)
+      }
+    }
   }
 
   return (
@@ -78,20 +78,32 @@ export function AchievementModal({ badge, userName = "Scholar", onClose }: Achie
             className="w-full max-w-md relative"
           >
             <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-yellow-400 p-4 rounded-full shadow-2xl z-20 border-4 border-white animate-bounce-slow">
-                <Trophy className="h-10 w-10 text-yellow-900" />
+              <Trophy className="h-10 w-10 text-yellow-900" />
             </div>
 
+            {/* Top Right Close Button */}
+            <button
+              onClick={() => {
+                setIsOpen(false)
+                setTimeout(onClose, 300)
+              }}
+              className="absolute -top-3 -right-3 z-30 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg border-2 border-white transition-transform hover:scale-110"
+              aria-label="Close"
+            >
+              <X className="h-6 w-6 font-bold" />
+            </button>
+
             <Card ref={badgeCardRef} className="overflow-hidden border-4 border-yellow-400 shadow-[0_0_50px_-12px_rgba(250,204,21,0.5)]">
-               <div className="absolute top-4 right-4 opacity-10 filter grayscale">
-                  <img src="/images/logo.png" alt="Logo" className="h-12 w-12" />
-               </div>
+              <div className="absolute top-4 right-4 opacity-10 filter grayscale">
+                <img src="/images/logo.png" alt="Logo" className="h-12 w-12" />
+              </div>
               <div className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden">
                 <Snowfall enabled={true} />
               </div>
-              
+
               <CardHeader className="text-center pt-10 bg-gradient-to-b from-yellow-50 to-transparent">
                 <div className="flex justify-center mb-2">
-                   <img src="/images/logo.png" alt="HackMas Logo" className="h-8 w-8 object-contain" />
+                  <img src="/images/logo.png" alt="HackMas Logo" className="h-8 w-8 object-contain" />
                 </div>
                 <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent font-playfair">
                   New Achievement!
@@ -107,43 +119,33 @@ export function AchievementModal({ badge, userName = "Scholar", onClose }: Achie
                     {getBadgeIcon(badge.code)}
                   </div>
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">{badge.name}</h3>
                 <p className="text-gray-600 px-6 italic mb-4">"{badge.description}"</p>
-                
+
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 rounded-full border border-green-100">
-                    <span className="text-xs font-bold text-green-700">{userName}</span>
+                  <span className="text-xs font-bold text-green-700">{userName}</span>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-dashed border-gray-200">
-                    <p className="text-xs text-gray-400 uppercase tracking-tighter font-mono">Issued for Excellence • Holiday Study Buddy</p>
+                  <p className="text-xs text-gray-400 uppercase tracking-tighter font-mono">Issued for Excellence • Holiday Study Buddy</p>
                 </div>
               </CardContent>
 
               <CardFooter className="flex gap-2 p-6 bg-gray-50/50">
-                <Button 
-                   onClick={handleDownload}
-                   className="flex-1 bg-green-600 hover:bg-green-700 text-white gap-2"
+                <Button
+                  onClick={handleDownload}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white gap-2 font-bold"
                 >
                   <Download className="h-4 w-4" />
                   Save Badge
                 </Button>
-                <Button 
-                   onClick={handleShare}
-                   variant="outline"
-                   className="bg-white border-gray-200 hover:bg-gray-100"
+                <Button
+                  onClick={handleShare}
+                  variant="outline"
+                  className="bg-blue-600 border-blue-700 hover:bg-blue-700 text-white font-bold"
                 >
                   <Share2 className="h-4 w-4" />
-                </Button>
-                <Button 
-                   onClick={() => {
-                       setIsOpen(false)
-                       setTimeout(onClose, 300)
-                   }}
-                   variant="ghost"
-                   className="text-gray-400 hover:text-gray-600"
-                >
-                  <X className="h-5 w-5" />
                 </Button>
               </CardFooter>
             </Card>
