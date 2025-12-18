@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Fredoka, Inter, Playfair_Display, DM_Sans, Caveat } from "next/font/google"
+import { Fredoka, Inter, Playfair_Display, DM_Sans, Caveat, Cherry_Cream_Soda } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { AuthProvider } from "@/components/auth-provider"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] })
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm" })
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" })
+const cherryCreamSoda = Cherry_Cream_Soda({ weight: "400", subsets: ["latin"], variable: "--font-ice-cream" })
 
 export const metadata: Metadata = {
   title: "Holiday Study Buddy",
@@ -42,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fredoka.variable} ${playfair.variable} ${dmSans.variable} ${caveat.variable} font-sans antialiased`}>
+      <body className={`${fredoka.variable} ${playfair.variable} ${dmSans.variable} ${caveat.variable} ${cherryCreamSoda.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="festive" enableSystem={false} themes={['festive', 'dark', 'calm']}>
           <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
