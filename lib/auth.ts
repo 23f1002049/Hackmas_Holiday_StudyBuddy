@@ -121,8 +121,7 @@ export function signInAsGuest(): { success: boolean; user?: User; token?: string
     isGuest: true,
   }
 
-  // Note: Guest mode does NOT save to localStorage
-  // Guest state is temporary and will be lost on refresh
+  saveAuthState(authState)
   return { success: true, user: guestUser, token: null }
 }
 

@@ -428,6 +428,8 @@ export async function saveFocusSession(durationMinutes: number, taskId?: string)
 
     stats.xp += xpGain;
     stats.totalFocusMinutes += durationMinutes;
+    stats.todayFocusMinutes = (stats.todayFocusMinutes || 0) + durationMinutes;
+    stats.weekFocusMinutes = (stats.weekFocusMinutes || 0) + durationMinutes;
     saveUserStats(stats);
     return;
   }

@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const setAuthState = (state: AuthState) => {
     setAuthStateInternal(state)
     // Only save to localStorage if not a guest
-    if (!state.isGuest && state.isAuthenticated) {
+    if (state.isGuest || state.isAuthenticated) {
       saveAuthState(state)
     }
   }
