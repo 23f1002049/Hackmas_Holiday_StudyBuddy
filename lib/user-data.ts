@@ -60,7 +60,7 @@ export interface UserSettings {
 
 import { getAuthState } from "./auth"
 
-const API_URL = "http://localhost:5555/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5555/api"
 
 // Get user data from localStorage (Sync - for initial render)
 export function getUserStats(): UserStats {

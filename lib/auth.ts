@@ -15,7 +15,7 @@ export interface AuthState {
   isGuest: boolean
 }
 
-const API_URL = "http://localhost:5555/api"
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5555/api"
 
 // Get auth state from localStorage
 export function getAuthState(): AuthState {
