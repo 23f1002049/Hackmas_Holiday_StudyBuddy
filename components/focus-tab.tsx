@@ -143,7 +143,7 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
         <CardContent className="p-0">
           {/* IMAGE-CONSTRAINED CONTAINER */}
           <div
-            className="relative w-full aspect-[16/9] flex items-center justify-center"
+            className="relative w-full aspect-[16/9] flex items-center justify-center rounded-3xl overflow-hidden"
             style={{
               backgroundImage: "url('/images/bg.jpeg')",
               backgroundSize: "contain",
