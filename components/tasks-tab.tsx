@@ -104,7 +104,7 @@ export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
 
   const handleToggleTask = async (taskId: string) => {
     if (updatingTaskId === taskId) return // Prevent double clicks
-    
+
     const task = tasks.find(t => t.id === taskId)
     if (!task) return
 
@@ -122,8 +122,8 @@ export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
         // Play ding sound
         const audio = new Audio("/audio/ding.mp3")
         audio.volume = 0.5
-        audio.play().catch(() => {})
-        
+        audio.play().catch(() => { })
+
         // Remove from UI after a small delay to let user see it check off
         setTimeout(() => {
           setTasks(prev => prev.filter(t => t.id !== taskId))
@@ -174,8 +174,8 @@ export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
           style={parchmentStyle}
         >
           <CardHeader>
-            <CardTitle className="text-2xl">🎅 The Nice List</CardTitle>
-            <CardDescription className="text-green-700 font-semibold">
+            <CardTitle className="text-3xl font-ice-cream">🎅 The Nice List</CardTitle>
+            <CardDescription className="text-green-700 font-bold text-lg">
               What will you finish today?
             </CardDescription>
           </CardHeader>
@@ -183,11 +183,11 @@ export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
           <CardContent className="space-y-4">
             <div className="flex gap-2">
               <Input
-                placeholder="Add a study task..."
+                placeholder="Add a study task to get started..."
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleAddTask()}
-                className="font-handwritten bg-white border-2 task-input"
+                className="font-handwritten bg-white border-2 task-input text-lg py-6"
               />
 
               <select
@@ -203,16 +203,16 @@ export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
               <Button
                 onClick={handleAddTask}
                 size="icon"
-                className="bg-red-500 hover:bg-red-600"
+                className="bg-red-500 hover:bg-red-600 h-12 w-12"
               >
-                <GiftIcon className="h-5 w-5" />
+                <GiftIcon className="h-6 w-6" />
               </Button>
             </div>
 
             {tasks.length === 0 ? (
-              <div className="text-center py-8 text-gray-500 bg-white/50 rounded-lg">
-                <p className="font-handwritten text-xl">No tasks yet!</p>
-                <p className="text-sm">Add one above to get started.</p>
+              <div className="text-center py-12 text-gray-500 bg-white/50 rounded-lg border-2 border-dashed border-gray-300">
+                <p className="font-handwritten text-3xl mb-2 text-red-400">Your list is empty!</p>
+                <p className="text-lg font-medium text-green-700">Add a task above to get started.</p>
               </div>
             ) : (
               tasks.map((task) => {
