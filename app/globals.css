@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant calm (&:is(.calm *));
 
 :root {
   /* Changed to rich red background with adjusted complementary colors */
@@ -152,6 +153,7 @@
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-dm);
   --font-handwritten: var(--font-caveat);
+  --font-ice-cream: var(--font-ice-cream);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -215,6 +217,10 @@
   .task-input::placeholder,
   .task-item-text {
     @apply font-handwritten;
+  }
+
+  .font-ice-cream {
+    font-family: var(--font-ice-cream), cursive;
   }
 }
 
@@ -631,10 +637,25 @@
 }
 
 @keyframes music-bar {
-  0%, 100% { height: 4px; }
-  50% { height: 12px; }
+
+  0%,
+  100% {
+    height: 4px;
+  }
+
+  50% {
+    height: 12px;
+  }
 }
 
-.animate-music-bar-1 { animation: music-bar 0.8s ease-in-out infinite; }
-.animate-music-bar-2 { animation: music-bar 0.5s ease-in-out infinite; }
-.animate-music-bar-3 { animation: music-bar 1s ease-in-out infinite; }
+.animate-music-bar-1 {
+  animation: music-bar 0.8s ease-in-out infinite;
+}
+
+.animate-music-bar-2 {
+  animation: music-bar 0.5s ease-in-out infinite;
+}
+
+.animate-music-bar-3 {
+  animation: music-bar 1s ease-in-out infinite;
+}
