@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, abort, current_app
 from database import db
 from models import User, Task, FocusSession, Badge, UserBadge, Gift, UserGift, UserQuest, Quest, Announcement
-from sqlalchemy import func
+from sqlalchemy import func, extract
 from datetime import datetime, timedelta
 from functools import wraps
 import jwt
@@ -297,7 +297,7 @@ def check_badges(user):
         ('level_5', 'Level 5', lambda u: u.level >= 5),
         ('level_10', 'Level 10', lambda u: u.level >= 10),
         ('gift_wrapper', 'Gift Wrapper', lambda u: UserGift.query.filter_by(user_id=u.id).count() >= 1),
-        ('weekend_warrior', 'Weekend Warrior', lambda u: Task.query.filter(Task.user_id==u.id, Task.is_completed==True, func.strftime('%w', Task.completed_at).in_(['0', '6'])).count() >= 1)
+        ('weekend_warrior', 'Weekend Warrior', lambda u: Task.query.filter(Task.user_id==u.id, Task.is_completed==True, extract('dow', Task.completed_at).in_([0, 6])).count() >= 1)
     ]
     
     for code, name, condition in criteria:

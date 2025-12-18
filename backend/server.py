@@ -23,9 +23,6 @@ def create_app(config_class=Config):
 
     # Create database tables
     with app.app_context():
-        # Temporary: Reset DB to apply schema changes (column length)
-        # You can remove db.drop_all() after a successful deploy
-        db.drop_all()
         db.create_all()
         
         # Seed Admin User
