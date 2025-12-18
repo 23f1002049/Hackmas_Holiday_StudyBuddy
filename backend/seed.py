@@ -1,4 +1,4 @@
-from app import create_app
+from server import create_app
 from database import db
 from models import User, Task, FocusSession, Badge, Gift, UserBadge, UserGift, Quest, UserQuest
 from datetime import datetime, timedelta
