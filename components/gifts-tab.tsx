@@ -22,11 +22,14 @@ import {
   unlockGift,
   type Gift as GiftType,
 } from "@/lib/user-data"
+import { GuestLock } from "@/components/guest-lock"
 
 export function GiftsTab({
   onStatsUpdate,
+  isGuest
 }: {
   onStatsUpdate: () => void
+  isGuest?: boolean
 }) {
   const [gifts, setGifts] = useState<GiftType[]>([])
   const [userStats, setUserStats] = useState(getUserStats())
@@ -63,7 +66,7 @@ export function GiftsTab({
     if (result.success) {
       setTimeout(async () => {
         await loadData() // Refresh data from backend
-        
+
         setIsUnwrapping(false)
         setShowReward(true)
         onStatsUpdate()
@@ -98,113 +101,113 @@ export function GiftsTab({
       </div>
 
       {/* Gift Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {gifts.map((gift) => {
-          const isUnlocked = gift.unlocked
-          const canAfford = userStats.xp >= gift.xpCost
+      <GuestLock isGuest={isGuest} message="Sign up to unlock and collect festive gifts!">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {gifts.map((gift) => {
+            const isUnlocked = gift.unlocked
+            const canAfford = userStats.xp >= gift.xpCost
 
-          return (
-            <Card
-              key={gift.id}
-              onClick={() => handleGiftClick(gift)}
-              className="relative cursor-pointer rounded-2xl p-[8px] transition-transform duration-300 hover:scale-[1.03]"
-            >
-              {/* ✨ Warm Fairy Lights Border */}
-              <div className="absolute inset-0 pointer-events-none rounded-2xl">
-                {Array.from({ length: 36 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-yellow-300"
-                    style={{
-                      animation: "fairy-twinkle 2.8s ease-in-out infinite",
-                      animationDelay: `${Math.random() * 2}s`,
-                      boxShadow: "0 0 6px rgba(255, 215, 120, 0.9)",
-                      top:
-                        i < 9
-                          ? "0%"
-                          : i < 18
-                          ? "100%"
-                          : i < 27
-                          ? `${(i - 18) * 11.1}%`
-                          : `${(i - 27) * 11.1}%`,
-                      left:
-                        i < 9
-                          ? `${i * 11.1}%`
-                          : i < 18
-                          ? `${(i - 9) * 11.1}%`
-                          : i < 27
-                          ? "0%"
-                          : "100%",
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* 🎄 CARD WITH GREEN IMAGE BACKGROUND */}
-              <div
-                className="relative rounded-xl p-6 h-full text-white overflow-hidden"
-                style={{
-                  /* 🌿 GREEN BACKGROUND IMAGE PLACEHOLDER
-                     Replace with your actual image path
-                  */
-                  backgroundImage: "url('/images/green-bg.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+            return (
+              <Card
+                key={gift.id}
+                onClick={() => handleGiftClick(gift)}
+                className="relative cursor-pointer rounded-2xl p-[8px] transition-transform duration-300 hover:scale-[1.03]"
               >
-                {/* Overlay for state */}
-                <div
-                  className={`absolute inset-0 ${
-                    isUnlocked
-                      ? "bg-black/10"
-                      : canAfford
-                      ? "bg-black/25"
-                      : "bg-black/45"
-                  }`}
-                />
+                {/* ✨ Warm Fairy Lights Border */}
+                <div className="absolute inset-0 pointer-events-none rounded-2xl">
+                  {Array.from({ length: 36 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="absolute w-2 h-2 rounded-full bg-yellow-300"
+                      style={{
+                        animation: "fairy-twinkle 2.8s ease-in-out infinite",
+                        animationDelay: `${Math.random() * 2}s`,
+                        boxShadow: "0 0 6px rgba(255, 215, 120, 0.9)",
+                        top:
+                          i < 9
+                            ? "0%"
+                            : i < 18
+                              ? "100%"
+                              : i < 27
+                                ? `${(i - 18) * 11.1}%`
+                                : `${(i - 27) * 11.1}%`,
+                        left:
+                          i < 9
+                            ? `${i * 11.1}%`
+                            : i < 18
+                              ? `${(i - 9) * 11.1}%`
+                              : i < 27
+                                ? "0%"
+                                : "100%",
+                      }}
+                    />
+                  ))}
+                </div>
 
-                <CardContent className="relative z-10 p-0 space-y-4">
-                  <div className="flex justify-between items-start">
-                    <div className="w-16 h-16 rounded-xl bg-black/30 flex items-center justify-center text-3xl">
-                      {isUnlocked ? "🎁" : <Gift className="h-8 w-8 text-yellow-200" />}
+                {/* 🎄 CARD WITH GREEN IMAGE BACKGROUND */}
+                <div
+                  className="relative rounded-xl p-6 h-full text-white overflow-hidden"
+                  style={{
+                    /* 🌿 GREEN BACKGROUND IMAGE PLACEHOLDER
+                       Replace with your actual image path
+                    */
+                    backgroundImage: "url('/images/green-bg.jpg')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  {/* Overlay for state */}
+                  <div
+                    className={`absolute inset-0 ${isUnlocked
+                        ? "bg-black/10"
+                        : canAfford
+                          ? "bg-black/25"
+                          : "bg-black/45"
+                      }`}
+                  />
+
+                  <CardContent className="relative z-10 p-0 space-y-4">
+                    <div className="flex justify-between items-start">
+                      <div className="w-16 h-16 rounded-xl bg-black/30 flex items-center justify-center text-3xl">
+                        {isUnlocked ? "🎁" : <Gift className="h-8 w-8 text-yellow-200" />}
+                      </div>
+
+                      {!isUnlocked && !canAfford && (
+                        <Lock className="h-4 w-4 text-yellow-200/80" />
+                      )}
                     </div>
 
-                    {!isUnlocked && !canAfford && (
-                      <Lock className="h-4 w-4 text-yellow-200/80" />
-                    )}
-                  </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-lg font-semibold text-yellow-100">
+                          {gift.title}
+                        </h3>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase ${gift.rarity === 'legendary' ? 'bg-orange-500 text-white shadow-[0_0_8px_rgba(249,115,22,0.6)]' :
+                            gift.rarity === 'epic' ? 'bg-purple-500 text-white' :
+                              gift.rarity === 'rare' ? 'bg-blue-500 text-white' :
+                                'bg-gray-500/50 text-gray-100'
+                          }`}>
+                          {gift.rarity}
+                        </span>
+                      </div>
+                      <p className="text-sm text-white/90">
+                        {gift.description}
+                      </p>
+                    </div>
 
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-semibold text-yellow-100">
-                        {gift.title}
-                      </h3>
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase ${
-                        gift.rarity === 'legendary' ? 'bg-orange-500 text-white shadow-[0_0_8px_rgba(249,115,22,0.6)]' :
-                        gift.rarity === 'epic' ? 'bg-purple-500 text-white' :
-                        gift.rarity === 'rare' ? 'bg-blue-500 text-white' :
-                        'bg-gray-500/50 text-gray-100'
-                      }`}>
-                        {gift.rarity}
+                    <div className="flex justify-between border-t border-white/30 pt-3">
+                      <span className="text-sm">Cost</span>
+                      <span className="font-semibold text-yellow-100">
+                        {gift.xpCost} XP
                       </span>
                     </div>
-                    <p className="text-sm text-white/90">
-                      {gift.description}
-                    </p>
-                  </div>
-
-                  <div className="flex justify-between border-t border-white/30 pt-3">
-                    <span className="text-sm">Cost</span>
-                    <span className="font-semibold text-yellow-100">
-                      {gift.xpCost} XP
-                    </span>
-                  </div>
-                </CardContent>
-              </div>
-            </Card>
-          )
-        })}
-      </div>
+                  </CardContent>
+                </div>
+              </Card>
+            )
+          })}
+        </div>
+      </GuestLock>
 
       {/* Unlock Dialog */}
       <Dialog open={!!selectedGift && !showReward} onOpenChange={handleClose}>
