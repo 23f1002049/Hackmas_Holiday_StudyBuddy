@@ -60,7 +60,8 @@ class User(db.Model):
             'snow_enabled': self.snow_enabled,
             'sound_enabled': self.sound_enabled,
             'created_at': self.created_at.isoformat(),
-            'badges': [ub.badge.code for ub in self.user_badges]
+            'badges': [ub.badge.code for ub in self.user_badges],
+            'gifts': [ug.gift.code for ug in self.user_gifts]
         }
 
 class Task(db.Model):
@@ -72,6 +73,7 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     completed_at = db.Column(db.DateTime, nullable=True)
     xp_awarded = db.Column(db.Integer, default=0)
+    accumulated_focus_seconds = db.Column(db.Integer, default=0)
 
     focus_sessions = db.relationship('FocusSession', backref='task', lazy=True)
 
@@ -82,6 +84,7 @@ class Task(db.Model):
             'title': self.title,
             'priority': self.priority,
             'is_completed': self.is_completed,
+            'accumulated_focus_seconds': self.accumulated_focus_seconds,
             'created_at': self.created_at.isoformat(),
             'completed_at': self.completed_at.isoformat() if self.completed_at else None
         }
@@ -125,6 +128,7 @@ class FocusSession(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('task.id'), nullable=True)
     start_time = db.Column(db.DateTime, nullable=False)
+    start_time_server = db.Column(db.DateTime, nullable=True) # Server timestamp for anti-cheat
     end_time = db.Column(db.DateTime, nullable=True)
     duration_minutes = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -135,6 +139,7 @@ class FocusSession(db.Model):
             'user_id': self.user_id,
             'task_id': self.task_id,
             'start_time': self.start_time.isoformat(),
+            'start_time_server': self.start_time_server.isoformat() if self.start_time_server else None,
             'end_time': self.end_time.isoformat() if self.end_time else None,
             'duration_minutes': self.duration_minutes,
             'created_at': self.created_at.isoformat()
@@ -193,6 +198,7 @@ class UserGift(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     gift_id = db.Column(db.Integer, db.ForeignKey('gift.id'), nullable=False)
     redeemed_at = db.Column(db.DateTime, default=datetime.utcnow)
+    is_penalty = db.Column(db.Boolean, default=False) # For Lump of Coal
 
     gift = db.relationship('Gift')
 
@@ -201,7 +207,8 @@ class UserGift(db.Model):
             'user_id': self.user_id,
             'gift_id': self.gift_id,
             'redeemed_at': self.redeemed_at.isoformat(),
-            'gift': self.gift.to_dict()
+            'gift': self.gift.to_dict(),
+            'is_penalty': self.is_penalty
         }
 
 class Announcement(db.Model):

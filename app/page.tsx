@@ -19,8 +19,11 @@ import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { AchievementModal } from "@/components/achievement-modal"
-import { getBadgeDetails, type Badge } from "@/lib/user-data"
+import { getBadgeDetails, type Badge, type Task, startFocusSession, endFocusSession, applyGrinchPenalty, saveFocusSession } from "@/lib/user-data"
 import { SnowmanSidekick } from "@/components/snowman-sidekick"
+import { createPortal } from "react-dom"
+import JSConfetti from "js-confetti"
+import { toast } from "sonner"
 
 export default function Home() {
   const { isAuthenticated, isGuest, user, isLoading } = useAuth()
@@ -37,6 +40,217 @@ export default function Home() {
   const prevBadges = useRef<string[]>([])
 
   const isAdmin = userStats.is_blocked !== undefined && (userStats.id === 1 || user?.isAdmin) // Simplification for demo or use is_admin from stats
+
+  /* ----------------------------------------------------------------------------------
+   *  GLOBAL TIMER STATE (LIFTED)
+   * ---------------------------------------------------------------------------------- */
+  const [timeLeft, setTimeLeft] = useState(25 * 60)
+  const [isRunning, setIsRunning] = useState(false)
+  const [isBreak, setIsBreak] = useState(false)
+  const [selectedTask, setSelectedTask] = useState<string>("")
+  const [completedPomodoros, setCompletedPomodoros] = useState(0)
+  
+  // Grinch & Strict Mode
+  const [grinchActive, setGrinchActive] = useState(false)
+  const [strictMode, setStrictMode] = useState(false) // For fullscreen enforcement
+  const [sessionId, setSessionId] = useState<string | null>(null)
+  
+  // Overlays
+  const [showPenaltyOverlay, setShowPenaltyOverlay] = useState(false)
+  const [penaltyMessage, setPenaltyMessage] = useState("")
+
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const confettiRef = useRef<JSConfetti | null>(null)
+  const sessionStartTimeRef = useRef<number | null>(null)
+  const elapsedSecondsRef = useRef<number>(0)
+
+  // Init Confetti
+  useEffect(() => {
+    confettiRef.current = new JSConfetti()
+  }, [])
+
+  // TIMER ENGINE
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+    if (isRunning && timeLeft > 0) {
+      if (!sessionStartTimeRef.current) {
+        sessionStartTimeRef.current = Date.now()
+      }
+
+      interval = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            handleTimerComplete()
+            return 0
+          }
+          return prev - 1
+        })
+
+        if (!isBreak) {
+          elapsedSecondsRef.current += 1
+        }
+      }, 1000)
+    } else {
+      sessionStartTimeRef.current = null
+    }
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [isRunning, timeLeft, isBreak])
+
+  // GRINCH MODE: Enforce Fullscreen & Tab Lock
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      // If we exit fullscreen AND Grinch Mode is active AND timer is running -> PENALTY
+      if (!document.fullscreenElement && grinchActive && isRunning) {
+          handleEarlyExit("DO NOT ESCAPE THE GRINCH! Fullscreen required.")
+      }
+      
+      if (!document.fullscreenElement && strictMode) {
+        setStrictMode(false)
+      }
+    }
+
+    const handleVisibilityChange = () => {
+        if (document.hidden && grinchActive && isRunning) {
+            handleEarlyExit("THE GRINCH SAW YOU SWITCH TABS! 50 XP STOLEN.")
+        }
+    }
+
+    const handleWindowBlur = () => {
+         if (grinchActive && isRunning) {
+             // Optional: Immediate penalty or warning? Let's be strict.
+             // handleEarlyExit("FOCUS LOST! The Grinch took your XP.")
+         }
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    // window.addEventListener('blur', handleWindowBlur) // Too aggressive for now?
+
+    if (grinchActive && isRunning) {
+       // Force fullscreen
+       if (!document.fullscreenElement) {
+           document.documentElement.requestFullscreen().catch(() => {})
+       }
+    }
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    //   window.removeEventListener('blur', handleWindowBlur)
+    }
+  }, [grinchActive, isRunning, strictMode])
+
+  /* ----------------------------------------------------------------------------------
+   *  TIMER ACTIONS
+   * ---------------------------------------------------------------------------------- */
+  const startSession = async () => {
+    // If Grinch Mode -> Enforce Fullscreen First
+    if (grinchActive) {
+        try {
+            await document.documentElement.requestFullscreen()
+        } catch(e) { /* ignore */ }
+    }
+
+    if (selectedTask && selectedTask !== 'none') {
+       try {
+           const res = await startFocusSession(String(selectedTask))
+           if (res && res.session_id) {
+               setSessionId(res.session_id)
+               setIsRunning(true)
+           }
+       } catch (error: any) {
+           toast.error(error.message || "Failed to start focus session")
+           setIsRunning(false)
+           return
+       }
+    } else {
+        setIsRunning(true)
+    }
+  }
+
+  const endSession = async (manualDuration?: number) => {
+      setIsRunning(false)
+      if (sessionId) {
+          // Calculate actual elapsed minutes for the duration field
+          const actualMinutes = manualDuration ?? (elapsedSecondsRef.current / 60)
+          
+          try {
+              const res = await endFocusSession(sessionId, actualMinutes)
+              if (res) {
+                  if (res.cheated) {
+                      setPenaltyMessage(res.message)
+                      setShowPenaltyOverlay(true)
+                      new Audio("/audio/siren.mp3").play().catch(()=>{})
+                  } else {
+                      // Only show confetti for full sessions
+                      if (actualMinutes >= 24.5) {
+                        confettiRef.current?.addConfetti({ emojis: ["🍅", "⏰", "✨", "🔥"] })
+                        const audio = new Audio("/audio/tada.mp3")
+                        audio.play().catch(() => { })
+                      }
+                  }
+                  refreshStats()
+              }
+          } catch (error) {
+              console.error("Failed to end session:", error)
+          }
+          setSessionId(null)
+      } else if (!isGuest) {
+          // No session ID but logged in? (Shouldn't happen but for safety)
+          refreshStats()
+      } else {
+          // Guest fallback
+          const duration = manualDuration ?? Math.floor(elapsedSecondsRef.current / 60)
+          if (duration > 0) {
+              await saveFocusSession(duration, selectedTask)
+              refreshStats()
+          }
+      }
+      
+      if (grinchActive && document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {})
+      }
+      elapsedSecondsRef.current = 0
+  }
+
+  const handleTimerComplete = async () => {
+    if (!isBreak) {
+        await endSession(25)
+    } else {
+        setIsRunning(false)
+        new Audio("/audio/tada.mp3").play().catch(() => {})
+    }
+  }
+
+  const handlePause = async () => {
+    if (!isBreak && isRunning) await endSession()
+    setIsRunning(false)
+  }
+
+  const handleReset = async () => {
+    if (!isBreak && isRunning) await endSession()
+    setIsRunning(false)
+    setTimeLeft(isBreak ? 300 : 1500)
+    elapsedSecondsRef.current = 0
+  }
+
+  const handleEarlyExit = async (reason?: string) => {
+      if (grinchActive && isRunning && !isBreak) {
+          // Trigger Penalty
+          await applyGrinchPenalty(50)
+          setPenaltyMessage(reason || "THE GRINCH STOLE 50 XP! YOU QUIT EARLY!")
+          setShowPenaltyOverlay(true)
+          new Audio("/audio/siren.mp3").play().catch(()=>{})
+      }
+      
+      await endSession()
+      refreshStats()
+      if (document.fullscreenElement) document.exitFullscreen().catch(()=>{})
+  }
+
+  // ---
 
   useEffect(() => {
     setMounted(true)
@@ -142,6 +356,18 @@ export default function Home() {
         isGuest={isInGuestMode}
       />
 
+      {/* GLOBAL OVERLAYS */}
+      {mounted && showPenaltyOverlay && createPortal(
+        <div className="fixed inset-0 z-[10000] bg-red-950/90 flex flex-col items-center justify-center text-white animate-in zoom-in duration-300">
+            <h1 className="text-6xl font-black text-red-500 mb-4 animate-bounce">HO HO NO! 👹</h1>
+            <p className="text-3xl font-bold max-w-2xl text-center mb-8">{penaltyMessage}</p>
+            <Button size="lg" variant="secondary" onClick={() => setShowPenaltyOverlay(false)}>
+                I accept my fate (Close)
+            </Button>
+        </div>,
+        document.body
+      )}
+
       <main className="container mx-auto px-4 py-8">
         {isInGuestMode && showSignupPrompt && (
           <Card className="mb-6 bg-accent/20 border-accent p-6 relative">
@@ -170,7 +396,7 @@ export default function Home() {
         )}
 
         <Tabs defaultValue="focus" className="w-full">
-          <TabsList className={`grid w-full mb-8 transition-smooth ${isAdmin ? 'grid-cols-4 md:grid-cols-7' : 'grid-cols-3 md:grid-cols-6'}`}>
+          <TabsList className={`grid w-full mb-8 transition-smooth ${isAdmin ? 'grid-cols-4 md:grid-cols-7' : 'grid-cols-3 md:grid-cols-6'} ${grinchActive && isRunning ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
             <TabsTrigger value="focus" className="flex items-center gap-2 hover-lift">
               <Timer className="h-4 w-4" />
               <span className="hidden sm:inline">Focus</span>
@@ -204,7 +430,28 @@ export default function Home() {
           </TabsList>
 
           <TabsContent value="focus" className="animate-slide-in-up">
-            <FocusTab onStatsUpdate={refreshStats} />
+            <FocusTab 
+                onStatsUpdate={refreshStats}
+                timerState={{
+                    timeLeft,
+                    isRunning,
+                    isBreak,
+                    selectedTask,
+                    grinchActive,
+                    completedPomodoros
+                }}
+                actions={{
+                    setTimeLeft,
+                    setIsRunning,
+                    setIsBreak,
+                    setSelectedTask,
+                    setGrinchActive,
+                    startSession,
+                    handlePause,
+                    handleReset,
+                    handleEarlyExit
+                }}
+            />
           </TabsContent>
 
           <TabsContent value="tasks" className="animate-slide-in-up">

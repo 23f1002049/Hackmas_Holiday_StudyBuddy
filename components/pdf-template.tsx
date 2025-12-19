@@ -318,10 +318,15 @@ interface Props {
     date: string
 }
 
+const NAUGHTY_RED = "#FF0000"
+
 export const PdfDocument = ({ settings, stats, recentTasks, allBadges, focusHistory, allFocusSessions, date }: Props) => {
     const weekly = stats.weeklyFocus ?? [0, 0, 0, 0, 0, 0, 0]
     const maxFocus = Math.max(...weekly, 30) // Minimum of 30 for scale
     const todayIndex = (new Date().getDay() + 6) % 7 // Monday = 0
+    
+    // Anti-Cheat Check
+    const isNaughty = stats.gifts?.includes("lump_of_coal")
     
     // Accurate Metrics Logic
     // 1. Deep Work Index: Real session count >= 25 minutes
@@ -349,6 +354,8 @@ export const PdfDocument = ({ settings, stats, recentTasks, allBadges, focusHist
     }
 
     const getSummary = () => {
+        if (isNaughty) return "ATTENTION: Anti-Cheat Violations Detected. User has been placed on the Naughty List for attempting to manipulate focus data. Improvement required immediately to restore honor."
+        
         const grade = getGrade()
         if (grade === "S") return "Master Class Productivity. You have achieved an elite level of flow. Your cognitive endurance is within the top 1% of users."
         if (grade === "A") return "Exemplary consistency. Your session data shows significant high-quality focus. Maintain this rhythm to achieve peak learning velocity."
@@ -384,16 +391,22 @@ export const PdfDocument = ({ settings, stats, recentTasks, allBadges, focusHist
                     <View style={styles.dashboard}>
                         <View style={styles.scoreCard}>
                             <View style={styles.gradeCircle}>
-                                <Text style={styles.gradeText}>{getGrade()}</Text>
+                                <Text style={[styles.gradeText, isNaughty ? { color: NAUGHTY_RED } : {}]}>{isNaughty ? "F" : getGrade()}</Text>
                             </View>
                             <Text style={styles.scoreLabel}>Productivity Index</Text>
                             <Text style={styles.scoreValue}>{corePerformance}%</Text>
                             <Text style={styles.scoreSub}>A holistic metric of focus volume, accuracy, and streak consistency</Text>
                         </View>
                         <View style={styles.levelCard}>
-                            <View style={styles.levelTag}>
-                                <Text style={styles.levelTagText}>RANK: {getGrade() === "S" ? "EINSTEIN" : "SCHOLAR"}</Text>
-                            </View>
+                            {isNaughty ? (
+                                <View style={[styles.levelTag, { backgroundColor: NAUGHTY_RED }]}>
+                                    <Text style={[styles.levelTagText, { color: TEXT_WHITE }]}>NAUGHTY LIST</Text>
+                                </View>
+                            ) : (
+                                <View style={styles.levelTag}>
+                                    <Text style={styles.levelTagText}>RANK: {getGrade() === "S" ? "EINSTEIN" : "SCHOLAR"}</Text>
+                                </View>
+                            )}
                             <Text style={{ fontSize: 28, fontWeight: "bold", color: TEXT_MAIN }}>LEVEL {stats.level}</Text>
                             <Text style={styles.xpDisplay}>{stats.xp} Total XP Accumulated</Text>
                         </View>

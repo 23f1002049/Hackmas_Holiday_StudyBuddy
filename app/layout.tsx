@@ -4,6 +4,7 @@ import { Fredoka, Inter, Playfair_Display, DM_Sans, Caveat, Cherry_Cream_Soda } 
 import { Analytics } from "@vercel/analytics/next"
 import { AuthProvider } from "@/components/auth-provider"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
 const fredoka = Fredoka({ subsets: ["latin"], variable: "--font-fredoka" })
@@ -46,6 +47,27 @@ export default function RootLayout({
       <body className={`${fredoka.variable} ${playfair.variable} ${dmSans.variable} ${caveat.variable} ${cherryCreamSoda.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="festive" enableSystem={false} themes={['festive', 'dark', 'calm']}>
           <AuthProvider>{children}</AuthProvider>
+          <Toaster 
+            position="top-right" 
+            richColors 
+            expand 
+            toastOptions={{
+              style: {
+                padding: '16px',
+                fontSize: '18px',
+                fontFamily: 'var(--font-ice-cream)',
+                backgroundColor: '#000',
+                color: '#fff',
+                border: '2px solid #fff',
+                minWidth: 'fit-content'
+              },
+              classNames: {
+                error: 'bg-black text-red-400 border-2 border-red-500 shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]',
+                success: 'bg-black text-green-400 border-2 border-green-500 shadow-[4px_4px_0px_0px_rgba(74,222,128,1)]',
+                warning: 'bg-black text-yellow-400 border-2 border-yellow-500 shadow-[4px_4px_0px_0px_rgba(250,204,21,1)]',
+              }
+            }}
+          />
         </ThemeProvider>
         <Analytics />
       </body>

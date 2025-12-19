@@ -1,153 +1,443 @@
-[00:00:04.299] Server  LOG      ✓ Ready in 3.5s
-[00:00:11.413] Server  LOG      ○ Compiling / ...
-[00:00:13.310] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:13.310] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:13.310] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:13.310] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766117581167}
-[00:00:42.763] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:42.763] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:42.763] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766117610621}
-[00:00:43.026] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:05:25.150] Server  LOG      ✓ Compiled in 343ms
-[00:06:26.870] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:06:26.870] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:06:26.870] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766117954735}
-[00:06:26.870] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:23:11.507] Server  LOG      ✓ Compiled in 104ms
-[00:23:23.594] Server  LOG      ✓ Compiled in 83ms
-[00:25:48.061] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:25:48.061] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:25:48.061] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:25:48.061] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766119115933}
-[00:31:04.382] Server  LOG      ✓ Compiled in 62ms
-[00:42:59.359] Server  LOG      ✓ Compiled in 65ms
-[00:43:13.888] Server  LOG      ✓ Compiled in 109ms
-[00:51:34.844] Server  LOG      ✓ Compiled in 81ms
-[00:52:13.282] Server  LOG      ✓ Compiled in 44ms
-[00:52:27.831] Server  LOG      ✓ Compiled in 47ms
-[00:54:24.415] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:01.492] Server  LOG      ✓ Ready in 933ms
+[00:00:04.577] Server  LOG      ○ Compiling / ...
+[00:00:06.084] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:06.084] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:06.084] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766137768072}
+[00:00:06.084] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:13.483] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:54:24.416] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.483] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:54:29.064] Server  LOG      ✓ Compiled in 71ms
-[00:54:36.079] Server  LOG      ✓ Compiled in 40ms
-[00:55:18.677] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.483] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:55:18.677] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.484] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:55:18.677] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.484] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:55:18.677] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.484] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:57:59.255] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.960] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:57:59.255] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:00:13.960] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:57:59.531] Server  LOG      ✓ Compiled in 53ms
-[00:57:59.930] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:01:42.656] Server  LOG      ✓ Compiled in 216ms
+[00:04:07.072] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:04:07.072] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:04:07.072] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766138009096}
+[00:04:07.072] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:04:26.177] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:57:59.930] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:26.177] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:58:02.678] Browser ERROR   Audio play failed after selection: {}
-[00:58:08.515] Browser ERROR   Audio play failed after selection: {}
-[00:58:08.515] Browser ERROR   Audio play failed after selection: {}
-[00:58:12.066] Browser ERROR   Audio play failed after selection: {}
-[00:58:14.974] Server  LOG      ✓ Compiled in 41ms
-[00:58:17.852] Browser ERROR   Audio play failed: {}
-[00:58:17.852] Browser ERROR   Audio play failed after selection: {}
-[00:58:20.903] Browser ERROR   Audio play failed after selection: {}
-[00:58:24.889] Browser ERROR   Audio play failed after selection: {}
-[00:58:25.733] Browser ERROR   Audio play failed: {}
-[00:58:30.984] Browser ERROR   Audio play failed: {}
-[00:59:16.216] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:26.177] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:59:16.216] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:26.177] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:59:16.216] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:34.596] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:59:16.216] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:34.596] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:59:16.216] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:34.596] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[00:59:16.217] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:34.596] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:00:09.231] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766121177082}
-[01:00:51.101] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766121218924}
-[01:00:56.641] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:34.596] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:00:56.641] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:04:34.596] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:00:56.641] Browser WARN    The width(533) and height(300) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[01:00:56.641] Browser WARN    The width(533) and height(300) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[01:01:03.170] Browser WARN    The width(533) and height(300) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[01:01:03.170] Browser WARN    The width(533) and height(300) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[01:01:03.170] Browser WARN    The width(533) and height(300) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[01:01:03.170] Browser WARN    The width(533) and height(300) are both fixed numbers,
-       maybe you don't need to use a ResponsiveContainer.
-[01:01:16.479] Browser LOG     createTask: Sending request with token: eyJhbGciOi...
-[01:04:04.308] Server  LOG      ✓ Compiled in 164ms
-[01:04:14.241] Server  LOG      ✓ Compiled in 150ms
-[01:04:25.646] Server  LOG      ✓ Compiled in 61ms
-[01:14:27.508] Server  LOG      ✓ Compiled in 68ms
-[01:14:34.466] Server  LOG      ✓ Compiled in 47ms
-[01:14:40.351] Server  LOG      ✓ Compiled in 75ms
-[01:14:58.432] Server  LOG      ✓ Compiled in 65ms
-[01:15:19.085] Server  LOG      ✓ Compiled in 79ms
-[01:15:34.188] Server  LOG      ✓ Compiled in 139ms
-[01:15:50.240] Server  LOG      ✓ Compiled in 46ms
-[01:16:08.797] Server  LOG      ✓ Compiled in 68ms
-[01:16:18.287] Server  LOG      ✓ Compiled in 69ms
-[01:21:40.740] Browser ERROR   ./Downloads/Hackmas_Holiday_StudyBuddy/components/admin-dashboard.tsx:36:1
+[00:04:39.957] Browser ERROR   Failed to update task {}
+[00:05:54.937] Server  LOG      ✓ Compiled in 128ms
+[00:07:24.552] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:07:24.552] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:07:24.552] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766138206577}
+[00:07:24.552] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:07:31.149] Browser LOG     👹 Applying Grinch Penalty: 50
+[00:07:31.149] Browser LOG     👹 Guest Mode: Deducting locally
+[00:07:35.716] Browser LOG     👹 Applying Grinch Penalty: 50
+[00:07:35.716] Browser LOG     👹 Guest Mode: Deducting locally
+[00:07:50.735] Browser ERROR   Failed to update task {}
+[00:07:51.296] Browser ERROR   Failed to update task {}
+[00:09:24.440] Server  LOG      ✓ Compiled in 257ms
+[00:10:13.479] Server  LOG      ✓ Compiled in 195ms
+[00:10:38.304] Server  LOG      ✓ Compiled in 147ms
+[00:10:38.510] Browser ERROR   ./Downloads/Hackmas_Holiday_StudyBuddy/components/app-header.tsx:68:20
 Parsing ecmascript source code failed
-  34 |   SelectTrigger,
-  35 |   SelectValue,
-> 36 | } from "@/components/ui/select"
-     | ^
-  37 | import { 
-  38 |   fetchAllUsers, 
-  39 |   blockUser, 
+  66 |                     </p>
+  67 |                   )}
+> 68 |                   )}
+     |                    ^
+  69 |                   <ElfSurveillanceWidget />
+  70 |                 </div>
+  71 |                 </div>
 
-Expression expected
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
 
 Import traces:
   Client Component Browser:
-    ./Downloads/Hackmas_Holiday_StudyBuddy/components/admin-dashboard.tsx [Client Component Browser]
+    ./Downloads/Hackmas_Holiday_StudyBuddy/components/app-header.tsx [Client Component Browser]
     ./Downloads/Hackmas_Holiday_StudyBuddy/app/page.tsx [Client Component Browser]
     ./Downloads/Hackmas_Holiday_StudyBuddy/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./Downloads/Hackmas_Holiday_StudyBuddy/components/admin-dashboard.tsx [Client Component SSR]
+    ./Downloads/Hackmas_Holiday_StudyBuddy/components/app-header.tsx [Client Component SSR]
     ./Downloads/Hackmas_Holiday_StudyBuddy/app/page.tsx [Client Component SSR]
     ./Downloads/Hackmas_Holiday_StudyBuddy/app/page.tsx [Server Component]
-[01:21:40.740] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
-[01:21:42.064] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[01:21:42.064] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[01:21:42.064] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766122469883}
-[01:21:42.064] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[01:21:58.934] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[01:21:58.934] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[01:21:58.934] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[01:21:58.934] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766122486755}
-[01:22:11.497] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[01:22:11.497] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[01:22:11.497] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766122499307}
-[01:22:11.497] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[01:22:30.951] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:11:11.155] Server  LOG      ✓ Compiled in 247ms
+[00:12:19.175] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:12:19.175] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:12:19.175] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766138501207}
+[00:12:19.175] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:12:48.175] Browser ERROR   Failed to update task {}
+[00:12:48.381] Browser ERROR   Failed to update task {}
+[00:17:13.623] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:17:13.623] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:17:13.623] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766138795657}
+[00:17:13.623] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:17:16.553] Browser ERROR   Failed to update task {}
+[00:17:33.727] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:17:33.727] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:17:33.727] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766138815764}
+[00:17:33.990] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:17:37.344] Browser ERROR   Failed to update task {}
+[00:17:38.044] Browser ERROR   Failed to update task {}
+[00:18:18.048] Server  LOG      ✓ Compiled in 136ms
+[00:19:20.399] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:19:20.399] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:19:20.399] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766138922436}
+[00:19:20.399] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:19:23.981] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:19:23.981] Browser ERROR   Failed to update task {}
+[00:19:24.603] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:19:24.603] Browser ERROR   Failed to update task {}
+[00:19:24.864] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:19:24.864] Browser ERROR   Failed to update task {}
+[00:19:25.043] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:19:25.044] Browser ERROR   Failed to update task {}
+[00:22:03.568] Server  LOG      ✓ Compiled in 81ms
+[00:22:03.762] Server  ERROR    ⨯ ReferenceError: Toaster is not defined
+[00:22:03.858] Server  ERROR    ⨯ ReferenceError: Toaster is not defined
+[00:22:04.028] Browser ERROR   uncaughtError: ReferenceError: Toaster is not defined
+[00:22:12.056] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:22:12.200] Server  LOG      ✓ Compiled in 528ms
+[00:22:12.358] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:22:13.572] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:22:13.572] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:22:13.572] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766139095598}
+[00:22:13.572] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:23:07.036] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:23:07.036] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:23:07.036] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766139149018}
+[00:23:07.164] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:23:09.300] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:23:09.300] Browser ERROR   Failed to update task {}
+[00:24:16.014] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:24:16.014] Browser ERROR   Failed to update task {}
+[00:24:24.934] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:22:30.951] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:24:24.934] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:22:30.951] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:24:24.934] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:22:30.951] Browser WARN    The width(533) and height(300) are both fixed numbers,
+[00:24:24.934] Browser WARN    The width(533) and height(300) are both fixed numbers,
        maybe you don't need to use a ResponsiveContainer.
-[01:22:38.427] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766122526247}
-[01:55:03.904] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[01:55:03.904] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[01:55:03.904] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766124471716}
-[01:55:03.904] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766124471717}
-[01:55:04.021] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:24:24.934] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:24.934] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:42.195] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:42.195] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:42.195] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:42.195] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:42.731] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:42.732] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:43.750] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:43.750] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:44.763] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:44.763] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:45.821] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:24:45.821] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:24:45.821] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:24:45.821] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766139247862}
+[00:24:47.312] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:47.312] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:47.312] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:47.312] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:24:51.595] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:24:51.595] Browser ERROR   Failed to update task {}
+[00:25:58.864] Server  LOG      ✓ Compiled in 145ms
+[00:29:35.172] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:29:35.172] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:29:35.172] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:29:35.172] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766139537215}
+[00:29:43.901] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:29:43.901] Browser ERROR   Failed to update task {}
+[00:29:46.080] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:29:46.080] Browser ERROR   Failed to update task {}
+[00:30:15.418] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:30:15.418] Browser ERROR   Failed to update task {}
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:20.446] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:30:49.783] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:30:49.784] Browser ERROR   Failed to update task {}
+[00:30:52.711] Browser ERROR   saveFocusSession is deprecated and backend endpoint removed. Use startFocusSession flow.
+[00:30:54.790] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:30:54.791] Browser ERROR   Failed to update task {}
+[00:30:55.739] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:30:55.739] Browser ERROR   Failed to update task {}
+[00:30:55.922] Browser LOG     ❌ updateTask failed, backend response: {"error":"Keep going! You need 25 more minutes of focus on this task to complete it. (Current: 0/25m)"}
+[00:30:55.922] Browser ERROR   Failed to update task {}
+[00:31:00.016] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:31:00.016] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:31:00.016] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:31:00.016] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:31:03.350] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:31:03.350] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:31:03.350] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766139625390}
+[00:31:03.350] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:40:10.760] Server  LOG      ✓ Compiled in 249ms
+[00:41:02.933] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:41:02.933] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:41:02.933] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:41:02.933] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766140224982}
+[00:41:05.410] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:41:05.410] Browser ERROR   Failed to update task {}
+[00:41:20.057] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:41:20.057] Browser ERROR   Failed to update task {}
+[00:41:21.174] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:41:21.174] Browser ERROR   Failed to update task {}
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:40.472] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:41.485] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:41.485] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:42.504] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:42.504] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:41:48.994] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:41:48.994] Browser ERROR   Failed to update task {}
+[00:41:50.056] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:41:50.056] Browser ERROR   Failed to update task {}
+[00:43:03.974] Browser ERROR   saveFocusSession is deprecated and backend endpoint removed. Use startFocusSession flow.
+[00:43:08.056] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:43:08.056] Browser ERROR   Failed to update task {}
+[00:43:09.061] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:43:09.061] Browser ERROR   Failed to update task {}
+[00:43:14.185] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:43:14.185] Browser ERROR   Failed to update task {}
+[00:43:17.094] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:17.096] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:17.096] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:17.096] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:17.096] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:17.096] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:25.595] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:43:25.595] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:43:25.595] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:43:25.595] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766140367646}
+[00:43:33.754] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:43:33.754] Browser ERROR   Failed to update task {}
+[00:43:34.839] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:43:34.839] Browser ERROR   Failed to update task {}
+[00:43:40.311] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.311] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.311] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.311] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.311] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.311] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.579] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:40.579] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:41.592] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:41.592] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:42.610] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:42.610] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:43.648] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:43.648] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:44.685] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:44.685] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:45.723] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:45.723] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:46.736] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:46.736] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[00:43:57.604] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:43:57.604] Browser ERROR   Failed to update task {}
+[00:45:40.504] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:45:40.504] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:45:40.504] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766140502551}
+[00:45:40.504] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:45:42.671] Browser LOG     ❌ updateTask failed, backend response: {"error":"Almost there! You need 25m 0s more focus. (Current: 0m 0s / 25m)"}
+[00:45:42.671] Browser ERROR   Failed to update task {}
+[00:47:54.592] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:47:54.592] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:47:54.592] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766140636613}
+[00:47:54.719] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:48:01.462] Browser LOG     createTask: Sending request with token: eyJhbGciOi...
+[00:48:08.430] Browser LOG     createTask: Sending request with token: eyJhbGciOi...
+[00:52:27.417] Browser ERROR   unhandledRejection: Error: Failed to load chunk /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_77a6d435._.js from module [turbopack]/browser/dev/hmr-client/hmr-client.ts [app-client] (ecmascript, async loader)
+[00:52:27.417] Browser ERROR   uncaughtError: Error: Failed to load chunk /_next/static/chunks/adfa4_recharts_es6_9c304f20._.js from module [project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:52:27.417] Browser ERROR   uncaughtError: Error: Failed to load chunk /_next/static/chunks/adfa4_recharts_es6_9c304f20._.js from module [project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:52:27.417] Browser ERROR   uncaughtError: Error: Failed to load chunk /_next/static/chunks/adfa4_recharts_es6_9c304f20._.js from module [project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:52:27.417] Browser ERROR   uncaughtError: Error: Failed to load chunk /_next/static/chunks/adfa4_recharts_es6_9c304f20._.js from module [project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:52:27.417] Browser ERROR   uncaughtError: Error: Failed to load chunk /_next/static/chunks/adfa4_recharts_es6_9c304f20._.js from module [project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:52:27.417] Browser ERROR   uncaughtError: Error: Failed to load chunk /_next/static/chunks/adfa4_recharts_es6_9c304f20._.js from module [project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+[00:52:28.340] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:52:28.340] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:52:28.340] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:52:28.340] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766140910397}
+[00:52:30.214] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:52:30.214] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:52:30.214] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766140912262}
+[00:52:30.214] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:59:39.956] Server  LOG      ✓ Compiled in 265ms
+[01:01:19.363] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:01:19.363] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:01:19.363] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:01:19.363] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766141441414}
+[01:01:33.657] Browser LOG     createTask: Sending request with token: eyJhbGciOi...
+[01:01:43.754] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:01:43.754] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:01:43.754] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766141465807}
+[01:01:44.010] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:02:21.670] Browser ERROR   Failed to update task {}
+[01:02:31.136] Browser ERROR   Failed to update task {}
+[01:02:32.490] Browser ERROR   Failed to update task {}
+[01:02:44.063] Browser ERROR   Failed to update task {}
+[01:02:47.172] Browser ERROR   Failed to update task {}
+[01:02:47.397] Browser ERROR   Failed to update task {}
+[01:02:47.585] Browser ERROR   Failed to update task {}
+[01:02:47.784] Browser ERROR   Failed to update task {}
+[01:03:18.904] Browser ERROR   Failed to update task {}
+[01:03:19.753] Browser ERROR   Failed to update task {}
+[01:03:30.984] Browser ERROR   Failed to update task {}
+[01:07:05.768] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:07:05.768] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:07:05.768] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:07:05.768] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766141787823}
+[01:07:07.903] Browser ERROR   Failed to update task {}
+[01:08:29.185] Browser ERROR   Failed to update task {}
+[01:08:30.025] Browser ERROR   Failed to delete task {}
+[01:12:15.818] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:12:15.818] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:12:15.818] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766142097872}
+[01:12:15.818] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:12:18.393] Browser ERROR   Failed to update task {}
+[01:12:47.504] Browser ERROR   Failed to update task {}
+[01:13:28.941] Browser ERROR   Failed to update task {}
+[01:13:32.565] Browser ERROR   saveFocusSession is deprecated and backend endpoint removed. Use startFocusSession flow.
+[01:13:59.328] Browser ERROR   Failed to update task {}
+[01:15:03.545] Browser ERROR   Failed to update task {}
+[01:15:08.059] Browser ERROR   Failed to update task {}
+[01:15:08.953] Browser ERROR   Failed to update task {}
+[01:15:09.152] Browser ERROR   Failed to update task {}
+[01:15:32.149] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:15:32.149] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:15:32.149] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766142294306}
+[01:15:32.475] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:17:17.625] Server  LOG      ✓ Compiled in 143ms
+[01:18:54.441] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:18:54.441] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:18:54.441] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:18:54.441] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766142496503}
+[01:19:20.654] Browser ERROR   Failed to update task {}
+[01:19:22.014] Browser ERROR   Failed to update task {}
+[01:20:35.168] Server  LOG      ✓ Compiled in 216ms
+[01:20:46.847] Server  LOG      ✓ Compiled in 67ms
+[01:20:54.483] Server  LOG      ✓ Compiled in 192ms
+[01:23:34.079] Browser WARN    Image with src "http://localhost:3000/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:23:34.079] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:23:34.079] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:23:34.079] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1766142776144}
+[01:23:40.462] Browser ERROR   Failed to update task {}
+[01:23:42.371] Browser ERROR   Failed to update task {}
+[01:23:49.377] Browser ERROR   Failed to update task {}
+[01:23:56.426] Browser ERROR   Failed to update task {}
+[01:26:24.023] Browser ERROR   Failed to update task {}
+[01:26:29.454] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:29.454] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:30.979] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:30.979] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:30.979] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:30.979] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:30.979] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.
+[01:26:30.979] Browser WARN    The width(533) and height(300) are both fixed numbers,
+       maybe you don't need to use a ResponsiveContainer.

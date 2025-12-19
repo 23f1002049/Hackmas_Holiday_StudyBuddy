@@ -5,9 +5,10 @@ import { useAuth } from "@/components/auth-provider"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { fetchAnnouncements, fetchActiveCount } from "@/lib/user-data"
-import { Megaphone, Users } from "lucide-react"
+import { fetchAnnouncements } from "@/lib/user-data"
+import { Megaphone } from "lucide-react"
 import { SoundscapePlayer } from "@/components/soundscape-player"
+import { ElfSurveillanceWidget } from "@/components/elf-surveillance"
 
 interface AppHeaderProps {
   level: number
@@ -25,7 +26,6 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
   const isGuest = propIsGuest || contextIsGuest
   const router = useRouter()
   const [announcement, setAnnouncement] = useState<string | null>(null)
-  const [activeCount, setActiveCount] = useState(12)
 
   useEffect(() => {
     fetchAnnouncements().then(data => {
@@ -33,13 +33,6 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
         setAnnouncement(data[0].content)
       }
     })
-
-    const updateCount = () => {
-      fetchActiveCount().then(c => setActiveCount(c))
-    }
-    updateCount()
-    const interval = setInterval(updateCount, 30000) // Every 30s
-    return () => clearInterval(interval)
   }, [])
 
   return (
@@ -62,21 +55,13 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-accent app-title font-ice-cream tracking-wide drop-shadow-sm">Holiday Study Buddy</h1>
-                <div className="flex items-center gap-3 mt-1">
+                <div className="flex items-start md:items-center gap-3 mt-1 flex-col md:flex-row">
                   {user && (
                     <p className="text-lg text-cream/90 mr-2 font-medium">
                       {isGuest ? "Guest Mode" : `Welcome, ${displayName || user.name}`}
                     </p>
                   )}
-                  <div className="flex items-center gap-1.5 bg-green-500/10 px-2 py-0.5 rounded-full border border-green-500/20">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    <span className="text-[10px] font-bold text-green-400 uppercase tracking-wider flex items-center gap-1">
-                      <Users className="h-3 w-3" /> {activeCount} Helpers Online
-                    </span>
-                  </div>
+                  <ElfSurveillanceWidget />
                 </div>
               </div>
             </div>

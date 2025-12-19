@@ -48,6 +48,13 @@ export interface UserStats {
   id?: number
   is_blocked?: boolean
   weeklyFocus?: number[] // Array of daily minutes [Mon, Tue, ..., Sun]
+  gifts?: string[]
+}
+
+export interface PublicStats {
+  active_elves: number
+  nice_list: { username: string; xp: number; avatar?: string }[]
+  naughty_count: number
 }
 
 export interface UserSettings {
@@ -101,7 +108,8 @@ export async function fetchUserStats(): Promise<UserStats> {
         name: data.username || getUserSettings().name,
         id: data.id,
         is_blocked: data.is_blocked,
-        weeklyFocus: data.weekly_focus || [0, 0, 0, 0, 0, 0, 0]
+        weeklyFocus: data.weekly_focus || [0, 0, 0, 0, 0, 0, 0],
+        gifts: data.gifts || []
       }
 
       // Sync settings from backend to local storage
@@ -133,7 +141,19 @@ export async function fetchUserStats(): Promise<UserStats> {
   } catch (error) {
     console.error("Failed to fetch user stats", error)
   }
-  return getUserStats()
+  return getDefaultUserStats()
+}
+
+export async function fetchPublicStats(): Promise<PublicStats | null> {
+  try {
+    const response = await fetch(`${API_URL}/public/stats`)
+    if (response.ok) {
+      return await response.json()
+    }
+  } catch (error) {
+    console.error("Failed to fetch public stats", error)
+  }
+  return null
 }
 
 export async function saveUserStats(stats: UserStats) {
@@ -223,6 +243,89 @@ export function getUserSettings(): UserSettings {
   return stored ? JSON.parse(stored) : getDefaultUserSettings()
 }
 
+export async function startFocusSession(taskId?: string) {
+  try {
+    const { token, isGuest } = getAuthState()
+    if (isGuest || !token) return null
+
+    const response = await fetch(`${API_URL}/focus-session/start`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ task_id: taskId })
+    })
+
+    if (response.ok) {
+        return await response.json()
+    } else {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to start focus session")
+    }
+  } catch (error) {
+    console.error("Failed to start session:", error)
+    throw error
+  }
+}
+
+export async function endFocusSession(sessionId: string, durationMinutes: number) {
+  try {
+    const { token } = getAuthState()
+    if (!token) return null
+
+    const response = await fetch(`${API_URL}/focus-session/end`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ session_id: sessionId, duration: durationMinutes })
+    })
+
+    if (response.ok) {
+        return await response.json()
+    }
+  } catch (error) {
+    console.error("Failed to end session:", error)
+  }
+  return null
+}
+
+export async function applyGrinchPenalty(penaltyAmount: number) {
+  console.log("👹 Applying Grinch Penalty:", penaltyAmount)
+  try {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+    
+    // GUEST MODE FALLBACK
+    if (!token) {
+        console.log("👹 Guest Mode: Deducting locally")
+        const stats = getUserStats()
+        stats.xp = Math.max(0, stats.xp - penaltyAmount)
+        saveUserStats(stats)
+        return { success: true, message: "Guest Penalty Applied" }
+    }
+
+    // AUTH MODE
+    console.log("👹 Auth Mode: Calling API")
+    const response = await fetch(`${API_URL}/penalty`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ xp_penalty: penaltyAmount })
+    })
+
+    const data = await response.json()
+    console.log("👹 API Response:", data)
+    return data
+  } catch (error) {
+    console.error("Failed to apply penalty", error)
+  }
+  return null
+}
+
 export async function saveUserSettings(settings: UserSettings): Promise<{ success: boolean, error?: string }> {
   if (typeof window !== "undefined") {
     localStorage.setItem("userSettings", JSON.stringify(settings))
@@ -258,6 +361,15 @@ export async function saveUserSettings(settings: UserSettings): Promise<{ succes
     return { success: false, error: "Network error" }
   }
 }
+
+// Removed duplicate saveFocusSession
+// The new version with backend integration is already defined above in creating task logic?
+// Wait, no. The new start/end functions replace it.
+// But some old code might still call saveFocusSession.
+// We should keep ONE implementation. The one at line 545 deals with Guest mode too.
+// The one at 368 was just a stub.
+
+// Let's remove the stub at 368.
 
 export async function fetchTasks(): Promise<Task[]> {
   const { user, isGuest } = getAuthState()
@@ -389,7 +501,7 @@ export async function updateTask(taskId: string, updates: Partial<Task>) {
     if (updates.completed !== undefined) body.is_completed = updates.completed
     if (updates.priority !== undefined) body.priority = updates.priority
 
-    await fetch(`${API_URL}/tasks/${taskId}`, {
+    const response = await fetch(`${API_URL}/tasks/${taskId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -397,8 +509,16 @@ export async function updateTask(taskId: string, updates: Partial<Task>) {
       },
       body: JSON.stringify(body)
     })
+
+    if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to update task")
+    }
+
+    return await response.json()
   } catch (error) {
     console.error("Failed to update task", error)
+    throw error // Re-throw for frontend handling
   }
 }
 
@@ -431,7 +551,9 @@ export async function deleteTask(taskId: string) {
 }
 
 export async function saveFocusSession(durationMinutes: number, taskId?: string) {
+  // Keeping this for backward compatibility or Guest Mode
   const { user, isGuest } = getAuthState()
+  
   if (isGuest || !user) {
     const stats = getUserStats();
     const multiplier = getStreakMultiplier(stats.currentStreak);
@@ -445,26 +567,15 @@ export async function saveFocusSession(durationMinutes: number, taskId?: string)
     return;
   }
 
-
-  try {
-    const { token } = getAuthState()
-    const headers: any = { "Content-Type": "application/json" }
-    if (token) headers["Authorization"] = `Bearer ${token}`
-
-    await fetch(`${API_URL}/focus_sessions`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        user_id: user.id,
-        task_id: taskId ? parseInt(taskId) : null,
-        duration_minutes: durationMinutes,
-        start_time: new Date(Date.now() - durationMinutes * 60000).toISOString(),
-        end_time: new Date().toISOString()
-      })
-    })
-  } catch (error) {
-    console.error("Failed to save focus session", error)
-  }
+  // If Auth user calls this (old path), wrap to new path?
+  // Or just keep the old endpoint for safety until refactor complete?
+  // The backend still accepts /focus_sessions (singular) if we didn't delete it.
+  // Wait, I replaced create_focus_session in routes.py with the NEW endpoints.
+  // So the old endpoint is GONE.
+  // We must adapt this function to use start/end internally or warn.
+  
+  console.error("saveFocusSession is deprecated and backend endpoint removed. Use startFocusSession flow.")
+  return;
 }
 
 // Legacy local storage helpers (kept for guest mode)

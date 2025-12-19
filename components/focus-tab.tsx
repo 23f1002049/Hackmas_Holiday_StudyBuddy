@@ -6,132 +6,76 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Play, Pause, RotateCcw, Coffee, Maximize2 } from "lucide-react"
-import { getUserStats, saveUserStats, fetchTasks, getQuests, saveQuests, addXP, saveFocusSession } from "@/lib/user-data"
-import type { Task } from "@/lib/user-data"
+import { fetchTasks, type Task } from "@/lib/user-data"
 import JSConfetti from "js-confetti"
 
-export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
-  const [timeLeft, setTimeLeft] = useState(25 * 60)
-  const [isRunning, setIsRunning] = useState(false)
-  const [isBreak, setIsBreak] = useState(false)
-  const [selectedTask, setSelectedTask] = useState<string>("")
+interface TimerState {
+    timeLeft: number
+    isRunning: boolean
+    isBreak: boolean
+    selectedTask: string
+    grinchActive: boolean
+    completedPomodoros: number
+}
+
+interface TimerActions {
+    setTimeLeft: (t: number) => void
+    setIsRunning: (b: boolean) => void
+    setIsBreak: (b: boolean) => void
+    setSelectedTask: (id: string) => void
+    setGrinchActive: (b: boolean) => void
+    startSession: () => void
+    handlePause: () => void
+    handleReset: () => void
+    handleEarlyExit: (reason?: string) => void
+}
+
+interface FocusTabProps {
+    onStatsUpdate: () => void
+    timerState: TimerState
+    actions: TimerActions
+}
+
+export function FocusTab({ onStatsUpdate, timerState, actions }: FocusTabProps) {
+  const { timeLeft, isRunning, isBreak, selectedTask, grinchActive, completedPomodoros } = timerState
+  const { setIsRunning, setIsBreak, setSelectedTask, setGrinchActive, startSession, handlePause, handleReset, handleEarlyExit } = actions
+
   const [tasks, setTasks] = useState<Task[]>([])
-  const [completedPomodoros, setCompletedPomodoros] = useState(0)
-  const [strictMode, setStrictMode] = useState(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-
-  // Track elapsed time for partial saves
+  const [strictMode, setStrictMode] = useState(false) // Local UI state for "Big Timer" view
   const [mounted, setMounted] = useState(false)
-  useEffect(() => { setMounted(true) }, [])
-
-  const sessionStartTimeRef = useRef<number | null>(null)
-  const elapsedSecondsRef = useRef<number>(0)
-
-  useEffect(() => {
-    fetchTasks().then(setTasks)
-  }, [])
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
-    if (isRunning && timeLeft > 0) {
-      if (!sessionStartTimeRef.current) {
-        sessionStartTimeRef.current = Date.now()
-      }
-
-      interval = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            handleTimerComplete()
-            return 0
-          }
-          return prev - 1
-        })
-
-        if (!isBreak) {
-          elapsedSecondsRef.current += 1
-        }
-      }, 1000)
-    } else {
-      sessionStartTimeRef.current = null
-    }
-    return () => {
-      if (interval) clearInterval(interval)
-    }
-  }, [isRunning, timeLeft, isBreak])
-
-  /* 🎊 JS-CONFETTI */
+  
+  // Confetti ref (local usage if needed, though page.tsx has one too)
   const confettiRef = useRef<JSConfetti | null>(null)
 
   useEffect(() => {
-    // init js-confetti
+    setMounted(true)
     confettiRef.current = new JSConfetti()
+    fetchTasks().then(setTasks)
   }, [])
 
-  const savePartialProgress = async () => {
-    const seconds = elapsedSecondsRef.current
-    if (seconds >= 60) {
-      const minutes = Math.floor(seconds / 60)
-      try {
-        await saveFocusSession(minutes, selectedTask !== "none" ? selectedTask : undefined)
-        onStatsUpdate()
-        // Reset counter after saving
-        elapsedSecondsRef.current = seconds % 60
-      } catch (error) {
-        console.error("Failed to save partial progress", error)
+  // Fullscreen helper for "Strict Mode" button
+  const toggleStrictMode = async () => {
+      if (!strictMode) {
+          try {
+              await document.documentElement.requestFullscreen()
+              setStrictMode(true)
+          } catch (e) { console.error(e) }
+      } else {
+          if (document.fullscreenElement) {
+              await document.exitFullscreen().catch(() => {})
+          }
+          setStrictMode(false)
       }
-    }
   }
 
-  const handlePause = async () => {
-    setIsRunning(false)
-    if (!isBreak) {
-      await savePartialProgress()
-    }
-  }
-
-  const handleReset = async () => {
-    if (!isBreak) {
-      await savePartialProgress()
-    }
-    setIsRunning(false)
-    setTimeLeft(isBreak ? 300 : 1500)
-    elapsedSecondsRef.current = 0
-  }
-
-  const handleTimerComplete = async () => {
-    setIsRunning(false)
-    // Play tada sound
-    const audio = new Audio("/audio/tada.mp3")
-    audio.play().catch(() => { })
-
-    if (!isBreak) {
-      // Save session to backend
-      try {
-        // Calculate remaining minutes to save (if any accumulated or just save the full block if we rely on elapsed)
-        // Ideally compelte session is 25 mins. 
-        // We might have saved some partial chunks if paused. 
-        // Simpler approach: Just save any pending elapsedSeconds + 1 (current sec)
-        // OR: Since we increment elapsedSeconds every second, just save whatever is there.
-
-        // However, standard Pomodoro expects full completion bonus maybe? 
-        // For this simple app, let's just flush the remaining elapsedSeconds.
-
-        await savePartialProgress() // Flush any pending minutes
-
-        // Success! Fire confetti and refresh stats
-        confettiRef.current?.addConfetti({
-          emojis: ["🍅", "⏰", "✨", "🔥"],
-          confettiNumber: 50,
-        })
-
-        setCompletedPomodoros((p) => p + 1)
-        onStatsUpdate() // This will fetch fresh XP/Level from backend
-        elapsedSecondsRef.current = 0
-      } catch (error) {
-        console.error("Failed to save session:", error)
+  // Listen for fullscreen exits to close strict mode UI
+  useEffect(() => {
+      const handleData = () => {
+          if (!document.fullscreenElement) setStrictMode(false)
       }
-    }
-  }
+      document.addEventListener('fullscreenchange', handleData)
+      return () => document.removeEventListener('fullscreenchange', handleData)
+  }, [])
 
   const formatTime = (s: number) =>
     `${Math.floor(s / 60).toString().padStart(2, "0")}:${(s % 60)
@@ -140,38 +84,10 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
 
   const incompleteTasks = tasks.filter((t) => !t.completed)
 
-  // ... (previous code)
-
-  // ... (previous code)
-
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      if (!document.fullscreenElement && strictMode) {
-        setStrictMode(false)
-      }
-    }
-
-    document.addEventListener('fullscreenchange', handleFullscreenChange)
-
-    if (strictMode) {
-      document.documentElement.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable fullscreen mode: ${err.message}`)
-      })
-    } else {
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(err => console.error(err))
-      }
-    }
-
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange)
-    }
-  }, [strictMode])
-
   const strictModeOverlay = (
     <div className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center text-white animate-in fade-in duration-300 w-screen h-screen">
       <div className="absolute top-8 right-8">
-        <Button onClick={() => setStrictMode(false)} variant="destructive" size="lg" className="font-bold border-2 border-white/20">
+        <Button onClick={toggleStrictMode} variant="destructive" size="lg" className="font-bold border-2 border-white/20">
           Exit Strict Mode
         </Button>
       </div>
@@ -188,12 +104,12 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
 
         <div className="flex justify-center gap-6">
           {!isRunning ? (
-            <Button size="lg" onClick={() => setIsRunning(true)} className="min-w-[200px] h-20 text-2xl gap-4 bg-white text-black hover:bg-white/90">
-              <Play className="h-8 w-8" /> Start
+            <Button size="lg" onClick={startSession} className="min-w-[200px] h-20 text-2xl gap-4 bg-white text-black hover:bg-white/90">
+              <Play className="h-8 w-8" /> Start Focus
             </Button>
           ) : (
-            <Button size="lg" onClick={handlePause} className="min-w-[200px] h-20 text-2xl gap-4 bg-transparent border-2 border-white/20 hover:bg-white/10">
-              <Pause className="h-8 w-8" /> Pause
+            <Button size="lg" onClick={() => handleEarlyExit("You exited strict mode!")} className="min-w-[200px] h-20 text-2xl gap-4 bg-transparent border-2 border-white/20 hover:bg-white/10">
+              {grinchActive ? "GIVE UP (Penalty)" : "Pause"}
             </Button>
           )}
         </div>
@@ -203,8 +119,6 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      <audio ref={audioRef} src="/placeholder.svg?height=0&width=0" preload="auto" />
-
       {/* STRICT MODE OVERLAY - PORTAL */}
       {mounted && strictMode && createPortal(strictModeOverlay, document.body)}
 
@@ -244,12 +158,12 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
               <div className="flex flex-col items-center gap-4">
                 <div className="flex items-center gap-4">
                   {!isRunning ? (
-                    <Button size="lg" onClick={() => setIsRunning(true)} className="gap-2">
+                    <Button size="lg" onClick={startSession} className="gap-2">
                       <Play className="h-5 w-5" /> Start
                     </Button>
                   ) : (
-                    <Button size="lg" onClick={handlePause} variant="secondary" className="gap-2">
-                      <Pause className="h-5 w-5" /> Pause
+                    <Button size="lg" onClick={() => handleEarlyExit()} variant={grinchActive ? "destructive" : "secondary"} className="gap-2">
+                      {grinchActive ? "Give Up (-50 XP)" : "Pause"}
                     </Button>
                   )}
 
@@ -262,7 +176,7 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
                       size="lg"
                       onClick={() => {
                         setIsBreak(true)
-                        setTimeLeft(300)
+                        actions.setTimeLeft(300)
                       }}
                       variant="outline"
                       className="gap-2"
@@ -276,29 +190,49 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
                       size="lg"
                       onClick={() => {
                         setIsBreak(false)
-                        setTimeLeft(1500)
+                        actions.setTimeLeft(1500)
                       }}
                       variant="outline"
                     >
                       End Break
                     </Button>
                   )}
+                  
+                  {/* Strict Mode Button */}
+                   {!strictMode && (
+                    <Button size="lg" variant="ghost" onClick={toggleStrictMode} className="text-white/50 hover:text-white hover:bg-white/10">
+                        <Maximize2 className="h-5 w-5" />
+                    </Button>
+                  )}
                 </div>
 
-                <Button
-                  onClick={() => setStrictMode(true)}
-                  variant="ghost"
-                  className="text-white/60 hover:text-white hover:bg-white/10 gap-2"
-                >
-                  <Maximize2 className="h-4 w-4" /> Enter Strict Mode
-                </Button>
+                <div className="flex items-center gap-2">
+                     <span className={`text-xs font-bold ${grinchActive ? "text-red-500" : "text-white/60"}`}>
+                        GRINCH MODE: {grinchActive ? "ON 👹" : "OFF"}
+                     </span>
+                     <div 
+                       onClick={() => !isRunning && setGrinchActive(!grinchActive)}
+                       className={`w-12 h-6 rounded-full cursor-pointer transition-colors p-1 flex ${grinchActive ? 'bg-red-600 justify-end' : 'bg-gray-600 justify-start'}`}
+                     >
+                        <div className="w-4 h-4 bg-white rounded-full shadow-md" />
+                     </div>
+                </div>
               </div>
 
               {/* CENTERED TASK SELECT */}
               {!isBreak && (
                 <div className="flex justify-center w-full">
-                  <div className="w-full max-w-sm text-center">
-                    <Select value={selectedTask} onValueChange={setSelectedTask}>
+                  <div className="w-full max-w-sm text-center relative">
+                    {/* TASK LOCK OVERLAY */}
+                    {isRunning && (
+                         <div className="absolute inset-0 z-10 bg-black/50 backdrop-blur-[1px] flex items-center justify-center rounded-md cursor-not-allowed">
+                             <div className="bg-red-900/90 text-white text-xs px-3 py-1 rounded-full flex items-center gap-2 shadow-lg border border-red-500/50">
+                                <span className="animate-pulse">🔒</span> Task Locked
+                             </div>
+                         </div>
+                    )}
+                  
+                    <Select value={selectedTask} onValueChange={setSelectedTask} disabled={isRunning}>
                       <SelectTrigger className="justify-center text-center focus-empty-text">
                         <SelectValue placeholder="Select a task to focus on" />
                       </SelectTrigger>

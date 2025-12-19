@@ -195,6 +195,8 @@ def create_user():
     return jsonify(new_user.to_dict()), 201
 
 
+
+
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = User.query.get_or_404(user_id)
@@ -454,65 +456,92 @@ def update_task(current_user, task_id):
     if task.user_id != current_user.id and not current_user.is_admin:
         return jsonify({'error': 'Unauthorized'}), 403
         
-    data = request.get_json()
-    
+    data = request.get_json() or {}
+    updated_fields = []
+
+    # 1. HANDLE COMPLETION TOGGLE
     if 'is_completed' in data:
-        # Idempotency Check: If state hasn't changed, do nothing
-        if task.is_completed == data['is_completed']:
-            return jsonify(task.to_dict())
-
-        task.is_completed = data['is_completed']
-        if task.is_completed:
-            task.completed_at = datetime.utcnow()
-            
-            # Anti-Cheat: Cap daily XP (Max 10 tasks / 100 XP per day)
-            today = datetime.utcnow().date()
-            start_of_day = datetime(today.year, today.month, today.day)
-            daily_completed = Task.query.filter(
-                Task.user_id == current_user.id,
-                Task.is_completed == True,
-                Task.completed_at >= start_of_day,
-                Task.id != task.id
-            ).count()
-            
-            if daily_completed < 10:
-                # Award XP for task completion (Standardized weights)
-                priority_weights = {
-                    'high': 50,
-                    'medium': 20,
-                    'low': 10
-                }
-                base_xp = priority_weights.get(task.priority, 20)
+        new_status = bool(data['is_completed'])
+        
+        # Only act if status actually changed
+        if task.is_completed != new_status:
+            if new_status:
+                # MARKING AS COMPLETED -> REQUIRE 25 MINS FOCUS
                 
-                # Streak Bonus multiplier (1 + (min(streak, 10) * 0.05))
-                check_streak(task.user)
-                streak_bonus_multiplier = 1 + (min(task.user.current_streak, 10) * 0.05)
+                # 1. GATHER TOTAL FOCUS TIME
+                # Use the new persistent field for history
+                comp_sec = task.accumulated_focus_seconds
                 
-                total_xp = round(base_xp * streak_bonus_multiplier)
-                task.xp_awarded = total_xp
-                task.user.xp += total_xp
-                task.user.lifetime_xp += total_xp
-        else:
-            task.completed_at = None
-            # Deduct exact XP awarded to prevent exploit
-            task.user.xp = max(0, task.user.xp - task.xp_awarded)
-            task.xp_awarded = 0
+                # Check for active sessions (currently running for THIS task)
+                act_sess = FocusSession.query.filter(FocusSession.task_id == task_id, FocusSession.end_time == None).all()
+                act_sec = sum([(datetime.utcnow() - s.start_time).total_seconds() for s in act_sess])
+                
+                final_total = comp_sec + act_sec
+                
+                print(f"DEBUG: Completion attempt for Task {task_id} ('{task.title}')")
+                print(f"DEBUG: Persistent History: {comp_sec}s")
+                print(f"DEBUG: Active Sessions: {len(act_sess)} ({act_sec}s)")
+                print(f"DEBUG: Required: 1500s | Current: {final_total}s")
+                
+                if final_total < 1500:
+                    rem = 1500 - final_total
+                    rmin, rsec = int(rem // 60), int(rem % 60)
+                    cmin, csec = int(final_total // 60), int(final_total % 60)
+                    return jsonify({
+                        'error': f'You need to focus on this task for {rmin}m {rsec}s more. (Current: {cmin}m {csec}s / 25m)'
+                    }), 400
+                
+                # SUCCESS: PERMIT COMPLETION
+                task.is_completed = True
+                task.completed_at = datetime.utcnow()
+                
+                # Auto-close active sessions (Zombie protection)
+                for s in act_sess:
+                    if not s.end_time: # Double check
+                        s.end_time = datetime.utcnow()
+                        s.duration_minutes = max(1, int((s.end_time - s.start_time).total_seconds() // 60))
+                
+                # Award XP
+                today = datetime.utcnow().date()
+                start_of_day = datetime(today.year, today.month, today.day)
+                daily_count = Task.query.filter(Task.user_id == current_user.id, Task.is_completed == True, Task.completed_at >= start_of_day).count()
+                
+                if daily_count < 10: # Anti-farming limit
+                    weights = {'high': 50, 'medium': 20, 'low': 10}
+                    base = weights.get(task.priority, 20)
+                    check_streak(task.user)
+                    bonus = 1 + (min(task.user.current_streak, 10) * 0.05)
+                    reward = round(base * bonus)
+                    
+                    task.xp_awarded = reward
+                    task.user.xp += reward
+                    task.user.lifetime_xp += reward
+                updated_fields.append('is_completed')
+            else:
+                # UNMARKING AS COMPLETED
+                task.is_completed = False
+                task.completed_at = None
+                # Deduct exactly what was given
+                task.user.xp = max(0, task.user.xp - task.xp_awarded)
+                task.xp_awarded = 0
+                updated_fields.append('is_completed')
 
+    # 2. HANDLE METADATA UPDATES
     if 'title' in data:
         task.title = data['title']
+        updated_fields.append('title')
     
     if 'priority' in data:
         task.priority = data['priority']
+        updated_fields.append('priority')
         
-    db.session.commit()
-    
-    db.session.commit()
-    
-    # Check Level Up & Badges
-    check_level_up(task.user)
-    check_badges(task.user)
+    if updated_fields:
+        db.session.commit()
+        check_level_up(task.user)
+        check_badges(task.user)
     
     return jsonify(task.to_dict())
+
 
 @api.route('/tasks/<int:task_id>', methods=['DELETE'])
 @token_required
@@ -529,84 +558,143 @@ def delete_task(current_user, task_id):
     db.session.commit()
     return jsonify({'message': 'Task deleted successfully'})
 
-# FocusSession Endpoints
-@api.route('/focus_sessions', methods=['POST'])
-@token_required
-def create_focus_session(current_user):
-    data = request.get_json()
-    # Remove redundant check
-    # if data['user_id'] != current_user.id:
-    #     return jsonify({'error': 'Unauthorized'}), 403
-        
-    duration = data.get('duration_minutes', 0)
-    start_time = datetime.fromisoformat(data['start_time'].replace('Z', '+00:00'))
-    end_time_str = data.get('end_time')
-    
-    if not end_time_str:
-        return jsonify({'error': 'End time is required'}), 400
-        
-    end_time = datetime.fromisoformat(end_time_str.replace('Z', '+00:00'))
-    
-    # Validate Duration
-    calculated_duration = (end_time - start_time).total_seconds() / 60
-    
-    # Allow 1 minute variance for network latency / rounding
-    if abs(calculated_duration - duration) > 1:
-        # If mismatch is huge, reject. 
-        # But for now, let's trust the server calculation over the client
-        duration = int(calculated_duration)
-    
-    # Cap max duration to prevent exploits (e.g. max 3 hours per session)
-    if duration > 180:
-        return jsonify({'error': 'Session too long. Please sync more often.'}), 400
-    
-    if duration < 0:
-        return jsonify({'error': 'Invalid duration'}), 400
+# --- NEW ANTI-CHEAT ENDPOINTS ---
 
-    new_session = FocusSession(
-        user_id=current_user.id, # Trust token
-        task_id=data.get('task_id'),
-        start_time=start_time,
-        end_time=end_time,
-        duration_minutes=duration
-    )
+@api.route('/focus-session/start', methods=['POST'])
+@token_required
+def start_focus_session(current_user):
+    data = request.get_json()
+    task_id = data.get('task_id')
     
-    # Award XP: 1 XP per minute (Capped at 300 XP/Day)
-    user = current_user # Use current_user directly
-    if user:
+    # Validate task_id (handle "none" string from frontend)
+    try:
+        task_id = int(task_id) if task_id and str(task_id).lower() != 'none' else None
+    except ValueError:
+        task_id = None
+
+    # Create a session row now with start_time and server timestamp
+    new_session = FocusSession(
+        user_id=current_user.id,
+        task_id=task_id,
+        start_time=datetime.utcnow(),
+        start_time_server=datetime.utcnow(),
+        duration_minutes=0
+    )
+    db.session.add(new_session)
+    db.session.commit()
+    
+    # Return session_id so frontend can end it later
+    return jsonify({
+        'session_id': new_session.id,
+        'start_time': new_session.start_time.isoformat(),
+        'message': 'Focus session started. Santa is watching! 👀'
+    }), 201
+
+@api.route('/focus-session/end', methods=['POST'])
+@token_required
+def end_focus_session(current_user):
+    data = request.get_json()
+    session_id = data.get('session_id')
+    client_duration = data.get('duration', 0)
+    
+    if not session_id:
+        return jsonify({'error': 'Session ID required'}), 400
+        
+    session = FocusSession.query.get(session_id)
+    if not session or session.user_id != current_user.id:
+        return jsonify({'error': 'Session not found'}), 404
+        
+    if session.end_time: # Already ended
+        return jsonify({'error': 'Session already completed'}), 400
+        
+    # VALIDATION LOGIC
+    now = datetime.utcnow()
+    server_duration = (now - session.start_time_server).total_seconds() / 60
+    
+    # Variance check (allow 10 seconds / 0.16 mins tolerance)
+    variance = abs(server_duration - client_duration)
+    # If client claims SIGNIFICANTLY more time than server saw -> CHEAT
+    # Allowing small variance for network latency
+    is_cheating = variance > 0.5 and server_duration < client_duration
+    
+    if is_cheating:
+        print(f"🚨 CHEAT DETECTED: User {current_user.username} tried to fake {client_duration}m but server saw {server_duration}m")
+        # Ensure we don't save the fake duration, but verify minimum server time
+        session.duration_minutes = 0
+        session.end_time = now
+        db.session.commit()
+        
+        return jsonify({
+            'message': 'Lump of Coal! 🎅 Server detected time manipulation.',
+            'cheated': True,
+            'penalty': 'lump_of_coal'
+        }), 200
+
+    # Trust server time, but ROUND so 24m 50s becomes 25m
+    session.duration_minutes = int(round(server_duration))
+    # Always give at least 1 min if it was a valid session
+    if session.duration_minutes < 1:
+        session.duration_minutes = 1
+
+    session.end_time = now
+    
+    # Update Task's accumulated time if linked
+    if session.task:
+        inc = int((now - session.start_time).total_seconds())
+        session.task.accumulated_focus_seconds += inc
+        print(f"DEBUG: Session {session.id} ended. Task {session.task_id} gained {inc}s. Total: {session.task.accumulated_focus_seconds}s")
+    else:
+        print(f"DEBUG: Session {session.id} ended. (No task linked)")
+        
+    db.session.commit()
+    
+    # Award XP
+    xp_gained = 0
+    if current_user:
         today = datetime.utcnow().date()
         start_of_day = datetime(today.year, today.month, today.day)
-        
-        daily_focus_minutes = db.session.query(func.sum(FocusSession.duration_minutes)).filter(
-            FocusSession.user_id == user.id,
-            FocusSession.start_time >= start_of_day
+        daily_focus = db.session.query(func.sum(FocusSession.duration_minutes)).filter(
+             FocusSession.user_id == current_user.id,
+             FocusSession.start_time >= start_of_day,
+             FocusSession.id != session.id
         ).scalar() or 0
         
-        if daily_focus_minutes < 300:
-            remaining_cap = 300 - daily_focus_minutes
-            base_xp = min(duration, remaining_cap)
+        if daily_focus < 300:
+            base_xp = min(session.duration_minutes, 300 - daily_focus)
+            # Streak bonus
+            check_streak(current_user)
+            bonus = 1 + (min(current_user.current_streak, 10) * 0.05)
+            xp_gained = round(base_xp * bonus)
+            current_user.xp += xp_gained
+            current_user.lifetime_xp += xp_gained
+            current_user.total_focus_minutes += session.duration_minutes
             
-            # Streak Bonus multiplier
-            check_streak(user)
-            streak_bonus_multiplier = 1 + (min(user.current_streak, 10) * 0.05)
-            
-            xp_to_award = round(base_xp * streak_bonus_multiplier)
-            user.xp += xp_to_award
-            user.lifetime_xp += xp_to_award
-            
-        user.total_focus_minutes += duration
-        
-    db.session.add(new_session)
     db.session.commit()
     
-    db.session.add(new_session)
+    check_level_up(current_user)
+    check_badges(current_user)
+    
+    return jsonify({
+        'cheated': False,
+        'xp_gained': xp_gained,
+        'message': 'Session verified and saved!'
+    }), 200
+
+@api.route('/penalty', methods=['POST'])
+@token_required
+def apply_penalty(current_user):
+    data = request.get_json()
+    amount = data.get('xp_penalty', 0)
+    
+    current_user.xp = max(0, current_user.xp - amount)
     db.session.commit()
     
-    # Check Level Up & Badges
-    check_level_up(user)
-    check_badges(user)
+    print(f"👹 GRINCH PENALTY: User {current_user.username} lost {amount} XP.")
     
-    return jsonify(new_session.to_dict()), 201
+    return jsonify({
+        'message': f'The Grinch stole {amount} XP!',
+        'new_xp': current_user.xp
+    }), 200
 
 @api.route('/users/<int:user_id>/focus_sessions', methods=['GET'])
 @token_required
@@ -616,6 +704,33 @@ def get_user_focus_sessions(current_user, user_id):
         
     sessions = FocusSession.query.filter_by(user_id=user_id).all()
     return jsonify([session.to_dict() for session in sessions])
+
+# --- SOCIAL ACCOUNTABILITY ---
+
+@api.route('/public/stats', methods=['GET'])
+def get_public_stats():
+    # 1. Active Elves (Sessions started in last 60 mins not ended)
+    cutoff = datetime.utcnow() - timedelta(minutes=60)
+    active_count = FocusSession.query.filter(
+        FocusSession.start_time >= cutoff,
+        FocusSession.end_time == None
+    ).count()
+    
+    # 2. Nice List (Top 5 by XP)
+    top_students = User.query.filter_by(is_blocked=False).order_by(User.xp.desc()).limit(5).all()
+    nice_list = [{'username': u.username, 'xp': u.xp, 'avatar': u.avatar} for u in top_students]
+    
+    # 3. Naughty List Count (Users with Lump of Coal)
+    coal_gift = Gift.query.filter_by(code='lump_of_coal').first()
+    naughty_count = 0
+    if coal_gift:
+        naughty_count = UserGift.query.filter_by(gift_id=coal_gift.id, is_penalty=True).count()
+        
+    return jsonify({
+        'active_elves': max(active_count, 1), # Always at least 1 (the user themselves essentially)
+        'nice_list': nice_list,
+        'naughty_count': naughty_count
+    })
 
 # Quest Endpoints
 @api.route('/users/<int:user_id>/quests', methods=['GET'])

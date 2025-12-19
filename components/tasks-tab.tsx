@@ -113,28 +113,35 @@ export function TasksTab({ onStatsUpdate, isGuest }: { onStatsUpdate: () => void
     try {
       const newCompleted = !task.completed
 
-      // Optimistic update
-      setTasks(tasks.map(t => t.id === taskId ? { ...t, completed: newCompleted } : t))
+      // Optimistic update - TEMPORARILY DISABLED for validation check
+      // We want to wait for backend confirmation now
+      // setTasks(tasks.map(t => t.id === taskId ? { ...t, completed: newCompleted } : t))
 
-      await updateTask(taskId, { completed: newCompleted })
+      const updated = await updateTask(taskId, { completed: newCompleted })
 
-      if (newCompleted) {
-        fireConfetti()
-        // Play ding sound
-        const audio = new Audio("/audio/ding.mp3")
-        audio.volume = 0.5
-        audio.play().catch(() => { })
+      if (updated) {
+          // Success update local state
+          setTasks(tasks.map(t => t.id === taskId ? { ...t, completed: newCompleted } : t))
+          
+          if (newCompleted) {
+            fireConfetti()
+            const audio = new Audio("/audio/ding.mp3")
+            audio.volume = 0.5
+            audio.play().catch(() => { })
 
-        // Remove from UI after a small delay to let user see it check off
-        setTimeout(() => {
-          setTasks(prev => prev.filter(t => t.id !== taskId))
-        }, 1000)
+            setTimeout(() => {
+              setTasks(prev => prev.filter(t => t.id !== taskId))
+            }, 1000)
 
-        // Refresh quests to check for completion
-        const updatedQuests = await fetchQuests()
-        setQuests(updatedQuests)
-        onStatsUpdate()
+            const updatedQuests = await fetchQuests()
+            setQuests(updatedQuests)
+            onStatsUpdate()
+          }
       }
+    } catch (error: any) {
+        // Backend rejected (likely < 25 min focus)
+        toast.error(error.message || "Failed to update task")
+        // revert optimistic if we did it (we didn't)
     } finally {
       setUpdatingTaskId(null)
     }

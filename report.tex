@@ -65,6 +65,9 @@ Level 10 & 3,162 XP & $+3062\%$ \\
 \end{tabular}
 \end{center}
 
+\subsection{Minimum Focus Verification}
+To prevent "gamification fraud" (checking off tasks without doing work), we enforce a strict \textbf{25-Minute Rule}. A task cannot be marked as "Completed" unless the backend validates that at least 25 minutes of verified focus time have been logged specifically for that task ID.
+
 \subsection{Consistency Multipliers (Streak System)}
 To reward daily habits, we implemented a multiplicative streak bonus capped at 10 days ($M_S \leq 1.5x$).
 \begin{equation}
@@ -91,29 +94,55 @@ All administrative endpoints are protected by a server-side \texttt{@admin\_requ
 \section{Technical "Judge-Winning" Highlights}
 We prioritized robustness and efficiency through several advanced implementation choices:
 
-\subsection{1. Atomic Integrity \& Race-Condition Prevention}
-During gift unlocking, the backend utilizes \textbf{Row-Level Locking} to ensure XP balances are updated atomically. This prevents race-condition exploits.
+\subsection{1. Persistent Data Integrity (High-Performance Tracking)}
+To eliminate "Phantom Completion" and improve validation speed, we implemented a persistent \textbf{\texttt{accumulated\_focus\_seconds}} field directly in the Task model. 
+\begin{itemize}
+    \item \textbf{Verified Accumulation:} Every focus session, regardless of duration, is atomically committed to the parent task upon termination.
+    \item \textbf{Instant Validation:} The completion check now performs an $O(1)$ database lookup rather than expensive historical session aggregation, ensuring the frontend remains responsive even with thousands of logged sessions.
+\end{itemize}
 
-\subsection{2. Anti-Exploit "Farming" Protection}
-HackMas implements \textbf{Retroactive XP Deduction}. If a completed task is deleted, the awarded XP is verified and deducted, keeping the leaderboard fair and competitive.
+\subsection{2. Behavioral Persistence (Automatic Hand-In)}
+Understanding that real-world study involves interruptions, HackMas implements \textbf{Automatic Persistence}.
+\begin{itemize}
+    \item \textbf{Zero-Loss Policy:} Progress is synchronized with the backend on \texttt{Pause}, \texttt{Reset}, or \texttt{Early Exit}. This ensures students are credited for every second of work, even if they don't complete a full 25-minute Pomodoro in one sitting.
+    \item \textbf{Ghost Session Mitigation:} We hardened the Auth integration to prevent "Local-Only" timers. If the backend fails to initialize a session (due to auth mismatch or connectivity), the UI provides immediate toast-based feedback and prevents local timer start.
+\end{itemize}
 
-\subsection{3. Privacy Shield \& Cache Isolation}
-Our \texttt{signOut} implementation performing a multi-key cache purge ensures that Guest data and Authenticated data are strictly isolated, maintaining zero-leakage security on shared devices.
-
-\subsection{4. Rate-Limiting \& Resource Protection}
-To protect server resources, we implemented a \textbf{Task Cap} of 50 active tasks per user. This prevents potential DoS-style exploits where a user could spam task creation to bloat the database.
+\subsection{3. Server-Side Focus Validation (The "Lump of Coal" Protocol)}
+We migrated from client-side trust to a strict server-validated timing model.
+\begin{itemize}
+    \item \textbf{Secure Timestamping:} The server records an immutable \texttt{start\_time\_server} upon session initialization.
+    \item \textbf{Variance Detection:} Upon session completion, the server calculates the delta between the requested duration and the actual wall-clock time.
+    \item \textbf{Automated Penalties:} If a variance threshold is breached, the user is flagged for time manipulation, stripping XP and issuing a "Lump of Coal" penalty item.
+\end{itemize}
 
 \section{Immersive \& Engagement Features}
 To maximize user retention and "delight," we implemented three standout features:
 
-\subsection{1. Global North Pole (Live Activity Tracking)}
-The backend tracks user activity in real-time by updating a \texttt{last\_active\_date} timestamp on every authorized request. The frontend displays the number of "Elves Online" active within a \textbf{15-minute sliding window}. To ensure a vibrant community experience during demos, we implemented a "Demo Floor" that maintains a minimum visible count of 12 active workers.
+\subsection{1. Elf Surveillance \& Social Accountability}
+We replaced solitary study with a social graph. The \textbf{Elf Surveillance Widget} pulls real-time data from the \texttt{/public/stats} endpoint to display:
+\begin{itemize}
+    \item \textbf{Active Elves:} A live count of users currently in focus sessions (within a 60-minute sliding window).
+    \item \textbf{Nice List Ticker:} A scrolling leaderboard of the top 5 students by weekly XP.
+    \item \textbf{Naughty Alert:} A count of "Lumps of Coal" issued today, creating a community sense of accountability.
+\end{itemize}
 
 \subsection{2. Holiday Soundscapes (Ambient Audio Engine)}
 We built an integrated ambient audio player (\texttt{SoundscapePlayer.tsx}) that allows users to toggle between fireplace crackling, winter wind, and holiday lofi. This creates an immersive focus environment, significantly improving the UX during deep work.
 
 \subsection{3. The Wise Old Snowman (Reactive AI Sidekick)}
 A floating, animated mascot that utilizes a rule-based engine to provide context-aware "Wisdom." It analyzes user stats (streaks, focus time, level) to deliver timely encouragement or health reminders (e.g., "Drink water!"), effectively functioning as a lightweight AI coach.
+
+\subsection{4. Grinch Mode (Behavioral Enforcement)}
+To counter procrastination, we engineered "Grinch Mode"—a high-stakes focus environment.
+\begin{itemize}
+    \item \textbf{Loss Aversion:} Users must commit to a session. Exiting early results in an immediate deduction of 50 XP.
+    \item \textbf{Strict Enforcement Protocols:} We utilize the \texttt{Fullscreen API} and \texttt{visibilitychange} DOM events to detect if a user leaves the window, switches tabs, or exits fullscreen mode. Any breach triggers an immediate "Grinch Strike" penalty.
+    \item \textbf{In-App Lockdown:} During a Grinch session, the application navigation bar is programmatically disabled, preventing users from visiting the Leaderboard or Profile until the timer completes.
+\end{itemize}
+
+\subsection{5. Deep Work Protocol (Task Locking)}
+To enforce single-tasking, the "Deep Work Protocol" locks the task selection dropdown once a focus session begins. This technological constraint prevents "productivity cycling" (constantly switching tasks to avoid difficult work), ensuring users complete what they start.
 
 \section{Conclusion}
 HackMas combines festive aesthetics with professional-grade engineering. By merging advanced LaTeX documentation, RPG mathematics, and an enterprise-ready administration suite, we have created a productivity system that is objectively superior to standard task managers.

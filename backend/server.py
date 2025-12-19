@@ -45,6 +45,54 @@ def create_app(config_class=Config):
                 print("✅ Backfilled 'lifetime_xp' data.")
             except Exception as e:
                 print(f"❌ Migration failed: {e}")
+
+        try:
+            # Check if start_time_server exists in focus_session
+            db.session.execute(text('SELECT start_time_server FROM focus_session LIMIT 1'))
+        except Exception:
+             print("⚠️ Column 'start_time_server' missing in focus_session. Auto-migrating...")
+             db.session.rollback()
+             try:
+                 db.session.execute(text('ALTER TABLE focus_session ADD COLUMN start_time_server TIMESTAMP'))
+                 db.session.commit()
+                 print("✅ Added 'start_time_server' column.")
+             except Exception as e:
+                 print(f"❌ Migration failed for start_time_server: {e}")
+
+        try:
+            # Check if is_penalty exists in user_gift
+            db.session.execute(text('SELECT is_penalty FROM user_gift LIMIT 1'))
+        except Exception:
+             print("⚠️ Column 'is_penalty' missing in user_gift. Auto-migrating...")
+             db.session.rollback()
+             try:
+                 db.session.execute(text('ALTER TABLE user_gift ADD COLUMN is_penalty BOOLEAN DEFAULT FALSE'))
+                 db.session.commit()
+                 print("✅ Added 'is_penalty' column.")
+             except Exception as e:
+                 print(f"❌ Migration failed for is_penalty: {e}")
+
+        try:
+            # Check if accumulated_focus_seconds exists in task
+            db.session.execute(text('SELECT accumulated_focus_seconds FROM task LIMIT 1'))
+        except Exception:
+             print("⚠️ Column 'accumulated_focus_seconds' missing in task. Auto-migrating...")
+             db.session.rollback()
+             try:
+                 db.session.execute(text('ALTER TABLE task ADD COLUMN accumulated_focus_seconds INTEGER DEFAULT 0'))
+                 db.session.commit()
+                 print("✅ Added 'accumulated_focus_seconds' column.")
+                 
+                 # Backfill data from sessions
+                 from models import Task, FocusSession
+                 tasks = Task.query.all()
+                 for t in tasks:
+                     sessions = FocusSession.query.filter(FocusSession.task_id == t.id, FocusSession.end_time != None).all()
+                     t.accumulated_focus_seconds = int(sum([(s.end_time - s.start_time).total_seconds() for s in sessions]))
+                 db.session.commit()
+                 print("✅ Backfilled accumulated focus time.")
+             except Exception as e:
+                 print(f"❌ Migration failed for accumulated_focus_seconds: {e}")
         # -------------------------------------------
         
         # Seed Admin User
@@ -97,6 +145,11 @@ def create_app(config_class=Config):
         for code, name, desc, xp, rarity in gifts:
             if not Gift.query.filter_by(code=code).first():
                 db.session.add(Gift(code=code, name=name, description=desc, xp_required=xp, rarity=rarity))
+
+        # Seed Lump of Coal (Penalty Item)
+        coal = Gift.query.filter_by(code='lump_of_coal').first()
+        if not coal:
+            db.session.add(Gift(code='lump_of_coal', name='Lump of Coal', description='You were naughty! XP gains disabled for 24h.', xp_required=999999, rarity='legendary'))
 
         # Seed Initial Announcement
         if not Announcement.query.first():
