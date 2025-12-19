@@ -34,6 +34,8 @@ const CARD_BG = "rgba(30, 41, 59, 0.7)";
 const BORDER = "rgba(255, 255, 255, 0.1)";
 const TEXT_MAIN = "#F8FAFC";
 const TEXT_DIM = "#94A3B8";
+const TEXT_WHITE = "#FFFFFF";
+const SHADOW = "rgba(0, 0, 0, 0.3)";
 const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["StyleSheet"].create({
     page: {
         padding: 40,
@@ -59,8 +61,8 @@ const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 25,
-        borderBottom: `1pt solid ${BORDER}`,
+        marginBottom: 20,
+        borderBottom: `2pt solid ${GOLD_ACCENT}66`,
         paddingBottom: 15
     },
     brandBox: {
@@ -69,63 +71,89 @@ const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$
         gap: 10
     },
     logo: {
-        width: 40,
-        height: 40
+        width: 45,
+        height: 45
     },
     brandName: {
-        fontSize: 22,
-        fontWeight: "bold",
-        letterSpacing: 1.5,
+        fontSize: 24,
+        fontWeight: "black",
+        letterSpacing: 2,
         color: TEXT_MAIN
     },
     metaBox: {
         textAlign: "right"
     },
+    userLabel: {
+        fontSize: 7,
+        color: TEXT_DIM,
+        textTransform: "uppercase",
+        letterSpacing: 1,
+        marginBottom: 2
+    },
     userName: {
-        fontSize: 14,
-        fontWeight: "bold",
-        color: GREEN_ACCENT
+        fontSize: 18,
+        fontWeight: "black",
+        color: GOLD_ACCENT,
+        letterSpacing: 1
     },
     reportId: {
         fontSize: 8,
         color: TEXT_DIM,
-        marginTop: 2
+        marginTop: 4
     },
     // Dashboard Section
     dashboard: {
         flexDirection: "row",
-        gap: 15,
-        marginBottom: 20
+        gap: 12,
+        marginBottom: 15
     },
     scoreCard: {
-        flex: 1.2,
+        flex: 1.5,
         backgroundColor: CARD_BG,
         borderRadius: 12,
-        padding: 20,
+        padding: 15,
         justifyContent: "center",
-        border: `1pt solid ${GOLD_ACCENT}33`
+        border: `1pt solid ${GOLD_ACCENT}44`
+    },
+    gradeCircle: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        border: `2pt solid ${GOLD_ACCENT}`,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(255, 215, 0, 0.1)",
+        position: "absolute",
+        right: 15,
+        top: 15
+    },
+    gradeText: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: GOLD_ACCENT
     },
     scoreLabel: {
-        fontSize: 9,
+        fontSize: 10,
         color: GOLD_ACCENT,
         textTransform: "uppercase",
         letterSpacing: 2,
         marginBottom: 4
     },
     scoreValue: {
-        fontSize: 36,
-        fontWeight: "bold"
+        fontSize: 42,
+        fontWeight: "black",
+        color: TEXT_MAIN
     },
     scoreSub: {
-        fontSize: 9,
+        fontSize: 8,
         color: TEXT_DIM,
-        marginTop: 4
+        marginTop: 2
     },
     levelCard: {
         flex: 1,
         backgroundColor: CARD_BG,
         borderRadius: 12,
-        padding: 20,
+        padding: 15,
         alignItems: "center",
         justifyContent: "center",
         border: `1pt solid ${BORDER}`
@@ -135,25 +163,25 @@ const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$
         paddingHorizontal: 8,
         paddingVertical: 3,
         borderRadius: 4,
-        marginBottom: 10
+        marginBottom: 8
     },
     levelTagText: {
-        fontSize: 10,
+        fontSize: 9,
         color: DARK_BG,
         fontWeight: "bold"
     },
     xpDisplay: {
-        fontSize: 10,
+        fontSize: 9,
         color: TEXT_DIM,
-        marginTop: 5
+        marginTop: 4
     },
     // Main Content
     mainRow: {
         flexDirection: "row",
-        gap: 20
+        gap: 15
     },
     leftCol: {
-        flex: 1.8
+        flex: 2
     },
     rightCol: {
         flex: 1
@@ -161,27 +189,28 @@ const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$
     section: {
         backgroundColor: CARD_BG,
         borderRadius: 12,
-        padding: 15,
-        marginBottom: 15,
+        padding: 12,
+        marginBottom: 12,
         border: `1pt solid ${BORDER}`
     },
     sectionTitle: {
-        fontSize: 11,
+        fontSize: 10,
         fontWeight: "bold",
-        color: TEXT_DIM,
+        color: GOLD_ACCENT,
         textTransform: "uppercase",
         letterSpacing: 1.5,
-        marginBottom: 15,
-        borderBottom: `0.5pt solid ${BORDER}`,
-        paddingBottom: 5
+        marginBottom: 12,
+        borderBottom: `1pt solid ${BORDER}`,
+        paddingBottom: 4
     },
     // Analytics Styles
     chartArea: {
-        height: 120,
+        height: 100,
         flexDirection: "row",
         alignItems: "flex-end",
-        gap: 8,
-        marginTop: 5
+        gap: 10,
+        marginTop: 15,
+        paddingHorizontal: 5
     },
     barGroup: {
         flex: 1,
@@ -191,67 +220,74 @@ const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$
     bar: {
         width: "100%",
         borderRadius: 4,
-        backgroundColor: "rgba(255, 255, 255, 0.05)"
+        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        border: `1pt solid rgba(255, 255, 255, 0.1)`
     },
     activeBar: {
-        backgroundColor: RED_ACCENT
+        backgroundColor: GREEN_ACCENT,
+        border: `1pt solid ${GREEN_ACCENT}88`
     },
     barText: {
         fontSize: 8,
         color: TEXT_DIM
     },
     barValue: {
-        fontSize: 7,
-        color: TEXT_MAIN,
+        fontSize: 8,
+        color: TEXT_WHITE,
         fontWeight: "bold",
         position: "absolute",
-        top: -12
+        top: -15
+    },
+    metricsGrid: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 10
+    },
+    simpleMetric: {
+        flex: 1,
+        minWidth: "45%",
+        backgroundColor: "rgba(255, 255, 255, 0.03)",
+        padding: 10,
+        borderRadius: 8
     },
     intensityBar: {
-        height: 6,
-        backgroundColor: BORDER,
-        borderRadius: 3,
-        marginVertical: 10,
+        height: 8,
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
+        borderRadius: 4,
+        marginVertical: 8,
         overflow: "hidden"
     },
     intensityFill: {
         height: "100%",
-        backgroundColor: GREEN_ACCENT
+        backgroundColor: RED_ACCENT
     },
     // List Styles
     badgeList: {
         flexDirection: "row",
         flexWrap: "wrap",
-        gap: 6
+        gap: 5
     },
     badgeItem: {
-        backgroundColor: "rgba(255, 255, 255, 0.05)",
-        border: `0.5pt solid ${GOLD_ACCENT}44`,
+        backgroundColor: "rgba(74, 222, 128, 0.1)",
+        border: `1pt solid ${GREEN_ACCENT}44`,
         paddingHorizontal: 8,
-        paddingVertical: 4,
+        paddingVertical: 3,
         borderRadius: 6
     },
     badgeLabel: {
         fontSize: 8,
-        color: GOLD_ACCENT,
+        color: GREEN_ACCENT,
         fontWeight: "bold"
     },
     taskRow: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingVertical: 6,
+        paddingVertical: 4,
         borderBottom: `0.5pt solid ${BORDER}`
     },
     taskName: {
         fontSize: 9,
-        color: TEXT_MAIN
-    },
-    taskBadge: {
-        fontSize: 7,
-        paddingHorizontal: 4,
-        paddingVertical: 1,
-        borderRadius: 2,
         color: TEXT_MAIN
     },
     // Executive Summary
@@ -259,30 +295,31 @@ const styles = __TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$
         backgroundColor: "rgba(255, 255, 255, 0.02)",
         borderRadius: 8,
         padding: 10,
-        borderLeft: `3pt solid ${RED_ACCENT}`
+        borderLeft: `3pt solid ${GOLD_ACCENT}`
     },
     summaryText: {
         fontSize: 9,
-        lineHeight: 1.5,
-        color: "rgba(255, 255, 255, 0.8)",
+        lineHeight: 1.4,
+        color: "rgba(255, 255, 255, 0.9)",
         fontStyle: "italic"
     },
     footer: {
         position: "absolute",
-        bottom: 30,
+        bottom: 25,
         left: 40,
         right: 40,
         flexDirection: "row",
         justifyContent: "space-between",
         borderTop: `1pt solid ${BORDER}`,
-        paddingTop: 10
+        paddingTop: 8
     },
     footerLabel: {
         fontSize: 8,
-        color: TEXT_DIM
+        color: TEXT_DIM,
+        letterSpacing: 1
     }
 });
-const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
+const PdfDocument = ({ settings, stats, recentTasks, allBadges, focusHistory, allFocusSessions, date })=>{
     const weekly = stats.weeklyFocus ?? [
         0,
         0,
@@ -292,18 +329,36 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
         0,
         0
     ];
-    const maxFocus = Math.max(...weekly, 1);
+    const maxFocus = Math.max(...weekly, 30) // Minimum of 30 for scale
+    ;
     const todayIndex = (new Date().getDay() + 6) % 7 // Monday = 0
     ;
-    // Professional Metrics
-    const corePerformance = Math.min(100, Math.round(stats.tasksCompleted * 5 + stats.totalFocusMinutes / 10 + stats.currentStreak * 10));
-    const estPomodoros = Math.round(stats.totalFocusMinutes / 25);
+    // Accurate Metrics Logic
+    // 1. Deep Work Index: Real session count >= 25 minutes
+    const deepSessions = allFocusSessions.filter((s)=>s.duration_minutes >= 25).length;
+    // 2. Average Session Time: Total Time / Total Session Count
+    const sessionCount = Math.max(allFocusSessions.length, 1);
+    const avgSessionTime = Math.round(stats.totalFocusMinutes / sessionCount);
+    // 3. Balanced Performance Index
+    // 50% Focus Time (Target 1500m), 30% Completion (Target 30), 20% Consistency (Target 10d Streak)
+    const focusScore = Math.min(50, stats.totalFocusMinutes / 1500 * 50);
+    const taskScore = Math.min(30, stats.tasksCompleted / 30 * 30);
+    const streakScore = Math.min(20, stats.currentStreak / 10 * 20);
+    const corePerformance = Math.round(focusScore + taskScore + streakScore);
     const intensity = Math.min(100, stats.todayFocusMinutes / 300 * 100);
-    // Dynamic Summary
+    const getGrade = ()=>{
+        if (corePerformance > 90) return "S";
+        if (corePerformance > 75) return "A";
+        if (corePerformance > 55) return "B";
+        if (corePerformance > 35) return "C";
+        return "D";
+    };
     const getSummary = ()=>{
-        if (corePerformance > 80) return "Exceptional focus. Your study pattern indicates high cognitive endurance. You are consistently outperforming the average study bracket.";
-        if (corePerformance > 50) return "Solid momentum. You've established a healthy study rhythm. Increasing your Streak could further amplify your learning compounding.";
-        return "Building foundations. Focus on completing 2-3 High Priority tasks daily to rapidly increase your Productivity Index.";
+        const grade = getGrade();
+        if (grade === "S") return "Master Class Productivity. You have achieved an elite level of flow. Your cognitive endurance is within the top 1% of users.";
+        if (grade === "A") return "Exemplary consistency. Your session data shows significant high-quality focus. Maintain this rhythm to achieve peak learning velocity.";
+        if (grade === "B") return "Solid study habits identified. Your metrics indicate regular study sessions, though increasing Deep Work length would boost results.";
+        return "Growth opportunities detected. Increasing your average session time to 25+ minutes will significantly improve your learning retention and rank.";
     };
     const getBadgeLabel = (code)=>{
         const b = allBadges.find((x)=>x.code === code);
@@ -321,7 +376,7 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                     fixed: true
                 }, void 0, false, {
                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                    lineNumber: 305,
+                    lineNumber: 367,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -338,7 +393,7 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             style: styles.logo
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 311,
+                                            lineNumber: 373,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
@@ -346,47 +401,55 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             children: "HACKMAS"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 312,
+                                            lineNumber: 374,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 310,
+                                    lineNumber: 372,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
                                     style: styles.metaBox,
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
-                                            style: styles.userName,
-                                            children: settings.name
+                                            style: styles.userLabel,
+                                            children: "Productivity Audit For"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 315,
+                                            lineNumber: 377,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                            style: styles.userName,
+                                            children: settings.name.toUpperCase()
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                            lineNumber: 378,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                             style: styles.reportId,
                                             children: [
-                                                "AUDIT ID: HSB-",
+                                                "AUDIT ID: #",
                                                 Date.now().toString().slice(-6)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 316,
+                                            lineNumber: 379,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 314,
+                                    lineNumber: 376,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                            lineNumber: 309,
+                            lineNumber: 371,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -395,12 +458,27 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
                                     style: styles.scoreCard,
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
-                                            style: styles.scoreLabel,
-                                            children: "Performance Index"
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                            style: styles.gradeCircle,
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                style: styles.gradeText,
+                                                children: getGrade()
+                                            }, void 0, false, {
+                                                fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                lineNumber: 387,
+                                                columnNumber: 33
+                                            }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 323,
+                                            lineNumber: 386,
+                                            columnNumber: 29
+                                        }, ("TURBOPACK compile-time value", void 0)),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                            style: styles.scoreLabel,
+                                            children: "Productivity Index"
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                            lineNumber: 389,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
@@ -411,21 +489,21 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 324,
+                                            lineNumber: 390,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                             style: styles.scoreSub,
-                                            children: "Based on focus time and task velocity"
+                                            children: "A holistic metric of focus volume, accuracy, and streak consistency"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 325,
+                                            lineNumber: 391,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 322,
+                                    lineNumber: 385,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -435,21 +513,25 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             style: styles.levelTag,
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                 style: styles.levelTagText,
-                                                children: "RANK: SCHOLAR"
-                                            }, void 0, false, {
+                                                children: [
+                                                    "RANK: ",
+                                                    getGrade() === "S" ? "EINSTEIN" : "SCHOLAR"
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                lineNumber: 329,
+                                                lineNumber: 395,
                                                 columnNumber: 33
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 328,
+                                            lineNumber: 394,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                             style: {
-                                                fontSize: 24,
-                                                fontWeight: "bold"
+                                                fontSize: 28,
+                                                fontWeight: "bold",
+                                                color: TEXT_MAIN
                                             },
                                             children: [
                                                 "LEVEL ",
@@ -457,7 +539,7 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 331,
+                                            lineNumber: 397,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
@@ -468,19 +550,19 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 332,
+                                            lineNumber: 398,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 327,
+                                    lineNumber: 393,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                            lineNumber: 321,
+                            lineNumber: 384,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -494,10 +576,14 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                     style: styles.sectionTitle,
-                                                    children: "Focus Distribution (Weekly)"
-                                                }, void 0, false, {
+                                                    children: [
+                                                        "Weekly Focus Distribution (Total: ",
+                                                        stats.weekFocusMinutes,
+                                                        "m)"
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 340,
+                                                    lineNumber: 406,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -507,56 +593,58 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                                     style: styles.barValue,
-                                                                    children: v > 0 ? v + "m" : ""
+                                                                    children: v > 0 ? v : ""
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 410,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
                                                                     style: [
                                                                         styles.bar,
                                                                         {
-                                                                            height: `${v / maxFocus * 100}%`
+                                                                            height: `${Math.max(v / maxFocus * 100, 2)}%`
                                                                         },
-                                                                        i === todayIndex ? styles.activeBar : {}
+                                                                        v > 0 ? styles.activeBar : {
+                                                                            backgroundColor: "rgba(255, 255, 255, 0.08)"
+                                                                        }
                                                                     ]
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 345,
+                                                                    lineNumber: 411,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                                     style: styles.barText,
                                                                     children: [
-                                                                        "M",
-                                                                        "T",
-                                                                        "W",
-                                                                        "T",
-                                                                        "F",
-                                                                        "S",
-                                                                        "S"
+                                                                        "MON",
+                                                                        "TUE",
+                                                                        "WED",
+                                                                        "THU",
+                                                                        "FRI",
+                                                                        "SAT",
+                                                                        "SUN"
                                                                     ][i]
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 350,
+                                                                    lineNumber: 416,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, i, true, {
                                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                            lineNumber: 343,
+                                                            lineNumber: 409,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 407,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 339,
+                                            lineNumber: 405,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -564,30 +652,28 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                     style: styles.sectionTitle,
-                                                    children: "Productivity Metrics"
+                                                    children: "All-Time Productivity Journey"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 357,
+                                                    lineNumber: 424,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
-                                                    style: {
-                                                        flexDirection: "row",
-                                                        justifyContent: "space-between",
-                                                        marginBottom: 15
-                                                    },
+                                                    style: styles.metricsGrid,
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                                            style: styles.simpleMetric,
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                                     style: {
-                                                                        fontSize: 18,
-                                                                        fontWeight: "bold"
+                                                                        fontSize: 16,
+                                                                        fontWeight: "bold",
+                                                                        color: GOLD_ACCENT
                                                                     },
-                                                                    children: estPomodoros
+                                                                    children: stats.totalFocusMinutes
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 360,
+                                                                    lineNumber: 427,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
@@ -595,35 +681,31 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                                         fontSize: 8,
                                                                         color: TEXT_DIM
                                                                     },
-                                                                    children: "Estimated Pomodoros"
+                                                                    children: "Total Minutes"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 361,
+                                                                    lineNumber: 428,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                            lineNumber: 359,
+                                                            lineNumber: 426,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
-                                                            style: {
-                                                                textAlign: "right"
-                                                            },
+                                                            style: styles.simpleMetric,
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                                     style: {
-                                                                        fontSize: 18,
-                                                                        fontWeight: "bold"
+                                                                        fontSize: 16,
+                                                                        fontWeight: "bold",
+                                                                        color: GREEN_ACCENT
                                                                     },
-                                                                    children: [
-                                                                        stats.currentStreak,
-                                                                        " Days"
-                                                                    ]
-                                                                }, void 0, true, {
+                                                                    children: stats.tasksCompleted
+                                                                }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 364,
+                                                                    lineNumber: 431,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
@@ -631,74 +713,149 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                                         fontSize: 8,
                                                                         color: TEXT_DIM
                                                                     },
-                                                                    children: "Unbroken Streak"
+                                                                    children: "Tasks Completed"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 365,
+                                                                    lineNumber: 432,
                                                                     columnNumber: 41
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                            lineNumber: 363,
+                                                            lineNumber: 430,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                                            style: styles.simpleMetric,
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                                    style: {
+                                                                        fontSize: 16,
+                                                                        fontWeight: "bold",
+                                                                        color: RED_ACCENT
+                                                                    },
+                                                                    children: stats.currentStreak
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                                    lineNumber: 435,
+                                                                    columnNumber: 41
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                                    style: {
+                                                                        fontSize: 8,
+                                                                        color: TEXT_DIM
+                                                                    },
+                                                                    children: "Day Streak"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                                    lineNumber: 436,
+                                                                    columnNumber: 41
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                            lineNumber: 434,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                                            style: styles.simpleMetric,
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                                    style: {
+                                                                        fontSize: 16,
+                                                                        fontWeight: "bold",
+                                                                        color: GREEN_ACCENT
+                                                                    },
+                                                                    children: deepSessions
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                                    lineNumber: 439,
+                                                                    columnNumber: 41
+                                                                }, ("TURBOPACK compile-time value", void 0)),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                                    style: {
+                                                                        fontSize: 8,
+                                                                        color: TEXT_DIM
+                                                                    },
+                                                                    children: "Deep Work Sessions"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                                    lineNumber: 440,
+                                                                    columnNumber: 41
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                            lineNumber: 438,
                                                             columnNumber: 37
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 358,
-                                                    columnNumber: 33
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
-                                                    style: {
-                                                        fontSize: 8,
-                                                        color: TEXT_DIM,
-                                                        textTransform: "uppercase"
-                                                    },
-                                                    children: "Focus Intensity Cap"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 369,
+                                                    lineNumber: 425,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
-                                                    style: styles.intensityBar,
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
-                                                        style: [
-                                                            styles.intensityFill,
-                                                            {
-                                                                width: `${intensity}%`
-                                                            }
-                                                        ]
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                        lineNumber: 371,
-                                                        columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 370,
-                                                    columnNumber: 33
-                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                     style: {
-                                                        fontSize: 7,
-                                                        color: TEXT_DIM
+                                                        marginTop: 15
                                                     },
                                                     children: [
-                                                        "Current intensity: ",
-                                                        intensity,
-                                                        "% of daily target reached"
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                            style: {
+                                                                fontSize: 8,
+                                                                color: TEXT_DIM,
+                                                                textTransform: "uppercase",
+                                                                letterSpacing: 1
+                                                            },
+                                                            children: "Daily Focus Load"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                            lineNumber: 445,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                                            style: styles.intensityBar,
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                                                style: [
+                                                                    styles.intensityFill,
+                                                                    {
+                                                                        width: `${intensity}%`
+                                                                    }
+                                                                ]
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                                lineNumber: 447,
+                                                                columnNumber: 41
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                            lineNumber: 446,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
+                                                            style: {
+                                                                fontSize: 7,
+                                                                color: TEXT_DIM
+                                                            },
+                                                            children: [
+                                                                intensity,
+                                                                "% of daily 5-hour target achieved"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
+                                                            lineNumber: 449,
+                                                            columnNumber: 37
+                                                        }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 373,
+                                                    lineNumber: 444,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 356,
+                                            lineNumber: 423,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -709,7 +866,7 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                     children: "Snowman's Executive Advice"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 377,
+                                                    lineNumber: 454,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -723,24 +880,24 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                        lineNumber: 379,
+                                                        lineNumber: 456,
                                                         columnNumber: 37
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 378,
+                                                    lineNumber: 455,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 376,
+                                            lineNumber: 453,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 338,
+                                    lineNumber: 403,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -754,69 +911,45 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                     children: "Recent Mastery"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 387,
+                                                    lineNumber: 464,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                recentTasks.slice(0, 6).map((t, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
+                                                recentTasks.slice(0, 8).map((t, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
                                                         style: styles.taskRow,
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                                                 style: styles.taskName,
                                                                 children: [
-                                                                    t.title.slice(0, 20),
-                                                                    t.title.length > 20 ? "..." : ""
+                                                                    t.title.slice(0, 15),
+                                                                    t.title.length > 15 ? "..." : ""
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                lineNumber: 390,
+                                                                lineNumber: 467,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
-                                                                style: [
-                                                                    styles.taskBadge,
-                                                                    {
-                                                                        backgroundColor: t.priority === "high" ? RED_ACCENT : t.priority === "medium" ? GOLD_ACCENT : GREEN_ACCENT
-                                                                    }
-                                                                ],
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
-                                                                    style: {
-                                                                        fontSize: 6,
-                                                                        fontWeight: "bold"
-                                                                    },
-                                                                    children: t.priority.toUpperCase()
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 395,
-                                                                    columnNumber: 45
-                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                                style: {
+                                                                    width: 4,
+                                                                    height: 4,
+                                                                    borderRadius: 2,
+                                                                    backgroundColor: t.priority === "high" ? RED_ACCENT : t.priority === "medium" ? GOLD_ACCENT : GREEN_ACCENT
+                                                                }
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                lineNumber: 391,
+                                                                lineNumber: 468,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, i, true, {
                                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                        lineNumber: 389,
+                                                        lineNumber: 466,
                                                         columnNumber: 37
-                                                    }, ("TURBOPACK compile-time value", void 0))),
-                                                recentTasks.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
-                                                    style: {
-                                                        fontSize: 8,
-                                                        color: TEXT_DIM,
-                                                        textAlign: "center",
-                                                        marginVertical: 20
-                                                    },
-                                                    children: "No recently logged tasks"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 400,
-                                                    columnNumber: 37
-                                                }, ("TURBOPACK compile-time value", void 0))
+                                                    }, ("TURBOPACK compile-time value", void 0)))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 386,
+                                            lineNumber: 463,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -827,7 +960,7 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                     children: "Trophy Cabinet"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 405,
+                                                    lineNumber: 480,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -840,12 +973,12 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                                     children: getBadgeLabel(b)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                    lineNumber: 409,
+                                                                    lineNumber: 484,
                                                                     columnNumber: 45
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             }, b, false, {
                                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                                lineNumber: 408,
+                                                                lineNumber: 483,
                                                                 columnNumber: 41
                                                             }, ("TURBOPACK compile-time value", void 0))),
                                                         stats.badges.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
@@ -856,34 +989,34 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                                                                 width: "100%",
                                                                 marginVertical: 10
                                                             },
-                                                            children: "Keep working to earn badges!"
+                                                            children: "No trophies earned yet."
                                                         }, void 0, false, {
                                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                            lineNumber: 413,
+                                                            lineNumber: 488,
                                                             columnNumber: 41
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                                    lineNumber: 406,
+                                                    lineNumber: 481,
                                                     columnNumber: 33
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                            lineNumber: 404,
+                                            lineNumber: 479,
                                             columnNumber: 29
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 385,
+                                    lineNumber: 461,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                            lineNumber: 336,
+                            lineNumber: 402,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["View"], {
@@ -892,44 +1025,44 @@ const PdfDocument = ({ settings, stats, recentTasks, allBadges, date })=>{
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                     style: styles.footerLabel,
-                                    children: "HACKMAS HOLIDAY STUDY BUDDY - PRODUCTIVITY AUDIT"
+                                    children: "HACKMAS HOLIDAY STUDY BUDDY • PROFESSIONAL AUDIT"
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 422,
+                                    lineNumber: 497,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f40$react$2d$pdf$2f$renderer__$5b$external$5d$__$2840$react$2d$pdf$2f$renderer$2c$__esm_import$29$__["Text"], {
                                     style: styles.footerLabel,
                                     children: [
-                                        "GENERATED ON ",
-                                        date.toUpperCase()
+                                        "VERIFIED ON ",
+                                        date
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                                    lineNumber: 423,
+                                    lineNumber: 498,
                                     columnNumber: 25
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                            lineNumber: 421,
+                            lineNumber: 496,
                             columnNumber: 21
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-                    lineNumber: 307,
+                    lineNumber: 369,
                     columnNumber: 17
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-            lineNumber: 304,
+            lineNumber: 366,
             columnNumber: 13
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx",
-        lineNumber: 303,
+        lineNumber: 365,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

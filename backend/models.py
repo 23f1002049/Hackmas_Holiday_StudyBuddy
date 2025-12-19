@@ -12,6 +12,7 @@ class User(db.Model):
     is_blocked = db.Column(db.Boolean, default=False)
     auth_provider = db.Column(db.String(20), nullable=False) # guest / email / github
     xp = db.Column(db.Integer, default=0)
+    lifetime_xp = db.Column(db.Integer, default=0)
     level = db.Column(db.Integer, default=1)
     current_streak = db.Column(db.Integer, default=0)
     total_focus_minutes = db.Column(db.Integer, default=0)
@@ -50,6 +51,7 @@ class User(db.Model):
             'is_blocked': self.is_blocked,
             'auth_provider': self.auth_provider,
             'xp': self.xp,
+            'lifetime_xp': self.lifetime_xp,
             'level': self.level,
             'current_streak': self.current_streak,
             'total_focus_minutes': self.total_focus_minutes,

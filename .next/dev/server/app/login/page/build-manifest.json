@@ -2,20 +2,20 @@
   "devFiles": [],
   "ampDevFiles": [],
   "polyfillFiles": [
-    "static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js"
+    "static/chunks/adfa4_next_dist_build_polyfills_polyfill-nomodule.js"
   ],
   "lowPriorityFiles": [],
   "rootMainFiles": [
-    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_c8babe70._.js",
-    "static/chunks/node_modules_next_dist_compiled_react-dom_1e674e59._.js",
-    "static/chunks/node_modules_next_dist_compiled_react-server-dom-turbopack_9212ccad._.js",
-    "static/chunks/node_modules_next_dist_compiled_next-devtools_index_1dd7fb59.js",
-    "static/chunks/node_modules_next_dist_compiled_a0e4c7b4._.js",
-    "static/chunks/node_modules_next_dist_client_aaee43fe._.js",
-    "static/chunks/node_modules_next_dist_7a8122d0._.js",
-    "static/chunks/4e2c9_@swc_helpers_cjs_0c5313ba._.js",
-    "static/chunks/_a0ff3932._.js",
-    "static/chunks/turbopack-_cf1a2523._.js"
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_1486b339._.js",
+    "static/chunks/adfa4_next_dist_compiled_react-dom_999af860._.js",
+    "static/chunks/adfa4_next_dist_compiled_react-server-dom-turbopack_fd0c904f._.js",
+    "static/chunks/adfa4_next_dist_compiled_next-devtools_index_f4d4ab75.js",
+    "static/chunks/adfa4_next_dist_compiled_fe648d8c._.js",
+    "static/chunks/adfa4_next_dist_client_6fdeeb1e._.js",
+    "static/chunks/adfa4_next_dist_4afe82f1._.js",
+    "static/chunks/b320f_@swc_helpers_cjs_90dca43d._.js",
+    "static/chunks/Downloads_Hackmas_Holiday_StudyBuddy_a0ff3932._.js",
+    "static/chunks/turbopack-Downloads_Hackmas_Holiday_StudyBuddy_905b81ab._.js"
   ],
   "pages": {},
   "ampFirstPages": []

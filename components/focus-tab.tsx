@@ -95,8 +95,9 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
 
   const handleTimerComplete = async () => {
     setIsRunning(false)
-    // Play tada sound
-    const audio = new Audio("/audio/tada.mp3")
+    // Play sound based on session type
+    const soundPath = isBreak ? "/audio/siren.mp3" : "/audio/tada.mp3"
+    const audio = new Audio(soundPath)
     audio.play().catch(() => { })
 
     if (!isBreak) {
@@ -187,12 +188,13 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
                   <RotateCcw className="h-5 w-5" /> Reset
                 </Button>
 
-                {!isBreak && timeLeft === 1500 && (
+                {!isBreak && (
                   <Button
                     size="lg"
                     onClick={() => {
                       setIsBreak(true)
                       setTimeLeft(300)
+                      setIsRunning(false) // Pause when switching
                     }}
                     variant="outline"
                     className="gap-2"
@@ -207,6 +209,7 @@ export function FocusTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
                     onClick={() => {
                       setIsBreak(false)
                       setTimeLeft(1500)
+                      setIsRunning(false)
                     }}
                     variant="outline"
                   >

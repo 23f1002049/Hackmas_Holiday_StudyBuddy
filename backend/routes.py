@@ -243,6 +243,7 @@ def reset_user_data(current_user, user_id):
     
     # Reset User Stats
     user.xp = 0
+    user.lifetime_xp = 0
     user.level = 1
     user.current_streak = 0
     user.total_focus_minutes = 0
@@ -277,6 +278,14 @@ def update_user(current_user, user_id):
     if 'sound_enabled' in data:
         user.sound_enabled = data['sound_enabled']
     
+    if 'username' in data:
+        new_username = data['username'].strip()
+        if new_username and new_username.lower() != (user.username or '').lower():
+            # Check if taken
+            if User.query.filter(User.username.ilike(new_username)).first():
+                return jsonify({'error': 'Username already taken'}), 400
+            user.username = new_username
+
     db.session.commit()
     return jsonify(user.to_dict())
 
@@ -300,9 +309,17 @@ def unblock_user(user_id):
 @admin_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
+    
+    # Manual cascade for relations
+    Task.query.filter_by(user_id=user_id).delete()
+    FocusSession.query.filter_by(user_id=user_id).delete()
+    UserQuest.query.filter_by(user_id=user_id).delete()
+    UserBadge.query.filter_by(user_id=user_id).delete()
+    UserGift.query.filter_by(user_id=user_id).delete()
+    
     db.session.delete(user)
     db.session.commit()
-    return jsonify({'message': 'User deleted successfully'})
+    return jsonify({'message': 'User and all associated data deleted successfully'})
 
 # Task Endpoints
 @api.route('/tasks', methods=['POST'])
@@ -460,6 +477,7 @@ def update_task(current_user, task_id):
                 total_xp = round(base_xp * streak_bonus_multiplier)
                 task.xp_awarded = total_xp
                 task.user.xp += total_xp
+                task.user.lifetime_xp += total_xp
         else:
             task.completed_at = None
             # Deduct exact XP awarded to prevent exploit
@@ -560,6 +578,7 @@ def create_focus_session(current_user):
             
             xp_to_award = round(base_xp * streak_bonus_multiplier)
             user.xp += xp_to_award
+            user.lifetime_xp += xp_to_award
             
         user.total_focus_minutes += duration
         
@@ -708,6 +727,7 @@ def claim_quest(current_user, user_id, quest_id):
         
     # Award XP
     user.xp += quest.xp_reward
+    user.lifetime_xp += quest.xp_reward
     new_claim = UserQuest(user_id=user_id, quest_id=quest_id)
     db.session.add(new_claim)
     db.session.commit()
@@ -855,6 +875,7 @@ def manual_reward(user_id):
     
     if xp_bonus:
         user.xp += xp_bonus
+        user.lifetime_xp += xp_bonus
         check_level_up(user)
     
     if badge_code:
@@ -870,9 +891,20 @@ def manual_reward(user_id):
 
 @api.route('/leaderboard', methods=['GET'])
 def get_leaderboard():
-    # Get top 20 users by level then xp
-    top_users = User.query.filter_by(is_blocked=False).order_by(User.level.desc(), User.xp.desc()).limit(20).all()
+    # Sort by lifetime_xp for consistent rankings even after gift purchases
+    top_users = User.query.filter_by(is_blocked=False).order_by(User.lifetime_xp.desc()).limit(20).all()
     return jsonify([user.to_dict() for user in top_users])
+
+
+@api.route('/gifts/<int:gift_id>', methods=['DELETE'])
+@admin_required
+def delete_gift(gift_id):
+    gift = Gift.query.get_or_404(gift_id)
+    # Remove all instances of this gift from users first
+    UserGift.query.filter_by(gift_id=gift_id).delete()
+    db.session.delete(gift)
+    db.session.commit()
+    return jsonify({'message': 'Gift removed from catalog'})
 
 @api.route('/users/<int:user_id>/focus_history', methods=['GET'])
 @token_required

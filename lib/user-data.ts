@@ -36,6 +36,7 @@ export interface Gift {
 export interface UserStats {
   level: number
   xp: number
+  lifetimeXp: number
   totalFocusMinutes: number
   todayFocusMinutes: number
   weekFocusMinutes: number
@@ -90,6 +91,7 @@ export async function fetchUserStats(): Promise<UserStats> {
       const stats: UserStats = {
         level: data.level,
         xp: data.xp,
+        lifetimeXp: data.lifetime_xp || data.xp,
         totalFocusMinutes: data.total_focus_minutes,
         todayFocusMinutes: data.today_focus_minutes || 0,
         weekFocusMinutes: data.week_focus_minutes || 0,
@@ -503,10 +505,32 @@ export function saveGifts(gifts: Gift[]) {
   }
 }
 
+export async function fetchGifts(): Promise<Gift[]> {
+  try {
+    const response = await fetch(`${API_URL}/gifts`)
+    if (response.ok) {
+        const data = await response.json()
+        return data.map((g: any) => ({
+            id: g.id.toString(),
+            title: g.name,
+            description: g.description,
+            unlocked: false,
+            xpCost: g.xp_required,
+            reward: g.code, // Use code as reward key
+            rarity: g.rarity
+        }))
+    }
+  } catch (error) {
+    console.error("Failed to fetch gifts", error)
+  }
+  return []
+}
+
 function getDefaultUserStats(): UserStats {
   return {
     level: 1,
     xp: 0,
+    lifetimeXp: 0,
     totalFocusMinutes: 0,
     todayFocusMinutes: 0,
     weekFocusMinutes: 0,
@@ -896,6 +920,25 @@ export async function blockUser(userId: number, block: boolean): Promise<boolean
   }
 }
 
+export async function fetchFocusSessions(): Promise<any[]> {
+  const { user, isGuest } = getAuthState()
+  if (isGuest || !user) return []
+
+  try {
+    const response = await fetch(`${API_URL}/users/${user.id}/focus_sessions`, {
+      headers: {
+        "Authorization": `Bearer ${getAuthState().token}`
+      }
+    })
+    if (response.ok) {
+      return await response.json()
+    }
+  } catch (error) {
+    console.error("Failed to fetch focus sessions", error)
+  }
+  return []
+}
+
 export async function createGift(giftData: any): Promise<boolean> {
   try {
     const response = await fetch(`${API_URL}/gifts`, {
@@ -983,6 +1026,21 @@ export async function deleteUser(userId: number): Promise<boolean> {
     return response.ok
   } catch (error) {
     console.error("Failed to delete user", error)
+    return false
+  }
+}
+
+export async function deleteGift(giftId: number): Promise<boolean> {
+  try {
+    const response = await fetch(`${API_URL}/gifts/${giftId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${getAuthState().token}`
+      }
+    })
+    return response.ok
+  } catch (error) {
+    console.error("Failed to delete gift", error)
     return false
   }
 }

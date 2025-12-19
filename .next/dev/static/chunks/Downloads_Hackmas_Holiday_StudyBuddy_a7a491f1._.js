@@ -1,0 +1,286 @@
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([typeof document === "object" ? document.currentScript : undefined,
+"[project]/Downloads/Hackmas_Holiday_StudyBuddy/lib/auth.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "checkUsernameAvailability",
+    ()=>checkUsernameAvailability,
+    "getAuthState",
+    ()=>getAuthState,
+    "saveAuthState",
+    ()=>saveAuthState,
+    "signIn",
+    ()=>signIn,
+    "signInAsGuest",
+    ()=>signInAsGuest,
+    "signOut",
+    ()=>signOut,
+    "signUp",
+    ()=>signUp
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+"use client";
+const API_URL = __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].env.NEXT_PUBLIC_API_URL || "http://localhost:5555/api";
+function getAuthState() {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    const stored = localStorage.getItem("authState");
+    if (stored) {
+        return JSON.parse(stored);
+    }
+    return {
+        user: null,
+        token: null,
+        isAuthenticated: false,
+        isGuest: false
+    };
+}
+function saveAuthState(state) {
+    if ("TURBOPACK compile-time truthy", 1) {
+        localStorage.setItem("authState", JSON.stringify(state));
+    }
+}
+async function signUp(email, password, name) {
+    try {
+        const response = await fetch(`${API_URL}/users`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                username: name,
+                auth_provider: "email"
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            return {
+                success: false,
+                error: data.error || "Signup failed"
+            };
+        }
+        // Auto login after signup
+        return signIn(email, password);
+    } catch (error) {
+        return {
+            success: false,
+            error: "Network error"
+        };
+    }
+}
+async function signIn(email, password) {
+    try {
+        const response = await fetch(`${API_URL}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            return {
+                success: false,
+                error: data.error || "Login failed"
+            };
+        }
+        const user = {
+            id: data.user.id.toString(),
+            email: data.user.email,
+            name: data.user.username || data.user.email.split("@")[0],
+            isGuest: false,
+            isAdmin: data.user.is_admin
+        };
+        const authState = {
+            user,
+            token: data.token,
+            isAuthenticated: true,
+            isGuest: false
+        };
+        saveAuthState(authState);
+        return {
+            success: true,
+            user,
+            token: data.token
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: "Network error"
+        };
+    }
+}
+function signInAsGuest() {
+    const guestUser = {
+        id: "guest-" + Date.now(),
+        email: "guest@example.com",
+        name: "Guest User",
+        isGuest: true
+    };
+    const authState = {
+        user: guestUser,
+        token: null,
+        isAuthenticated: true,
+        isGuest: true
+    };
+    saveAuthState(authState);
+    return {
+        success: true,
+        user: guestUser,
+        token: null
+    };
+}
+async function checkUsernameAvailability(username) {
+    try {
+        const response = await fetch(`${API_URL}/check-username?username=${encodeURIComponent(username)}`);
+        return await response.json();
+    } catch (error) {
+        return {
+            available: false,
+            message: "Network error"
+        };
+    }
+}
+function signOut() {
+    if ("TURBOPACK compile-time truthy", 1) {
+        localStorage.removeItem("authState");
+        localStorage.removeItem("userStats");
+        localStorage.removeItem("userSettings");
+        localStorage.removeItem("tasks");
+        localStorage.removeItem("quests");
+        localStorage.removeItem("gifts");
+    }
+}
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/auth-provider.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "AuthProvider",
+    ()=>AuthProvider,
+    "useAuth",
+    ()=>useAuth
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/navigation.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/lib/auth.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
+"use client";
+;
+;
+;
+const AuthContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(undefined);
+function AuthProvider({ children }) {
+    _s();
+    const [authState, setAuthStateInternal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        user: null,
+        token: null,
+        isAuthenticated: false,
+        isGuest: false
+    });
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AuthProvider.useEffect": ()=>{
+            // Check auth state on mount
+            const state = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getAuthState"])();
+            setAuthStateInternal(state);
+            setIsLoading(false);
+        }
+    }["AuthProvider.useEffect"], []);
+    const setAuthState = (state)=>{
+        setAuthStateInternal(state);
+        // Only save to localStorage if not a guest
+        if (state.isGuest || state.isAuthenticated) {
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["saveAuthState"])(state);
+        }
+    };
+    const signOut = ()=>{
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["signOut"])();
+        setAuthStateInternal({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            isGuest: false
+        });
+        router.push("/login");
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
+        value: {
+            user: authState.user,
+            isAuthenticated: authState.isAuthenticated,
+            isGuest: authState.isGuest,
+            isLoading,
+            setAuthState,
+            signOut
+        },
+        children: children
+    }, void 0, false, {
+        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/auth-provider.tsx",
+        lineNumber: 56,
+        columnNumber: 5
+    }, this);
+}
+_s(AuthProvider, "iT6UPIjqg1MUFGOgA6g3Mm9aNUY=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
+_c = AuthProvider;
+function useAuth() {
+    _s1();
+    const context = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"])(AuthContext);
+    if (context === undefined) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+}
+_s1(useAuth, "b9L3QQ+jgeyIrH0NfHrJ8nn7VMU=");
+var _c;
+__turbopack_context__.k.register(_c, "AuthProvider");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/theme-provider.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ThemeProvider",
+    ()=>ThemeProvider
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next-themes/dist/index.mjs [app-client] (ecmascript)");
+'use client';
+;
+;
+function ThemeProvider({ children, ...props }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ThemeProvider"], {
+        ...props,
+        children: children
+    }, void 0, false, {
+        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/theme-provider.tsx",
+        lineNumber: 10,
+        columnNumber: 10
+    }, this);
+}
+_c = ThemeProvider;
+var _c;
+__turbopack_context__.k.register(_c, "ThemeProvider");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+]);
+
+//# sourceMappingURL=Downloads_Hackmas_Holiday_StudyBuddy_a7a491f1._.js.map

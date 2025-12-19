@@ -44,8 +44,11 @@ import {
   rewardUser, 
   fetchAllBadges,
   deleteUser,
+  fetchGifts,
+  deleteGift,
   type UserStats,
-  type Badge
+  type Badge,
+  type Gift as GiftType
 } from "@/lib/user-data"
 import { Shield, Users, Gift, Megaphone, Award, Ban, CheckCircle, Plus, Trash2, XCircle } from "lucide-react"
 import { toast } from "sonner"
@@ -53,6 +56,7 @@ import { toast } from "sonner"
 export function AdminDashboard() {
   const [users, setUsers] = useState<UserStats[]>([])
   const [badges, setBadges] = useState<Badge[]>([])
+  const [catalogGifts, setCatalogGifts] = useState<GiftType[]>([])
   const [loading, setLoading] = useState(true)
   
   // Gift Form State
@@ -76,12 +80,14 @@ export function AdminDashboard() {
 
   const loadData = async () => {
     setLoading(true)
-    const [allUsers, allBadges] = await Promise.all([
+    const [allUsers, allBadges, allGifts] = await Promise.all([
       fetchAllUsers(),
-      fetchAllBadges()
+      fetchAllBadges(),
+      fetchGifts()
     ])
     setUsers(allUsers)
     setBadges(allBadges)
+    setCatalogGifts(allGifts)
     setLoading(false)
   }
 
@@ -111,6 +117,16 @@ export function AdminDashboard() {
       setGiftName("")
       setGiftCode("")
       setGiftDesc("")
+      loadData() // Refresh catalog
+    }
+  }
+
+  const handleDeleteGift = async (giftId: number) => {
+    if (!confirm("Remove this gift from the catalog? This will not remove it from users who already own it.")) return
+    const success = await deleteGift(giftId)
+    if (success) {
+      toast.success("Gift removed from catalog")
+      loadData()
     }
   }
 
@@ -341,6 +357,47 @@ export function AdminDashboard() {
               <Button onClick={handleCreateGift} className="w-full bg-accent text-primary font-bold">
                 <Plus className="h-4 w-4 mr-2" /> Add to Catalog
               </Button>
+            </CardContent>
+          </Card>
+
+          {/* Gift Catalog List */}
+          <Card className="bg-primary/40 border-accent/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-cream">
+                <Shield className="h-5 w-5" /> Gift Catalog
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="max-h-[300px] overflow-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-accent/10">
+                      <TableHead className="text-cream/50">Gift</TableHead>
+                      <TableHead className="text-cream/50 text-right">Delete</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {catalogGifts.map((g) => (
+                      <TableRow key={g.id} className="border-accent/10">
+                        <TableCell>
+                          <div className="font-medium text-cream">{g.title}</div>
+                          <div className="text-xs text-cream/50">{g.xpCost} XP • {g.rarity}</div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button 
+                            size="sm" 
+                            variant="ghost" 
+                            className="text-red-500 hover:text-red-400"
+                            onClick={() => g.id && handleDeleteGift(parseInt(g.id.toString()))}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </div>

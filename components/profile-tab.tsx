@@ -45,7 +45,33 @@ export function ProfileTab({
   const [allBadges, setAllBadges] = useState<Badge[]>([])
   const [userStats, setUserStats] = useState(getUserStats())
 
+  // Username checking state
+  const [usernameStatus, setUsernameStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle')
+  const [suggestions, setSuggestions] = useState<string[]>([])
+
   const [error, setError] = useState("")
+
+  useEffect(() => {
+    if (!settings.name || settings.name.length < 3 || settings.name === user?.name) {
+      setUsernameStatus('idle')
+      setSuggestions([])
+      return
+    }
+
+    const timer = setTimeout(async () => {
+      setUsernameStatus('checking')
+      const result = await checkUsernameAvailability(settings.name)
+      if (result.available) {
+        setUsernameStatus('available')
+        setSuggestions([])
+      } else {
+        setUsernameStatus('taken')
+        setSuggestions(result.suggestions || [])
+      }
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [settings.name, user?.name])
 
   useEffect(() => {
     setMounted(true)
@@ -128,11 +154,62 @@ export function ProfileTab({
 
           <div className="space-y-2">
             <Label className="text-green-800">Display Name</Label>
-            <div className="p-3 rounded-md bg-white/70 border border-green-800/20 text-green-900 font-medium">
-              {settings.name}
+            <div className="relative">
+              <Input
+                value={settings.name}
+                onChange={(e) => {
+                    const newName = e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '')
+                    setSettings({ ...settings, name: newName })
+                }}
+                className={`bg-white/70 border-green-800/20 text-green-900 font-medium ${
+                    usernameStatus === 'available' ? 'border-green-500/50' : 
+                    usernameStatus === 'taken' ? 'border-red-500/50' : ''
+                }`}
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                {usernameStatus === 'checking' && (
+                  <span className="text-[10px] text-green-600 animate-pulse">Checking...</span>
+                )}
+                {usernameStatus === 'available' && (
+                  <Check className="h-4 w-4 text-green-600" />
+                )}
+                {usernameStatus === 'taken' && (
+                  <AlertCircle className="h-4 w-4 text-red-600" />
+                )}
+              </div>
             </div>
-            <p className="text-[10px] text-green-700 italic">Username cannot be changed after signup</p>
+
+            {usernameStatus === 'taken' && suggestions.length > 0 && (
+                <div className="mt-2 p-2 bg-white/50 rounded-lg border border-green-800/10">
+                  <p className="text-[10px] text-green-800/70 mb-2 flex items-center gap-1">
+                    <Sparkles className="h-3 w-3 text-yellow-600" /> Suggestions:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {suggestions.map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => setSettings({ ...settings, name: s })}
+                        className="text-[10px] px-2 py-1 bg-green-800/10 hover:bg-green-800/20 text-green-800 rounded-full border border-green-800/30 transition-colors"
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+            )}
+
+            <p className="text-[10px] text-green-700 italic">Updating username will sync across all reports</p>
             {error && <p className="text-red-600 text-[10px] font-bold mt-1">{error}</p>}
+            
+            <Button 
+                size="sm" 
+                className="mt-2 bg-green-800 hover:bg-green-900 text-white"
+                onClick={() => updateSettings(settings)}
+                disabled={usernameStatus === 'checking' || usernameStatus === 'taken'}
+            >
+                Save Name
+            </Button>
           </div>
 
           <div className="space-y-3">
@@ -349,12 +426,14 @@ export function ProfileTab({
               onClick={async () => {
                 const { pdf } = await import("@react-pdf/renderer")
                 const { PdfDocument } = await import("./pdf-template")
-                const { fetchUserStats, fetchTasks } = await import("@/lib/user-data")
+                const { fetchUserStats, fetchTasks, fetchFocusHistory, fetchFocusSessions } = await import("@/lib/user-data")
 
-                // Get fresh stats and tasks
-                const [currentStats, tasks] = await Promise.all([
+                // Get fresh stats, tasks, and focus history
+                const [currentStats, tasks, history, allSessions] = await Promise.all([
                   fetchUserStats(),
-                  fetchTasks()
+                  fetchTasks(),
+                  fetchFocusHistory(),
+                  fetchFocusSessions()
                 ])
 
                 const blob = await pdf(
@@ -363,6 +442,8 @@ export function ProfileTab({
                     stats={currentStats}
                     recentTasks={tasks.filter(t => t.completed).sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0))}
                     allBadges={allBadges}
+                    focusHistory={history}
+                    allFocusSessions={allSessions}
                     date={new Date().toLocaleDateString()}
                   />
                 ).toBlob()
@@ -370,7 +451,7 @@ export function ProfileTab({
                 const url = URL.createObjectURL(blob)
                 const a = document.createElement("a")
                 a.href = url
-                a.download = `Productivity_Audit_${settings.name}.pdf`
+                a.download = `Productivity_Audit_${settings.name.replace(/\s+/g, "_")}.pdf`
                 a.click()
                 URL.revokeObjectURL(url)
               }}

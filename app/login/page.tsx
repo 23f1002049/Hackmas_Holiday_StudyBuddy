@@ -89,6 +89,12 @@ export default function LoginPage() {
       return
     }
 
+    if (usernameStatus === 'taken' || usernameStatus === 'checking') {
+        setError("Please choose a valid, available username")
+        setLoading(false)
+        return
+    }
+
     const result = await signUp(signupEmail, signupPassword, signupName)
 
     if (result.success && result.user) {
