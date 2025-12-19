@@ -39,8 +39,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { GuestLock } from "@/components/guest-lock"
 
-export function ProgressTab({ userStats: initialStats }: { userStats?: UserStats }) {
+export function ProgressTab({ userStats: initialStats, isGuest }: { userStats?: UserStats, isGuest?: boolean }) {
   const [userStats, setUserStats] = useState(initialStats || getUserStats())
   const [weeklyData, setWeeklyData] = useState<{ day: string; minutes: number }[]>([])
   const [mounted, setMounted] = useState(false)
@@ -223,11 +224,10 @@ export function ProgressTab({ userStats: initialStats }: { userStats?: UserStats
               {badges.map((b, i) => (
                 <div
                   key={i}
-                  className={`p-3 rounded-lg border text-center transition ${
-                    b.earned
+                  className={`p-3 rounded-lg border text-center transition ${b.earned
                       ? "bg-green-500/10 border-green-500 hover:scale-105"
                       : "bg-muted/30 border-muted opacity-50"
-                  }`}
+                    }`}
                 >
                   <div className="text-3xl">{b.icon}</div>
                   <p className="text-xs font-medium">{b.name}</p>
@@ -239,27 +239,28 @@ export function ProgressTab({ userStats: initialStats }: { userStats?: UserStats
       </div>
 
       {/* SHARE */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Share2 className="h-5 w-5" />
-            Share Your Progress
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="hidden md:block transform scale-75 origin-left">
-             {/* Hidden preview for layout, actual generation uses a hidden div */}
-             <div className="pointer-events-none select-none">
+      <GuestLock isGuest={isGuest} message="Sign up to download your progress report!">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Share2 className="h-5 w-5" />
+              Share Your Progress
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="hidden md:block transform scale-75 origin-left">
+              {/* Hidden preview for layout, actual generation uses a hidden div */}
+              <div className="pointer-events-none select-none">
                 <ShareCard stats={userStats} username={userStats.name || "Holiday Helper"} />
-             </div>
-          </div>
-          
-          <div className="space-y-4">
-             <p className="text-muted-foreground">
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
                 Show off your holiday productivity streak!
-             </p>
-             <div className="flex gap-2">
-                <Button 
+              </p>
+              <div className="flex gap-2">
+                <Button
                   onClick={async () => {
                     const { toPng } = await import("html-to-image")
                     const node = document.getElementById("share-card-hidden")
@@ -275,10 +276,11 @@ export function ProgressTab({ userStats: initialStats }: { userStats?: UserStats
                 >
                   <Share2 className="h-4 w-4 mr-2" /> Generate Share Card
                 </Button>
-             </div>
-          </div>
-        </CardContent>
-      </Card>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </GuestLock>
 
       {/* Hidden Render Target */}
       <div className="fixed left-[-9999px] top-0">
