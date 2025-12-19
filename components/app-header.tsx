@@ -1,6 +1,8 @@
 import { Progress } from "@/components/ui/progress"
 import { Switch } from "@/components/ui/switch"
+import { Button } from "@/components/ui/button"
 import { useAuth } from "@/components/auth-provider"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { fetchAnnouncements, fetchActiveCount } from "@/lib/user-data"
@@ -14,11 +16,14 @@ interface AppHeaderProps {
   snowEnabled: boolean
   onSnowToggle: () => void
   displayName?: string
+  isGuest?: boolean
 }
 
-export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, displayName }: AppHeaderProps) {
+export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, displayName, isGuest: propIsGuest }: AppHeaderProps) {
   const xpPercentage = (xp / maxXp) * 100
-  const { user, isGuest } = useAuth()
+  const { user, isGuest: contextIsGuest } = useAuth()
+  const isGuest = propIsGuest || contextIsGuest
+  const router = useRouter()
   const [announcement, setAnnouncement] = useState<string | null>(null)
   const [activeCount, setActiveCount] = useState(12)
 
@@ -69,7 +74,7 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     </span>
                     <span className="text-[10px] font-bold text-green-400 uppercase tracking-wider flex items-center gap-1">
-                      <Users className="h-3 w-3" /> {activeCount} Elves Online
+                      <Users className="h-3 w-3" /> {activeCount} Helpers Online
                     </span>
                   </div>
                 </div>
@@ -79,18 +84,30 @@ export function AppHeader({ level, xp, maxXp, snowEnabled, onSnowToggle, display
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-3 min-w-[200px]">
-              <div className="flex items-center gap-2 text-xl font-bold">
-                <span className="text-accent">Level {level}</span>
-                <span className="text-muted-foreground opacity-50 dark:text-black/40">|</span>
-                <span className="text-base text-muted-foreground dark:text-black/80">
-                  {xp}/{maxXp} XP
-                </span>
-              </div>
-              <Progress value={xpPercentage} className="h-2 flex-1 transition-all duration-500" />
+              {isGuest && xp >= 100 ? (
+                <Button
+                  onClick={() => router.push("/login")}
+                  variant="ghost"
+                  className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10 animate-pulse font-bold"
+                >
+                  Sign up to unlock Level 2 🔒
+                </Button>
+              ) : (
+                <>
+                  <div className="flex items-center gap-2 text-xl font-bold">
+                    <span className="text-accent">Level {level}</span>
+                    <span className="text-muted-foreground opacity-50">|</span>
+                    <span className="text-base text-muted-foreground">
+                      {xp}/{maxXp} XP
+                    </span>
+                  </div>
+                  <Progress value={xpPercentage} className="h-2 flex-1 transition-all duration-500" />
+                </>
+              )}
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-lg font-medium text-muted-foreground dark:text-black hidden sm:inline">Snow</span>
+              <span className="text-lg font-medium text-muted-foreground hidden sm:inline">Snow</span>
               <Switch checked={snowEnabled} onCheckedChange={onSnowToggle} className="scale-125" />
             </div>
 
