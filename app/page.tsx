@@ -40,10 +40,10 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true)
-    
+
     // Initial badges ref
     if (userStats.badges) {
-        prevBadges.current = userStats.badges
+      prevBadges.current = userStats.badges
     }
 
     if (!isLoading && !isAuthenticated && !isGuestParam) {
@@ -73,16 +73,16 @@ export default function Home() {
 
   const refreshStats = async () => {
     const stats = await fetchUserStats()
-    
+
     // Check for new badges
     if (stats.badges && stats.badges.length > prevBadges.current.length) {
-        const newlyEarned = stats.badges.filter(b => !prevBadges.current.includes(b))
-        if (newlyEarned.length > 0) {
-            const details = await getBadgeDetails(newlyEarned[0])
-            if (details) {
-                setNewBadge(details)
-            }
+      const newlyEarned = stats.badges.filter(b => !prevBadges.current.includes(b))
+      if (newlyEarned.length > 0) {
+        const details = await getBadgeDetails(newlyEarned[0])
+        if (details) {
+          setNewBadge(details)
         }
+      }
     }
     prevBadges.current = stats.badges || []
     setUserStats(stats)
@@ -207,15 +207,15 @@ export default function Home() {
           </TabsContent>
 
           <TabsContent value="tasks" className="animate-slide-in-up">
-            <TasksTab onStatsUpdate={refreshStats} />
+            <TasksTab onStatsUpdate={refreshStats} isGuest={isInGuestMode} />
           </TabsContent>
 
           <TabsContent value="gifts" className="animate-slide-in-up">
-            <GiftsTab onStatsUpdate={refreshStats} />
+            <GiftsTab onStatsUpdate={refreshStats} isGuest={isInGuestMode} />
           </TabsContent>
 
           <TabsContent value="progress" className="animate-slide-in-up">
-            <ProgressTab userStats={userStats} />
+            <ProgressTab userStats={userStats} isGuest={isInGuestMode} />
           </TabsContent>
 
           <TabsContent value="leaderboard" className="animate-slide-in-up">
@@ -229,18 +229,19 @@ export default function Home() {
           )}
 
           <TabsContent value="profile" className="animate-slide-in-up">
-            <ProfileTab onSettingsChange={refreshSettings} />
+            <ProfileTab onSettingsChange={refreshSettings} isGuest={isInGuestMode} />
           </TabsContent>
         </Tabs>
       </main>
 
-      <AchievementModal 
-         badge={newBadge} 
-         userName={settings.name}
-         onClose={() => setNewBadge(null)} 
+      <AchievementModal
+        badge={newBadge}
+        userName={settings.name}
+        onClose={() => setNewBadge(null)}
+        isGuest={isInGuestMode}
       />
 
-      <SnowmanSidekick 
+      <SnowmanSidekick
         context={{
           level: userStats.level,
           xp: userStats.xp,
