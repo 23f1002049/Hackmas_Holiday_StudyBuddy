@@ -22,8 +22,7 @@ import {
 } from "@/lib/user-data"
 import { useAuth } from "@/components/auth-provider"
 import { useTheme } from "next-themes"
-import { LogOut, AlertCircle, Trophy, Download, Check, Sparkles } from "lucide-react"
-import { checkUsernameAvailability } from "@/lib/auth"
+import { LogOut, AlertCircle, Trophy, Download } from "lucide-react"
 import { toPng } from "html-to-image"
 
 const avatars = [
@@ -50,28 +49,6 @@ export function ProfileTab({
   const [suggestions, setSuggestions] = useState<string[]>([])
 
   const [error, setError] = useState("")
-
-  useEffect(() => {
-    if (!settings.name || settings.name.length < 3 || settings.name === user?.name) {
-      setUsernameStatus('idle')
-      setSuggestions([])
-      return
-    }
-
-    const timer = setTimeout(async () => {
-      setUsernameStatus('checking')
-      const result = await checkUsernameAvailability(settings.name)
-      if (result.available) {
-        setUsernameStatus('available')
-        setSuggestions([])
-      } else {
-        setUsernameStatus('taken')
-        setSuggestions(result.suggestions || [])
-      }
-    }, 500)
-
-    return () => clearTimeout(timer)
-  }, [settings.name, user?.name])
 
   useEffect(() => {
     setMounted(true)
@@ -154,62 +131,11 @@ export function ProfileTab({
 
           <div className="space-y-2">
             <Label className="text-green-800">Display Name</Label>
-            <div className="relative">
-              <Input
-                value={settings.name}
-                onChange={(e) => {
-                    const newName = e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '')
-                    setSettings({ ...settings, name: newName })
-                }}
-                className={`bg-white/70 border-green-800/20 text-green-900 font-medium ${
-                    usernameStatus === 'available' ? 'border-green-500/50' : 
-                    usernameStatus === 'taken' ? 'border-red-500/50' : ''
-                }`}
-              />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                {usernameStatus === 'checking' && (
-                  <span className="text-[10px] text-green-600 animate-pulse">Checking...</span>
-                )}
-                {usernameStatus === 'available' && (
-                  <Check className="h-4 w-4 text-green-600" />
-                )}
-                {usernameStatus === 'taken' && (
-                  <AlertCircle className="h-4 w-4 text-red-600" />
-                )}
-              </div>
+            <div className="p-4 rounded-lg bg-white/70 border border-green-800/30">
+              <p className="text-green-900 font-bold">{settings.name}</p>
             </div>
-
-            {usernameStatus === 'taken' && suggestions.length > 0 && (
-                <div className="mt-2 p-2 bg-white/50 rounded-lg border border-green-800/10">
-                  <p className="text-[10px] text-green-800/70 mb-2 flex items-center gap-1">
-                    <Sparkles className="h-3 w-3 text-yellow-600" /> Suggestions:
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {suggestions.map((s) => (
-                      <button
-                        key={s}
-                        type="button"
-                        onClick={() => setSettings({ ...settings, name: s })}
-                        className="text-[10px] px-2 py-1 bg-green-800/10 hover:bg-green-800/20 text-green-800 rounded-full border border-green-800/30 transition-colors"
-                      >
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-            )}
-
-            <p className="text-[10px] text-green-700 italic">Updating username will sync across all reports</p>
+            <p className="text-[10px] text-green-700 italic">Usernames are permanent and cannot be changed after signup.</p>
             {error && <p className="text-red-600 text-[10px] font-bold mt-1">{error}</p>}
-            
-            <Button 
-                size="sm" 
-                className="mt-2 bg-green-800 hover:bg-green-900 text-white"
-                onClick={() => updateSettings(settings)}
-                disabled={usernameStatus === 'checking' || usernameStatus === 'taken'}
-            >
-                Save Name
-            </Button>
           </div>
 
           <div className="space-y-3">

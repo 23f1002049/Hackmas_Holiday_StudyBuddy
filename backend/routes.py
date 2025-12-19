@@ -62,11 +62,17 @@ def admin_required(f):
              return jsonify({'error': 'Token is missing!'}), 401
 
         try:
+            print(f"DEBUG: Admin decoding token...")
             data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
             user = User.query.get(data['user_id'])
-            if not user or not user.is_admin:
-                abort(403, description="Admin access required")
-        except:
+            if not user:
+                print("DEBUG: Admin check - User not found")
+                return jsonify({'error': 'User not found!'}), 404
+            if not user.is_admin:
+                print(f"DEBUG: Admin check failed for user {user.username}")
+                return jsonify({'error': 'Admin access required'}), 403
+        except Exception as e:
+             print(f"DEBUG: Admin check token error: {str(e)}")
              return jsonify({'error': 'Token is invalid!'}), 401
             
         return f(*args, **kwargs)
@@ -125,10 +131,14 @@ def check_username():
     if len(username) < 3:
         return jsonify({'available': False, 'message': 'Username too short'}), 400
 
+    print(f"DEBUG: Checking username: {username}")
     existing_user = User.query.filter(User.username.ilike(username)).first()
     
     if not existing_user:
+        print(f"DEBUG: Username '{username}' is available.")
         return jsonify({'available': True})
+    
+    print(f"DEBUG: Username '{username}' is taken.")
     
     # Generate suggestions
     suggestions = []
@@ -166,9 +176,11 @@ def create_user():
         return jsonify({'error': 'Email and username are required'}), 400
         
     if User.query.filter_by(email=email).first():
+        print(f"DEBUG: Signup failed - Email '{email}' already registered.")
         return jsonify({'error': 'Email already registered'}), 400
         
     if User.query.filter(User.username.ilike(username)).first():
+        print(f"DEBUG: Signup failed - Username '{username}' already taken.")
         return jsonify({'error': 'Username already taken'}), 400
 
     new_user = User(
@@ -309,16 +321,18 @@ def unblock_user(user_id):
 @admin_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
+    print(f"DEBUG: Deleting user {user_id} and all relations...")
+    deleted_tasks = Task.query.filter_by(user_id=user_id).delete()
+    deleted_sessions = FocusSession.query.filter_by(user_id=user_id).delete()
+    deleted_quests = UserQuest.query.filter_by(user_id=user_id).delete()
+    deleted_badges = UserBadge.query.filter_by(user_id=user_id).delete()
+    deleted_gifts = UserGift.query.filter_by(user_id=user_id).delete()
     
-    # Manual cascade for relations
-    Task.query.filter_by(user_id=user_id).delete()
-    FocusSession.query.filter_by(user_id=user_id).delete()
-    UserQuest.query.filter_by(user_id=user_id).delete()
-    UserBadge.query.filter_by(user_id=user_id).delete()
-    UserGift.query.filter_by(user_id=user_id).delete()
+    print(f"DEBUG: Deleted {deleted_tasks} tasks, {deleted_sessions} sessions, {deleted_quests} quests, {deleted_badges} badges, {deleted_gifts} gifts.")
     
     db.session.delete(user)
     db.session.commit()
+    print(f"DEBUG: User {user_id} deleted successfully.")
     return jsonify({'message': 'User and all associated data deleted successfully'})
 
 # Task Endpoints
@@ -899,11 +913,14 @@ def get_leaderboard():
 @api.route('/gifts/<int:gift_id>', methods=['DELETE'])
 @admin_required
 def delete_gift(gift_id):
+    print(f"DEBUG: Deleting gift {gift_id}...")
     gift = Gift.query.get_or_404(gift_id)
     # Remove all instances of this gift from users first
-    UserGift.query.filter_by(gift_id=gift_id).delete()
+    deleted_user_gifts = UserGift.query.filter_by(gift_id=gift_id).delete()
+    print(f"DEBUG: Removed gift from {deleted_user_gifts} users.")
     db.session.delete(gift)
     db.session.commit()
+    print(f"DEBUG: Gift {gift_id} deleted successfully.")
     return jsonify({'message': 'Gift removed from catalog'})
 
 @api.route('/users/<int:user_id>/focus_history', methods=['GET'])

@@ -465,7 +465,6 @@ async function saveUserSettings(settings) {
             body: JSON.stringify({
                 avatar: settings.avatar,
                 theme: settings.theme,
-                username: settings.name,
                 snow_enabled: settings.snowEnabled,
                 sound_enabled: settings.soundEnabled
             })
@@ -5956,7 +5955,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/ui/card.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/ui/button.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/ui/input.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$label$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/ui/label.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$switch$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/ui/switch.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$user$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/lib/user-data.ts [app-client] (ecmascript)");
@@ -5966,15 +5964,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-client] (ecmascript) <export default as AlertCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trophy$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trophy$3e$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/lucide-react/dist/esm/icons/trophy.js [app-client] (ecmascript) <export default as Trophy>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/lucide-react/dist/esm/icons/download.js [app-client] (ecmascript) <export default as Download>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/lucide-react/dist/esm/icons/check.js [app-client] (ecmascript) <export default as Check>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-client] (ecmascript) <export default as Sparkles>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/lib/auth.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$html$2d$to$2d$image$2f$es$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Downloads/Hackmas_Holiday_StudyBuddy/node_modules/html-to-image/es/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
-;
-;
 ;
 ;
 ;
@@ -6021,34 +6014,6 @@ function ProfileTab({ onSettingsChange }) {
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ProfileTab.useEffect": ()=>{
-            if (!settings.name || settings.name.length < 3 || settings.name === user?.name) {
-                setUsernameStatus('idle');
-                setSuggestions([]);
-                return;
-            }
-            const timer = setTimeout({
-                "ProfileTab.useEffect.timer": async ()=>{
-                    setUsernameStatus('checking');
-                    const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkUsernameAvailability"])(settings.name);
-                    if (result.available) {
-                        setUsernameStatus('available');
-                        setSuggestions([]);
-                    } else {
-                        setUsernameStatus('taken');
-                        setSuggestions(result.suggestions || []);
-                    }
-                }
-            }["ProfileTab.useEffect.timer"], 500);
-            return ({
-                "ProfileTab.useEffect": ()=>clearTimeout(timer)
-            })["ProfileTab.useEffect"];
-        }
-    }["ProfileTab.useEffect"], [
-        settings.name,
-        user?.name
-    ]);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "ProfileTab.useEffect": ()=>{
             setMounted(true);
             loadData();
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$lib$2f$user$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchAllBadges"])().then(setAllBadges);
@@ -6088,7 +6053,7 @@ function ProfileTab({ onSettingsChange }) {
                             className: "h-5 w-5 text-yellow-700 mt-0.5"
                         }, void 0, false, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                            lineNumber: 117,
+                            lineNumber: 94,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6098,7 +6063,7 @@ function ProfileTab({ onSettingsChange }) {
                                     children: "Guest Mode Active"
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                    lineNumber: 119,
+                                    lineNumber: 96,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6106,24 +6071,24 @@ function ProfileTab({ onSettingsChange }) {
                                     children: "Your progress isn’t saved. Create an account to keep your data."
                                 }, void 0, false, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                    lineNumber: 122,
+                                    lineNumber: 99,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                            lineNumber: 118,
+                            lineNumber: 95,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                    lineNumber: 116,
+                    lineNumber: 93,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                lineNumber: 115,
+                lineNumber: 92,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -6140,7 +6105,7 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "Your Profile"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 139,
+                                lineNumber: 116,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -6148,13 +6113,13 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "Customize your study buddy"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 142,
+                                lineNumber: 119,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 138,
+                        lineNumber: 115,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -6168,7 +6133,7 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 127,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6176,13 +6141,13 @@ function ProfileTab({ onSettingsChange }) {
                                         children: user.email
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 128,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 149,
+                                lineNumber: 126,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6193,116 +6158,30 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Display Name"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 156,
+                                        lineNumber: 133,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
-                                                value: settings.name,
-                                                onChange: (e)=>{
-                                                    const newName = e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '');
-                                                    setSettings({
-                                                        ...settings,
-                                                        name: newName
-                                                    });
-                                                },
-                                                className: `bg-white/70 border-green-800/20 text-green-900 font-medium ${usernameStatus === 'available' ? 'border-green-500/50' : usernameStatus === 'taken' ? 'border-red-500/50' : ''}`
-                                            }, void 0, false, {
-                                                fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 158,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2",
-                                                children: [
-                                                    usernameStatus === 'checking' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-[10px] text-green-600 animate-pulse",
-                                                        children: "Checking..."
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 171,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    usernameStatus === 'available' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
-                                                        className: "h-4 w-4 text-green-600"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 174,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    usernameStatus === 'taken' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
-                                                        className: "h-4 w-4 text-red-600"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 177,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 169,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
+                                        className: "p-4 rounded-lg bg-white/70 border border-green-800/30",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-green-900 font-bold",
+                                            children: settings.name
+                                        }, void 0, false, {
+                                            fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
+                                            lineNumber: 135,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 157,
+                                        lineNumber: 134,
                                         columnNumber: 13
-                                    }, this),
-                                    usernameStatus === 'taken' && suggestions.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "mt-2 p-2 bg-white/50 rounded-lg border border-green-800/10",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-[10px] text-green-800/70 mb-2 flex items-center gap-1",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
-                                                        className: "h-3 w-3 text-yellow-600"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 185,
-                                                        columnNumber: 21
-                                                    }, this),
-                                                    " Suggestions:"
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 184,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex flex-wrap gap-2",
-                                                children: suggestions.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                        type: "button",
-                                                        onClick: ()=>setSettings({
-                                                                ...settings,
-                                                                name: s
-                                                            }),
-                                                        className: "text-[10px] px-2 py-1 bg-green-800/10 hover:bg-green-800/20 text-green-800 rounded-full border border-green-800/30 transition-colors",
-                                                        children: s
-                                                    }, s, false, {
-                                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 189,
-                                                        columnNumber: 23
-                                                    }, this))
-                                            }, void 0, false, {
-                                                fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 187,
-                                                columnNumber: 19
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 183,
-                                        columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                         className: "text-[10px] text-green-700 italic",
-                                        children: "Updating username will sync across all reports"
+                                        children: "Usernames are permanent and cannot be changed after signup."
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 202,
+                                        lineNumber: 137,
                                         columnNumber: 13
                                     }, this),
                                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6310,24 +6189,13 @@ function ProfileTab({ onSettingsChange }) {
                                         children: error
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 138,
                                         columnNumber: 23
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                        size: "sm",
-                                        className: "mt-2 bg-green-800 hover:bg-green-900 text-white",
-                                        onClick: ()=>updateSettings(settings),
-                                        disabled: usernameStatus === 'checking' || usernameStatus === 'taken',
-                                        children: "Save Name"
-                                    }, void 0, false, {
-                                        fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 205,
-                                        columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 155,
+                                lineNumber: 132,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6338,7 +6206,7 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Choose Avatar"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 216,
+                                        lineNumber: 142,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6357,7 +6225,7 @@ function ProfileTab({ onSettingsChange }) {
                                                         children: avatar.emoji
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 157,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6365,37 +6233,37 @@ function ProfileTab({ onSettingsChange }) {
                                                         children: avatar.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 158,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, avatar.id, true, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 221,
+                                                lineNumber: 147,
                                                 columnNumber: 19
                                             }, this);
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 217,
+                                        lineNumber: 143,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 215,
+                                lineNumber: 141,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 147,
+                        lineNumber: 124,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                lineNumber: 131,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -6414,7 +6282,7 @@ function ProfileTab({ onSettingsChange }) {
                                         className: "h-6 w-6 text-yellow-600"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 253,
+                                        lineNumber: 179,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
@@ -6422,13 +6290,13 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Your Achievements"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 254,
+                                        lineNumber: 180,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 252,
+                                lineNumber: 178,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -6436,13 +6304,13 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "Showcase your hard-earned badges"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 256,
+                                lineNumber: 182,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 251,
+                        lineNumber: 177,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -6460,7 +6328,7 @@ function ProfileTab({ onSettingsChange }) {
                                             className: "absolute top-2 left-2 h-4 w-4 opacity-10 group-hover:opacity-30 transition-opacity"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 274,
+                                            lineNumber: 200,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6468,7 +6336,7 @@ function ProfileTab({ onSettingsChange }) {
                                             children: getBadgeEmoji(badge.code)
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 202,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -6476,7 +6344,7 @@ function ProfileTab({ onSettingsChange }) {
                                             children: badge.name
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 279,
+                                            lineNumber: 205,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6484,7 +6352,7 @@ function ProfileTab({ onSettingsChange }) {
                                             children: badge.description
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 280,
+                                            lineNumber: 206,
                                             columnNumber: 19
                                         }, this),
                                         earned && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6494,12 +6362,12 @@ function ProfileTab({ onSettingsChange }) {
                                                 children: settings.name
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 284,
+                                                lineNumber: 210,
                                                 columnNumber: 24
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 283,
+                                            lineNumber: 209,
                                             columnNumber: 21
                                         }, this),
                                         earned && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -6522,35 +6390,35 @@ function ProfileTab({ onSettingsChange }) {
                                                 className: "h-3 w-3 text-yellow-600"
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 303,
+                                                lineNumber: 229,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 289,
+                                            lineNumber: 215,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, badge.code, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                    lineNumber: 265,
+                                    lineNumber: 191,
                                     columnNumber: 17
                                 }, this);
                             })
                         }, void 0, false, {
                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                            lineNumber: 261,
+                            lineNumber: 187,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 260,
+                        lineNumber: 186,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                lineNumber: 244,
+                lineNumber: 170,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -6567,7 +6435,7 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "App Settings"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 322,
+                                lineNumber: 248,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -6575,13 +6443,13 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "Control app behavior"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 325,
+                                lineNumber: 251,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 321,
+                        lineNumber: 247,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -6598,7 +6466,7 @@ function ProfileTab({ onSettingsChange }) {
                                                 children: "Theme Mode"
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 334,
+                                                lineNumber: 260,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6606,13 +6474,13 @@ function ProfileTab({ onSettingsChange }) {
                                                 children: "Choose your visual style"
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 335,
+                                                lineNumber: 261,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 333,
+                                        lineNumber: 259,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6649,7 +6517,7 @@ function ProfileTab({ onSettingsChange }) {
                                                         children: themeOpt.icon
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 355,
+                                                        lineNumber: 281,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6657,24 +6525,24 @@ function ProfileTab({ onSettingsChange }) {
                                                         children: themeOpt.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                        lineNumber: 356,
+                                                        lineNumber: 282,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, themeOpt.id, true, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 343,
+                                                lineNumber: 269,
                                                 columnNumber: 17
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 337,
+                                        lineNumber: 263,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 332,
+                                lineNumber: 258,
                                 columnNumber: 11
                             }, this),
                             [
@@ -6709,7 +6577,7 @@ function ProfileTab({ onSettingsChange }) {
                                                     children: item.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                    lineNumber: 391,
+                                                    lineNumber: 317,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -6717,13 +6585,13 @@ function ProfileTab({ onSettingsChange }) {
                                                     children: item.desc
                                                 }, void 0, false, {
                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                    lineNumber: 392,
+                                                    lineNumber: 318,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 390,
+                                            lineNumber: 316,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$switch$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Switch"], {
@@ -6732,25 +6600,25 @@ function ProfileTab({ onSettingsChange }) {
                                             className: "data-[state=checked]:bg-green-700"
                                         }, void 0, false, {
                                             fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                            lineNumber: 394,
+                                            lineNumber: 320,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, i, true, {
                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                    lineNumber: 386,
+                                    lineNumber: 312,
                                     columnNumber: 13
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 330,
+                        lineNumber: 256,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                lineNumber: 314,
+                lineNumber: 240,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -6767,7 +6635,7 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "Data Management"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 413,
+                                lineNumber: 339,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -6775,13 +6643,13 @@ function ProfileTab({ onSettingsChange }) {
                                 children: "Export or reset progress"
                             }, void 0, false, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 416,
+                                lineNumber: 342,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 412,
+                        lineNumber: 338,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -6814,7 +6682,7 @@ function ProfileTab({ onSettingsChange }) {
                                                 date: new Date().toLocaleDateString()
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 440,
+                                                lineNumber: 366,
                                                 columnNumber: 19
                                             }, void 0)).toBlob();
                                             const url = URL.createObjectURL(blob);
@@ -6827,7 +6695,7 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Export PDF Report"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 423,
+                                        lineNumber: 349,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -6847,13 +6715,13 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Reset All Data"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 461,
+                                        lineNumber: 387,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 422,
+                                lineNumber: 348,
                                 columnNumber: 11
                             }, this),
                             !isGuest && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -6865,36 +6733,36 @@ function ProfileTab({ onSettingsChange }) {
                                         className: "mr-2 h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 486,
+                                        lineNumber: 412,
                                         columnNumber: 15
                                     }, this),
                                     "Logout"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 481,
+                                lineNumber: 407,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                        lineNumber: 421,
+                        lineNumber: 347,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                lineNumber: 405,
+                lineNumber: 331,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-        lineNumber: 111,
+        lineNumber: 88,
         columnNumber: 5
     }, this);
 }
-_s(ProfileTab, "XKy+3mTqweBZ1c5+hx4p+A2qldo=", false, function() {
+_s(ProfileTab, "u/sSIWIWxAQk5wqaEsAmvDb+q6U=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$components$2f$auth$2d$provider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
         __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTheme"]

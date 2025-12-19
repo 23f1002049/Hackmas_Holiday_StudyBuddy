@@ -242,7 +242,6 @@ export async function saveUserSettings(settings: UserSettings): Promise<{ succes
       body: JSON.stringify({
         avatar: settings.avatar,
         theme: settings.theme,
-        username: settings.name,
         snow_enabled: settings.snowEnabled,
         sound_enabled: settings.soundEnabled
       }),

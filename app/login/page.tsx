@@ -215,7 +215,7 @@ export default function LoginPage() {
                     )}
                     {usernameStatus === 'taken' && (
                       <span className="text-[10px] text-red-400 flex items-center gap-1">
-                        <AlertCircle className="h-3 w-3" /> Taken
+                        <AlertCircle className="h-3 w-3" /> {usernameMessage}
                       </span>
                     )}
                   </div>

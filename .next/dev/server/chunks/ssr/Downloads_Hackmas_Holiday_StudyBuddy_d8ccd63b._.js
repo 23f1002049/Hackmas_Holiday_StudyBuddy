@@ -731,7 +731,8 @@ function LoginPage() {
                                                                             lineNumber: 218,
                                                                             columnNumber: 25
                                                                         }, this),
-                                                                        " Taken"
+                                                                        " ",
+                                                                        usernameMessage
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/app/login/page.tsx",
