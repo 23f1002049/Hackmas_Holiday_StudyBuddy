@@ -139,6 +139,7 @@ export default function Home() {
         snowEnabled={settings.snowEnabled}
         onSnowToggle={handleSnowToggle}
         displayName={settings.name}
+        isGuest={isInGuestMode}
       />
 
       <main className="container mx-auto px-4 py-8">
