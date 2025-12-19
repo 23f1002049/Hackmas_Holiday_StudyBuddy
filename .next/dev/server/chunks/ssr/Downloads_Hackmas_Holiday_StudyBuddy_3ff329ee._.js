@@ -292,7 +292,16 @@ async function fetchUserStats() {
                 badges: data.badges || [],
                 name: data.username || getUserSettings().name,
                 id: data.id,
-                is_blocked: data.is_blocked
+                is_blocked: data.is_blocked,
+                weeklyFocus: data.weekly_focus || [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             };
             // Sync settings from backend to local storage
             if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
@@ -6241,26 +6250,27 @@ function ProfileTab({ onSettingsChange }) {
                                         onClick: async ()=>{
                                             const { pdf } = await __turbopack_context__.A("[externals]/@react-pdf/renderer [external] (@react-pdf/renderer, esm_import, async loader)");
                                             const { PdfDocument } = await __turbopack_context__.A("[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/pdf-template.tsx [app-ssr] (ecmascript, async loader)");
-                                            // Get fresh stats
-                                            const currentStats = localStorage.getItem("userStats") ? JSON.parse(localStorage.getItem("userStats")) : {
-                                                level: 1,
-                                                xp: 0,
-                                                totalFocusMinutes: 0,
-                                                currentStreak: 0
-                                            };
+                                            const { fetchUserStats, fetchTasks } = await __turbopack_context__.A("[project]/Downloads/Hackmas_Holiday_StudyBuddy/lib/user-data.ts [app-ssr] (ecmascript, async loader)");
+                                            // Get fresh stats and tasks
+                                            const [currentStats, tasks] = await Promise.all([
+                                                fetchUserStats(),
+                                                fetchTasks()
+                                            ]);
                                             const blob = await pdf(/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$Hackmas_Holiday_StudyBuddy$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PdfDocument, {
                                                 settings: settings,
                                                 stats: currentStats,
+                                                recentTasks: tasks.filter((t)=>t.completed).sort((a, b)=>(b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)),
+                                                allBadges: allBadges,
                                                 date: new Date().toLocaleDateString()
                                             }, void 0, false, {
                                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                                lineNumber: 359,
+                                                lineNumber: 361,
                                                 columnNumber: 19
                                             }, void 0)).toBlob();
                                             const url = URL.createObjectURL(blob);
                                             const a = document.createElement("a");
                                             a.href = url;
-                                            a.download = "Holiday_Study_Report.pdf";
+                                            a.download = `Productivity_Audit_${settings.name}.pdf`;
                                             a.click();
                                             URL.revokeObjectURL(url);
                                         },
@@ -6287,7 +6297,7 @@ function ProfileTab({ onSettingsChange }) {
                                         children: "Reset All Data"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 376,
+                                        lineNumber: 380,
                                         columnNumber: 13
                                     }, this)
                                 ]
@@ -6305,14 +6315,14 @@ function ProfileTab({ onSettingsChange }) {
                                         className: "mr-2 h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                        lineNumber: 401,
+                                        lineNumber: 405,
                                         columnNumber: 15
                                     }, this),
                                     "Logout"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Downloads/Hackmas_Holiday_StudyBuddy/components/profile-tab.tsx",
-                                lineNumber: 396,
+                                lineNumber: 400,
                                 columnNumber: 13
                             }, this)
                         ]

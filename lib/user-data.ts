@@ -98,7 +98,8 @@ export async function fetchUserStats(): Promise<UserStats> {
         badges: data.badges || [],
         name: data.username || getUserSettings().name,
         id: data.id,
-        is_blocked: data.is_blocked
+        is_blocked: data.is_blocked,
+        weeklyFocus: data.weekly_focus || [0, 0, 0, 0, 0, 0, 0]
       }
 
       // Sync settings from backend to local storage

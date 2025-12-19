@@ -210,10 +210,18 @@ def get_user(user_id):
     ).all()
     week_focus_minutes = sum(s.duration_minutes for s in week_sessions)
     
+    # Weekly Distribution (Monday to Sunday)
+    weekly_focus = [0] * 7
+    for session in week_sessions:
+        # weekday() returns 0 for Monday, 6 for Sunday
+        day_idx = session.start_time.weekday()
+        weekly_focus[day_idx] += session.duration_minutes
+    
     user_data.update({
         'tasks_completed_count': tasks_completed,
         'today_focus_minutes': today_focus_minutes,
-        'week_focus_minutes': week_focus_minutes
+        'week_focus_minutes': week_focus_minutes,
+        'weekly_focus': weekly_focus
     })
     
     return jsonify(user_data)

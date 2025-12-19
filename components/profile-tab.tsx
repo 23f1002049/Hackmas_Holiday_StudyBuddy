@@ -349,16 +349,20 @@ export function ProfileTab({
               onClick={async () => {
                 const { pdf } = await import("@react-pdf/renderer")
                 const { PdfDocument } = await import("./pdf-template")
+                const { fetchUserStats, fetchTasks } = await import("@/lib/user-data")
 
-                // Get fresh stats
-                const currentStats = localStorage.getItem("userStats")
-                  ? JSON.parse(localStorage.getItem("userStats")!)
-                  : { level: 1, xp: 0, totalFocusMinutes: 0, currentStreak: 0 }
+                // Get fresh stats and tasks
+                const [currentStats, tasks] = await Promise.all([
+                  fetchUserStats(),
+                  fetchTasks()
+                ])
 
                 const blob = await pdf(
                   <PdfDocument
                     settings={settings}
                     stats={currentStats}
+                    recentTasks={tasks.filter(t => t.completed).sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0))}
+                    allBadges={allBadges}
                     date={new Date().toLocaleDateString()}
                   />
                 ).toBlob()
@@ -366,7 +370,7 @@ export function ProfileTab({
                 const url = URL.createObjectURL(blob)
                 const a = document.createElement("a")
                 a.href = url
-                a.download = "Holiday_Study_Report.pdf"
+                a.download = `Productivity_Audit_${settings.name}.pdf`
                 a.click()
                 URL.revokeObjectURL(url)
               }}
