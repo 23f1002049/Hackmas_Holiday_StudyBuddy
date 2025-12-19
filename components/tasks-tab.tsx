@@ -27,6 +27,7 @@ import {
   type Quest,
   getUserStats,
 } from "@/lib/user-data"
+import { GuestLock } from "@/components/guest-lock"
 
 /* ============================================================
    PRIORITY SYSTEM
@@ -46,7 +47,7 @@ const PRIORITY_META: Record<
   low: { label: "Low Priority", icon: "🔔", className: "text-gray-400" },
 }
 
-export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
+export function TasksTab({ onStatsUpdate, isGuest }: { onStatsUpdate: () => void, isGuest?: boolean }) {
   const [tasks, setTasks] = useState<TaskWithPriority[]>([])
   const [quests, setQuests] = useState<Quest[]>([])
   const [newTaskTitle, setNewTaskTitle] = useState("")
@@ -248,54 +249,56 @@ export function TasksTab({ onStatsUpdate }: { onStatsUpdate: () => void }) {
 
         {/* 🎁 QUESTS */}
         <div className="space-y-4">
-          {[{ title: "Daily Quests", data: dailyQuests }, { title: "Weekly Quests", data: weeklyQuests }].map(
-            (section) => (
-              <Card
-                key={section.title}
-                className="bg-transparent"
-                style={parchmentStyle}
-              >
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-green-700">
-                    <GiftIcon className="h-5 w-5" />
-                    {section.title}
-                  </CardTitle>
-                </CardHeader>
+          <GuestLock isGuest={isGuest} message="Sign up to unlock Daily & Weekly Quests!">
+            {[{ title: "Daily Quests", data: dailyQuests }, { title: "Weekly Quests", data: weeklyQuests }].map(
+              (section) => (
+                <Card
+                  key={section.title}
+                  className="bg-transparent"
+                  style={parchmentStyle}
+                >
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-green-700">
+                      <GiftIcon className="h-5 w-5" />
+                      {section.title}
+                    </CardTitle>
+                  </CardHeader>
 
-                <CardContent className="space-y-4">
-                  {section.data.map((quest) => (
-                    <div
-                      key={quest.id}
-                      className="p-4 rounded-lg bg-white/80"
-                    >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-semibold text-green-700">
-                            {quest.title}
-                          </h4>
-                          <p className="text-sm text-green-700/80">
-                            {quest.description}
-                          </p>
+                  <CardContent className="space-y-4">
+                    {section.data.map((quest) => (
+                      <div
+                        key={quest.id}
+                        className="p-4 rounded-lg bg-white/80"
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-semibold text-green-700">
+                              {quest.title}
+                            </h4>
+                            <p className="text-sm text-green-700/80">
+                              {quest.description}
+                            </p>
+                          </div>
+                          {quest.completed && !quest.claimed ? (
+                            <Button size="sm" onClick={() => handleClaimQuest(quest.id)}>
+                              Claim {quest.xpReward} XP
+                            </Button>
+                          ) : quest.claimed ? (
+                            <span className="text-xs font-bold text-green-600">COMPLETED</span>
+                          ) : (
+                            <span className="text-xs font-bold text-gray-500">{quest.xpReward} XP</span>
+                          )}
                         </div>
-                        {quest.completed && !quest.claimed ? (
-                          <Button size="sm" onClick={() => handleClaimQuest(quest.id)}>
-                            Claim {quest.xpReward} XP
-                          </Button>
-                        ) : quest.claimed ? (
-                          <span className="text-xs font-bold text-green-600">COMPLETED</span>
-                        ) : (
-                          <span className="text-xs font-bold text-gray-500">{quest.xpReward} XP</span>
-                        )}
+                        <Progress
+                          value={(quest.progress / quest.target) * 100} className="h-2 quest-progress"
+                        />
                       </div>
-                      <Progress
-                        value={(quest.progress / quest.target) * 100} className="h-2 quest-progress"
-                      />
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            )
-          )}
+                    ))}
+                  </CardContent>
+                </Card>
+              )
+            )}
+          </GuestLock>
         </div>
       </div>
     </div>
