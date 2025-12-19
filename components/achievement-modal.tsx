@@ -9,6 +9,8 @@ import JSConfetti from "js-confetti"
 import { toPng } from "html-to-image"
 import { Snowfall } from "./snowfall"
 
+import { GuestLock } from "@/components/guest-lock"
+
 export interface Badge {
   code: string
   name: string
@@ -19,9 +21,10 @@ interface AchievementModalProps {
   badge: Badge | null
   userName?: string
   onClose: () => void
+  isGuest?: boolean
 }
 
-export function AchievementModal({ badge, userName = "Scholar", onClose }: AchievementModalProps) {
+export function AchievementModal({ badge, userName = "Scholar", onClose, isGuest }: AchievementModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const confettiRef = useRef<JSConfetti | null>(null)
   const badgeCardRef = useRef<HTMLDivElement>(null)
@@ -133,20 +136,24 @@ export function AchievementModal({ badge, userName = "Scholar", onClose }: Achie
               </CardContent>
 
               <CardFooter className="flex gap-2 p-6 bg-gray-50/50">
-                <Button
-                  onClick={handleDownload}
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white gap-2 font-bold"
-                >
-                  <Download className="h-4 w-4" />
-                  Save Badge
-                </Button>
-                <Button
-                  onClick={handleShare}
-                  variant="outline"
-                  className="bg-blue-600 border-blue-700 hover:bg-blue-700 text-white font-bold"
-                >
-                  <Share2 className="h-4 w-4" />
-                </Button>
+                <GuestLock isGuest={isGuest} message="Sign up to save & share badges!">
+                  <div className="flex gap-2 w-full">
+                    <Button
+                      onClick={handleDownload}
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white gap-2 font-bold"
+                    >
+                      <Download className="h-4 w-4" />
+                      Save Badge
+                    </Button>
+                    <Button
+                      onClick={handleShare}
+                      variant="outline"
+                      className="bg-blue-600 border-blue-700 hover:bg-blue-700 text-white font-bold"
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </GuestLock>
               </CardFooter>
             </Card>
           </motion.div>
