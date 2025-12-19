@@ -116,14 +116,64 @@ def get_active_count():
     # Add a "base" number of 12 for the demo to feel populated if it's just the user
     return jsonify({'count': max(active_count, 12)})
 
+@api.route('/check-username', methods=['GET'])
+def check_username():
+    username = request.args.get('username', '').strip()
+    if not username:
+        return jsonify({'available': False, 'message': 'Username is required'}), 400
+    
+    if len(username) < 3:
+        return jsonify({'available': False, 'message': 'Username too short'}), 400
+
+    existing_user = User.query.filter(User.username.ilike(username)).first()
+    
+    if not existing_user:
+        return jsonify({'available': True})
+    
+    # Generate suggestions
+    suggestions = []
+    prefixes = ['Xmas', 'Elf', 'Merry', 'Snow']
+    
+    # Try with numbers
+    for i in range(1, 4):
+        sugg = f"{username}{i}"
+        if not User.query.filter(User.username.ilike(sugg)).first():
+            suggestions.append(sugg)
+            if len(suggestions) >= 3: break
+            
+    # Try with prefixes if not enough
+    if len(suggestions) < 3:
+        for p in prefixes:
+            sugg = f"{p}{username}"
+            if not User.query.filter(User.username.ilike(sugg)).first():
+                suggestions.append(sugg)
+                if len(suggestions) >= 3: break
+                
+    return jsonify({
+        'available': False,
+        'suggestions': suggestions
+    })
+
 from werkzeug.security import generate_password_hash
 
 @api.route('/users', methods=['POST'])
 def create_user():
     data = request.get_json()
+    email = data.get('email')
+    username = data.get('username')
+    
+    if not email or not username:
+        return jsonify({'error': 'Email and username are required'}), 400
+        
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'Email already registered'}), 400
+        
+    if User.query.filter(User.username.ilike(username)).first():
+        return jsonify({'error': 'Username already taken'}), 400
+
     new_user = User(
-        email=data['email'],
-        username=data.get('username'),
+        email=email,
+        username=username,
         avatar=data.get('avatar'),
         auth_provider='email',
         password_hash=generate_password_hash(data['password'])
@@ -214,8 +264,6 @@ def update_user(current_user, user_id):
         user.theme = data['theme']
     if 'avatar' in data:
         user.avatar = data['avatar']
-    if 'username' in data:
-        user.username = data['username']
     if 'snow_enabled' in data:
         user.snow_enabled = data['snow_enabled']
     if 'sound_enabled' in data:

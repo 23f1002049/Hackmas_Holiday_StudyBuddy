@@ -8,49 +8,59 @@ export function ShareCard({ stats, username }: { stats: UserStats; username: str
   return (
     <div
       id="share-card"
-      className="w-[400px] bg-gradient-to-br from-green-900 to-green-950 text-white p-6 rounded-xl border-4 border-yellow-500/50 shadow-2xl relative overflow-hidden"
+      className="w-[500px] h-[300px] bg-[#0a0a0a] text-white rounded-2xl border-2 border-white/10 shadow-2xl relative overflow-hidden flex flex-col"
+      style={{
+        backgroundImage: "url('/images/pdf-achievement-bg.png')",
+        backgroundSize: "cover",
+      }}
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
+      <div className="absolute inset-0 bg-black/60" />
       
-      <CardHeader className="text-center relative z-10">
-        <div className="mx-auto bg-yellow-500/20 p-3 rounded-full w-fit mb-2">
-          <Trophy className="h-8 w-8 text-yellow-400" />
-        </div>
-        <CardTitle className="text-2xl font-bold text-yellow-400 font-handwritten">
-          {username}'s Holiday Stats
-        </CardTitle>
-        <p className="text-green-200 text-sm">HackMas 2025</p>
-      </CardHeader>
-
-      <CardContent className="space-y-6 relative z-10">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white/10 p-3 rounded-lg text-center">
-            <div className="flex justify-center mb-1"><Flame className="h-5 w-5 text-orange-400" /></div>
-            <div className="text-2xl font-bold">{stats.currentStreak}</div>
-            <div className="text-xs text-green-200">Day Streak</div>
+      <div className="relative z-10 flex-1 p-8 flex flex-col">
+        {/* Header */}
+        <div className="flex justify-between items-start mb-6 border-b border-[#FF3131] pb-4">
+          <div className="flex items-center gap-3">
+             <img src="/images/logo.png" alt="Logo" className="w-10 h-10" />
+             <h2 className="text-2xl font-bold tracking-tighter uppercase italic">HackMas</h2>
           </div>
-          <div className="bg-white/10 p-3 rounded-lg text-center">
-            <div className="flex justify-center mb-1"><CheckCircle className="h-5 w-5 text-blue-400" /></div>
-            <div className="text-2xl font-bold">{stats.tasksCompleted}</div>
-            <div className="text-xs text-green-200">Tasks Done</div>
-          </div>
-          <div className="bg-white/10 p-3 rounded-lg text-center">
-            <div className="flex justify-center mb-1"><Clock className="h-5 w-5 text-purple-400" /></div>
-            <div className="text-2xl font-bold">{stats.totalFocusMinutes}</div>
-            <div className="text-xs text-green-200">Focus Mins</div>
-          </div>
-          <div className="bg-white/10 p-3 rounded-lg text-center">
-            <div className="flex justify-center mb-1">🎁</div>
-            <div className="text-2xl font-bold">{stats.level}</div>
-            <div className="text-xs text-green-200">Level</div>
+          <div className="text-right">
+             <p className="text-[#32CD32] font-bold text-lg">{username}</p>
+             <p className="text-xs text-white/40 uppercase tracking-widest">Achiever Status</p>
           </div>
         </div>
 
-        <div className="text-center pt-2 border-t border-white/10">
-          <p className="text-sm italic text-yellow-200/80">"Sleighing my goals one task at a time! 🎅"</p>
+        {/* Hero Level */}
+        <div className="mb-6 flex items-baseline gap-2">
+           <span className="text-[#FF3131] text-xs font-bold uppercase tracking-widest">Rank</span>
+           <h3 className="text-5xl font-black italic">LEVEL {stats.level}</h3>
         </div>
-      </CardContent>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+            <div className="text-xl font-bold">{stats.currentStreak}</div>
+            <div className="text-[8px] text-white/50 uppercase tracking-widest">Streak</div>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+            <div className="text-xl font-bold">{stats.tasksCompleted}</div>
+            <div className="text-[8px] text-white/50 uppercase tracking-widest">Tasks</div>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+            <div className="text-xl font-bold">{stats.totalFocusMinutes}</div>
+            <div className="text-[8px] text-white/50 uppercase tracking-widest">Minutes</div>
+          </div>
+          <div className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+            <div className="text-xl font-bold">{stats.xp}</div>
+            <div className="text-[8px] text-white/50 uppercase tracking-widest">XP</div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto flex justify-between items-center pt-4 border-t border-white/5">
+           <p className="text-[10px] text-white/40 italic">"Sleighing my goals one task at a time!"</p>
+           <p className="text-[10px] font-bold text-white/20 tracking-widest">HOLIDAY STUDY BUDDY</p>
+        </div>
+      </div>
     </div>
   )
 }

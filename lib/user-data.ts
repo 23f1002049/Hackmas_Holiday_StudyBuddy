@@ -220,20 +220,21 @@ export function getUserSettings(): UserSettings {
   return stored ? JSON.parse(stored) : getDefaultUserSettings()
 }
 
-export async function saveUserSettings(settings: UserSettings) {
+export async function saveUserSettings(settings: UserSettings): Promise<{ success: boolean, error?: string }> {
   if (typeof window !== "undefined") {
     localStorage.setItem("userSettings", JSON.stringify(settings))
   }
 
   const { user, isGuest } = getAuthState()
-  if (isGuest || !user) return
+  if (isGuest || !user) return { success: true }
 
   try {
-    await fetch(`${API_URL}/users/${user.id}`, {
+    const auth = getAuthState()
+    const response = await fetch(`${API_URL}/users/${user.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${getAuthState().token}`
+        "Authorization": `Bearer ${auth.token}`
       },
       body: JSON.stringify({
         avatar: settings.avatar,
@@ -243,8 +244,16 @@ export async function saveUserSettings(settings: UserSettings) {
         sound_enabled: settings.soundEnabled
       }),
     })
+    
+    if (response.ok) {
+        return { success: true }
+    } else {
+        const data = await response.json()
+        return { success: false, error: data.error || "Failed to save settings" }
+    }
   } catch (error) {
     console.error("Failed to save user settings", error)
+    return { success: false, error: "Network error" }
   }
 }
 

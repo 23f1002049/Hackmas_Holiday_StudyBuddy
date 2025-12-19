@@ -19,6 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [authState, setAuthStateInternal] = useState<AuthState>({
     user: null,
+    token: null,
     isAuthenticated: false,
     isGuest: false,
   })
@@ -44,6 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     authSignOut()
     setAuthStateInternal({
       user: null,
+      token: null,
       isAuthenticated: false,
       isGuest: false,
     })

@@ -16,11 +16,14 @@ import {
   getUserSettings,
   saveUserSettings,
   type UserSettings,
+  fetchAllBadges,
+  getUserStats,
+  type Badge,
 } from "@/lib/user-data"
 import { useAuth } from "@/components/auth-provider"
 import { useTheme } from "next-themes"
-import { LogOut, AlertCircle, Trophy, Download } from "lucide-react"
-import { fetchAllBadges, getUserStats, type Badge } from "@/lib/user-data"
+import { LogOut, AlertCircle, Trophy, Download, Check, Sparkles } from "lucide-react"
+import { checkUsernameAvailability } from "@/lib/auth"
 import { toPng } from "html-to-image"
 
 const avatars = [
@@ -42,11 +45,15 @@ export function ProfileTab({
   const [allBadges, setAllBadges] = useState<Badge[]>([])
   const [userStats, setUserStats] = useState(getUserStats())
 
+  const [error, setError] = useState("")
+
   useEffect(() => {
     setMounted(true)
     loadData()
     fetchAllBadges().then(setAllBadges)
   }, [])
+
+
 
   const loadData = async () => {
     const [fetchedSettings, fetchedStats] = await Promise.all([
@@ -58,10 +65,17 @@ export function ProfileTab({
   }
 
   const updateSettings = async (newSettings: UserSettings) => {
-    setSettings(newSettings)
-    await saveUserSettings(newSettings)
-    if (newSettings.theme) {
-      setTheme(newSettings.theme)
+    setError("")
+
+    const result = await saveUserSettings(newSettings)
+    if (result.success) {
+        setSettings(newSettings)
+        if (newSettings.theme) {
+            setTheme(newSettings.theme)
+        }
+    } else {
+        setError(result.error || "Failed to update settings")
+        // Optionally revert local state if needed, but let's keep it for now
     }
   }
 
@@ -114,13 +128,11 @@ export function ProfileTab({
 
           <div className="space-y-2">
             <Label className="text-green-800">Display Name</Label>
-            <Input
-              value={settings.name}
-              onChange={(e) =>
-                updateSettings({ ...settings, name: e.target.value })
-              }
-              className="bg-white border-green-800/30 text-green-900"
-            />
+            <div className="p-3 rounded-md bg-white/70 border border-green-800/20 text-green-900 font-medium">
+              {settings.name}
+            </div>
+            <p className="text-[10px] text-green-700 italic">Username cannot be changed after signup</p>
+            {error && <p className="text-red-600 text-[10px] font-bold mt-1">{error}</p>}
           </div>
 
           <div className="space-y-3">

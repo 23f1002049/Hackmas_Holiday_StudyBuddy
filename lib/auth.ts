@@ -125,6 +125,15 @@ export function signInAsGuest(): { success: boolean; user?: User; token?: string
   return { success: true, user: guestUser, token: null }
 }
 
+export async function checkUsernameAvailability(username: string): Promise<{ available: boolean; suggestions?: string[]; message?: string }> {
+  try {
+    const response = await fetch(`${API_URL}/check-username?username=${encodeURIComponent(username)}`)
+    return await response.json()
+  } catch (error) {
+    return { available: false, message: "Network error" }
+  }
+}
+
 export function signOut() {
   if (typeof window !== "undefined") {
     localStorage.removeItem("authState")

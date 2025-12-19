@@ -2,15 +2,15 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { signIn, signUp } from "@/lib/auth"
-import { Github, Snowflake } from "lucide-react"
+import { signIn, signUp, checkUsernameAvailability } from "@/lib/auth"
+import { Github, Snowflake, Check, AlertCircle, Sparkles } from "lucide-react"
 import { Snowfall } from "@/components/snowfall"
 import Image from "next/image"
 import { useAuth } from "@/components/auth-provider"
@@ -25,6 +25,36 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { setAuthState } = useAuth()
+
+  // Username checking state
+  const [usernameStatus, setUsernameStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle')
+  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [usernameMessage, setUsernameMessage] = useState("")
+
+  useEffect(() => {
+    if (!signupName || signupName.length < 3) {
+      setUsernameStatus('idle')
+      setSuggestions([])
+      setUsernameMessage("")
+      return
+    }
+
+    const timer = setTimeout(async () => {
+      setUsernameStatus('checking')
+      const result = await checkUsernameAvailability(signupName)
+      if (result.available) {
+        setUsernameStatus('available')
+        setSuggestions([])
+        setUsernameMessage("Username available!")
+      } else {
+        setUsernameStatus('taken')
+        setSuggestions(result.suggestions || [])
+        setUsernameMessage(result.message || "Username already taken")
+      }
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [signupName])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -164,19 +194,56 @@ export default function LoginPage() {
 
             <TabsContent value="signup">
               <form onSubmit={handleSignup} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="signup-name" className="text-cream">
-                    Name
-                  </Label>
+                <div className="space-y-2 relative">
+                  <div className="flex justify-between items-center">
+                    <Label htmlFor="signup-name" className="text-cream">
+                      Username
+                    </Label>
+                    {usernameStatus === 'checking' && (
+                      <span className="text-[10px] text-accent animate-pulse">Checking...</span>
+                    )}
+                    {usernameStatus === 'available' && (
+                      <span className="text-[10px] text-green-400 flex items-center gap-1">
+                        <Check className="h-3 w-3" /> Available
+                      </span>
+                    )}
+                    {usernameStatus === 'taken' && (
+                      <span className="text-[10px] text-red-400 flex items-center gap-1">
+                        <AlertCircle className="h-3 w-3" /> Taken
+                      </span>
+                    )}
+                  </div>
                   <Input
                     id="signup-name"
                     type="text"
-                    placeholder="Your Name"
+                    placeholder="choose_a_username"
                     value={signupName}
-                    onChange={(e) => setSignupName(e.target.value)}
+                    onChange={(e) => setSignupName(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''))}
                     required
-                    className="bg-card/50 border-accent/30 text-cream placeholder:text-cream/50"
+                    className={`bg-card/50 border-accent/30 text-cream placeholder:text-cream/50 transition-all ${
+                      usernameStatus === 'available' ? 'border-green-500/50' : 
+                      usernameStatus === 'taken' ? 'border-red-500/50' : ''
+                    }`}
                   />
+                  {usernameStatus === 'taken' && suggestions.length > 0 && (
+                    <div className="mt-2 p-2 bg-white/5 rounded-lg border border-white/10">
+                      <p className="text-[10px] text-cream/70 mb-2 flex items-center gap-1">
+                        <Sparkles className="h-3 w-3 text-yellow-400" /> Suggestions:
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {suggestions.map((s) => (
+                          <button
+                            key={s}
+                            type="button"
+                            onClick={() => setSignupName(s)}
+                            className="text-[10px] px-2 py-1 bg-accent/20 hover:bg-accent/40 text-accent rounded-full border border-accent/30 transition-colors"
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
