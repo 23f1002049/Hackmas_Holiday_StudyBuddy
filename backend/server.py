@@ -24,6 +24,28 @@ def create_app(config_class=Config):
     # Create database tables
     with app.app_context():
         db.create_all()
+
+        # --- AUTO MIGRATION (Fix for Production) ---
+        from sqlalchemy import text
+        try:
+            # Check if lifetime_xp exists
+            db.session.execute(text('SELECT lifetime_xp FROM "user" LIMIT 1'))
+        except Exception:
+            print("⚠️ Column 'lifetime_xp' missing. Auto-migrating...")
+            db.session.rollback()
+            try:
+                # Add column
+                db.session.execute(text('ALTER TABLE "user" ADD COLUMN lifetime_xp INTEGER DEFAULT 0'))
+                db.session.commit()
+                print("✅ Added 'lifetime_xp' column.")
+                
+                # Backfill data
+                db.session.execute(text('UPDATE "user" SET lifetime_xp = xp'))
+                db.session.commit()
+                print("✅ Backfilled 'lifetime_xp' data.")
+            except Exception as e:
+                print(f"❌ Migration failed: {e}")
+        # -------------------------------------------
         
         # Seed Admin User
         from models import User, Badge, Quest, Gift, Announcement
