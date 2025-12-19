@@ -16,13 +16,12 @@ import {
   getUserSettings,
   saveUserSettings,
   type UserSettings,
-  fetchAllBadges,
-  getUserStats,
-  type Badge,
 } from "@/lib/user-data"
 import { useAuth } from "@/components/auth-provider"
 import { useTheme } from "next-themes"
-import { LogOut, AlertCircle, Trophy, Download } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { LogOut, AlertCircle, Trophy, Download, Lock } from "lucide-react"
+import { fetchAllBadges, getUserStats, type Badge } from "@/lib/user-data"
 import { toPng } from "html-to-image"
 
 const avatars = [
@@ -34,21 +33,20 @@ const avatars = [
 
 export function ProfileTab({
   onSettingsChange,
+  isGuest: propIsGuest
 }: {
   onSettingsChange: () => void
+  isGuest?: boolean
 }) {
   const [settings, setSettings] = useState<UserSettings>(getUserSettings())
   const [mounted, setMounted] = useState(false)
-  const { user, isGuest, signOut } = useAuth()
+  const { user, isGuest: contextIsGuest, signOut } = useAuth()
+  const router = useRouter()
+
+  const isGuest = propIsGuest || contextIsGuest
   const { setTheme } = useTheme()
   const [allBadges, setAllBadges] = useState<Badge[]>([])
   const [userStats, setUserStats] = useState(getUserStats())
-
-  // Username checking state
-  const [usernameStatus, setUsernameStatus] = useState<'idle' | 'checking' | 'available' | 'taken'>('idle')
-  const [suggestions, setSuggestions] = useState<string[]>([])
-
-  const [error, setError] = useState("")
 
   useEffect(() => {
     setMounted(true)
@@ -56,29 +54,20 @@ export function ProfileTab({
     fetchAllBadges().then(setAllBadges)
   }, [])
 
-
-
   const loadData = async () => {
     const [fetchedSettings, fetchedStats] = await Promise.all([
-        import("@/lib/user-data").then(m => m.getUserSettings()),
-        import("@/lib/user-data").then(m => m.fetchUserStats())
+      import("@/lib/user-data").then(m => m.getUserSettings()),
+      import("@/lib/user-data").then(m => m.fetchUserStats())
     ])
     setSettings(fetchedSettings)
     setUserStats(fetchedStats)
   }
 
   const updateSettings = async (newSettings: UserSettings) => {
-    setError("")
-
-    const result = await saveUserSettings(newSettings)
-    if (result.success) {
-        setSettings(newSettings)
-        if (newSettings.theme) {
-            setTheme(newSettings.theme)
-        }
-    } else {
-        setError(result.error || "Failed to update settings")
-        // Optionally revert local state if needed, but let's keep it for now
+    setSettings(newSettings)
+    await saveUserSettings(newSettings)
+    if (newSettings.theme) {
+      setTheme(newSettings.theme)
     }
   }
 
@@ -131,11 +120,13 @@ export function ProfileTab({
 
           <div className="space-y-2">
             <Label className="text-green-800">Display Name</Label>
-            <div className="p-4 rounded-lg bg-white/70 border border-green-800/30">
-              <p className="text-green-900 font-bold">{settings.name}</p>
-            </div>
-            <p className="text-[10px] text-green-700 italic">Usernames are permanent and cannot be changed after signup.</p>
-            {error && <p className="text-red-600 text-[10px] font-bold mt-1">{error}</p>}
+            <Input
+              value={settings.name}
+              onChange={(e) =>
+                updateSettings({ ...settings, name: e.target.value })
+              }
+              className="bg-white border-green-800/30 text-green-900"
+            />
           </div>
 
           <div className="space-y-3">
@@ -191,26 +182,25 @@ export function ProfileTab({
                 <div
                   key={badge.code}
                   id={`badge-card-${badge.code}`}
-                  className={`relative group p-4 rounded-xl border-2 transition-all flex flex-col items-center text-center ${
-                    earned 
-                      ? "bg-white/90 border-yellow-400 shadow-md scale-100" 
-                      : "bg-gray-100/50 border-transparent grayscale opacity-50 scale-95"
-                  }`}
+                  className={`relative group p-4 rounded-xl border-2 transition-all flex flex-col items-center text-center ${earned
+                    ? "bg-white/90 border-yellow-400 shadow-md scale-100"
+                    : "bg-gray-100/50 border-transparent grayscale opacity-50 scale-95"
+                    }`}
                 >
                   <img src="/images/logo.png" alt="" className="absolute top-2 left-2 h-4 w-4 opacity-10 group-hover:opacity-30 transition-opacity" />
-                  
+
                   <div className="text-5xl mb-3 filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300">
                     {getBadgeEmoji(badge.code)}
                   </div>
                   <h4 className="font-bold text-sm text-green-900 leading-tight mb-1">{badge.name}</h4>
                   <p className="text-[10px] text-green-700 leading-tight mb-2">{badge.description}</p>
-                  
+
                   {earned && (
                     <div className="mt-auto pt-2 border-t border-green-100 w-full">
-                       <p className="text-[8px] font-bold text-green-600 uppercase tracking-tight">{settings.name}</p>
+                      <p className="text-[8px] font-bold text-green-600 uppercase tracking-tight">{settings.name}</p>
                     </div>
                   )}
-                  
+
                   {earned && (
                     <button
                       onClick={async () => {
@@ -346,44 +336,47 @@ export function ProfileTab({
 
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button
-              variant="outline"
-              className="flex-1 bg-white text-green-800 border-green-800"
-              onClick={async () => {
-                const { pdf } = await import("@react-pdf/renderer")
-                const { PdfDocument } = await import("./pdf-template")
-                const { fetchUserStats, fetchTasks, fetchFocusHistory, fetchFocusSessions } = await import("@/lib/user-data")
+            {isGuest ? (
+              <Button
+                variant="outline"
+                className="flex-1 bg-white text-green-800 border-green-800 opacity-75 gap-2"
+                onClick={() => router.push("/login")}
+              >
+                <Lock className="h-4 w-4" />
+                Signup to Export PDF Report
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                className="flex-1 bg-white text-green-800 border-green-800"
+                onClick={async () => {
+                  const { pdf } = await import("@react-pdf/renderer")
+                  const { PdfDocument } = await import("./pdf-template")
 
-                // Get fresh stats, tasks, and focus history
-                const [currentStats, tasks, history, allSessions] = await Promise.all([
-                  fetchUserStats(),
-                  fetchTasks(),
-                  fetchFocusHistory(),
-                  fetchFocusSessions()
-                ])
+                  // Get fresh stats
+                  const currentStats = localStorage.getItem("userStats")
+                    ? JSON.parse(localStorage.getItem("userStats")!)
+                    : { level: 1, xp: 0, totalFocusMinutes: 0, currentStreak: 0 }
 
-                const blob = await pdf(
-                  <PdfDocument
-                    settings={settings}
-                    stats={currentStats}
-                    recentTasks={tasks.filter(t => t.completed).sort((a, b) => (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0))}
-                    allBadges={allBadges}
-                    focusHistory={history}
-                    allFocusSessions={allSessions}
-                    date={new Date().toLocaleDateString()}
-                  />
-                ).toBlob()
+                  const blob = await pdf(
+                    <PdfDocument
+                      settings={settings}
+                      stats={currentStats}
+                      date={new Date().toLocaleDateString()}
+                    />
+                  ).toBlob()
 
-                const url = URL.createObjectURL(blob)
-                const a = document.createElement("a")
-                a.href = url
-                a.download = `Productivity_Audit_${settings.name.replace(/\s+/g, "_")}.pdf`
-                a.click()
-                URL.revokeObjectURL(url)
-              }}
-            >
-              Export PDF Report
-            </Button>
+                  const url = URL.createObjectURL(blob)
+                  const a = document.createElement("a")
+                  a.href = url
+                  a.download = "Holiday_Study_Report.pdf"
+                  a.click()
+                  URL.revokeObjectURL(url)
+                }}
+              >
+                Export PDF Report
+              </Button>
+            )}
             <Button
               variant="destructive"
               className="flex-1 bg-red-600"
